@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
@@ -36,9 +37,6 @@ import static com.meridian.dateout.explore.cart.Cart_details.totalprize_for_orde
 public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.ItemViewHolder> {
     Context context;
     private ArrayList<CartHistoryModel> orderHistoryArraylist;
-    int count=-1;
-    int valuu;
-
     List<Pair<String, String>> params;
     public CartHistoryAdapter(Context context, ArrayList<CartHistoryModel> arrList) {
         this.context = context;
@@ -82,7 +80,16 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
             }
         });
 
+        holder.layout_wish_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                params = new ArrayList<Pair<String, String>>() {{
+                    add(new Pair<String, String>("cart_item_id", orderHistoryArraylist.get(position).getcart_item_id()));
 
+                }};
+                wish_list(position);
+            }
+        });
 
     }
 
@@ -114,6 +121,35 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
             }
         });
     }
+    private void wish_list(final int position) {
+        progress_bar_explore.setVisibility(View.VISIBLE);
+        Fuel.post(URL1+"moveto-wishlist.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            @Override
+            public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+                progress_bar_explore.setVisibility(View.GONE);
+
+                try {
+                    JSONObject jsonObj = new JSONObject(s);
+                    String status = jsonObj.getString("status");
+                    if(Objects.equals(status, "true")){
+                        removeAt(position);
+                    }
+                    else {
+                        Toast.makeText(context,s,Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
@@ -123,7 +159,7 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public  TextView title,booking_date,amount;
-        public LinearLayout cart_decre,cart_incre,delete_cart,layout_chat_list;
+        public LinearLayout cart_decre,cart_incre,delete_cart,layout_chat_list,layout_wish_list;
         public  TextView cart_text;
         ImageView imag_ordr;
 
@@ -134,6 +170,7 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
             amount=(TextView)itemView.findViewById(R.id.amount);
             imag_ordr= (ImageView) itemView.findViewById(R.id.imag_ordr);
             layout_chat_list= (LinearLayout) itemView.findViewById(R.id.layout_chat_list);
+            layout_wish_list= (LinearLayout) itemView.findViewById(R.id.layout_wish);
             delete_cart= (LinearLayout) itemView.findViewById(R.id.delete_cart);
             cart_decre= (LinearLayout) itemView.findViewById(R.id.cart_decrement);
             cart_text= (TextView)itemView. findViewById(R.id.cart_numbers);

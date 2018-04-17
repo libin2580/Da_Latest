@@ -411,7 +411,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                     add(new Pair<String, String>("stripe_api", SECRET_KEY));
                     add(new Pair<String, String>("stripe_token", stoken));
                     add(new Pair<String, String>("user_id", userid));
-                    add(new Pair<String, String>("guest_device_token",android_id));
+                    add(new Pair<String, String>("guest_device_token",""));
                     add(new Pair<String, String>("address_id",address_id));
                     add(new Pair<String, String>("coupon_code",coupon_code));
 
@@ -422,7 +422,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                 params = new ArrayList<Pair<String, String>>() {{
                     add(new Pair<String, String>("stripe_api", SECRET_KEY));
                     add(new Pair<String, String>("stripe_token", stoken));
-                    add(new Pair<String, String>("user_id","0"));
+                    add(new Pair<String, String>("user_id",""));
                     add(new Pair<String, String>("guest_device_token",android_id));
                     add(new Pair<String, String>("address_id",address_id));
                     add(new Pair<String, String>("coupon_code",coupon_code));
