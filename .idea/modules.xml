@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DateOut.iml" filepath="$PROJECT_DIR$/.idea/DateOut.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DateOut.iml" filepath="$PROJECT_DIR$/DateOut.iml" />
+      <module fileurl="file://E:\Aandroid Studio\27march2018\DateOut\.idea\DateOut.iml" filepath="E:\Aandroid Studio\27march2018\DateOut\.idea\DateOut.iml" />
       <module fileurl="file://F:\Backup\DateOut\DateOut.iml" filepath="F:\Backup\DateOut\DateOut.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://F:\Backup\DateOut\app\app.iml" filepath="F:\Backup\DateOut\app\app.iml" />
