@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#75000000"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="@drawable/aaaa"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".15"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_close_black_24dp"
+                android:backgroundTint="#868181"
+                android:id="@+id/close_point_converter"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/_20sdp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_15sdp"
+                    android:id="@+id/popup_txt_title"
+                    android:textColor="@color/colorAccent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:text="Details"/>
+
+
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".85"
+            android:layout_gravity="center|top"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/_15sdp">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center|top"
+    android:gravity="center|top"
+    android:orientation="vertical">
+            <ImageView
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:scaleType="fitXY"
+                android:id="@+id/popup_imageview"/>
+
+            <WebView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/popup_txt_description"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textColor="#000000"
+                android:visibility="visible"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+               />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/popup_txt_amount"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="#000000"
+                android:visibility="visible"
+                android:text=""/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/popup_txt_booking_date"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="#000000"
+                android:visibility="visible"
+                android:text=""/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/popup_txt_booking_time"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="#000000"
+                android:visibility="visible"
+                android:text=""/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/popup_txt_payment_status"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="#000000"
+                android:visibility="visible"
+                android:text=""/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/popup_txt_points_earned"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="#000000"
+                android:visibility="visible"
+                android:text=""/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/popup_txt_ordr_status"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="#000000"
+                android:visibility="visible"
+                android:text=""/>
+        </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+

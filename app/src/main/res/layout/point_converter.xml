@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#75000000"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_280sdp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+
+        android:background="@drawable/rounded_rectangle_box"
+        android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_gravity="center|bottom"
+    android:gravity="center|bottom">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/_18sdp"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+android:layout_marginBottom="@dimen/_10sdp"
+            android:text="Point Converter"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_close_black_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:backgroundTint="#868181"
+            android:id="@+id/close_point_converter"
+            android:layout_marginRight="@dimen/_30sdp"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:background="@drawable/rounded_rectangle_2_copy_4"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:textAlignment="center"
+                android:hint="Enter Your Amount"
+                android:textSize="@dimen/_14sdp"
+android:id="@+id/popup_edt_point"
+                android:inputType="number"
+                android:paddingTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_40sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_14sdp"
+                android:id="@+id/txt_converted_amount"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:visibility="gone"
+                android:text="$00"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".8"
+            android:layout_gravity="center|top"
+            android:gravity="center|top">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:id="@+id/linear_convert_button"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rounded_rectangle_3"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="#ffffff"
+                    android:text="Convert"/>
+            </LinearLayout>
+    <ProgressBar
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:id="@+id/popup_progressbar"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+

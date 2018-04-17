@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_calendar_view_schedule"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_tops"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_width="match_parent"
+
+        android:background="@drawable/navigationbarbg"
+
+        android:navigationIcon="@android:color/white"
+        app:theme="@style/ToolbarStyle"
+
+
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+
+
+            android:layout_height="match_parent"
+            android:id="@+id/relativeLayout"
+            >
+
+            <ImageView
+
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/back_icon_new"
+                android:id="@+id/img_crcdtlnam"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Availability of Deal Activity/Gift Delivery"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_14sdp"
+                android:id="@+id/toolbar_CRCNAM"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gifts_calendar"
+
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/calendar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:id="@id/linear_sch"
+            android:padding="@dimen/_5sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@color/white"
+
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+
+                android:gravity="left"
+
+                android:textColor="@color/black"
+
+                android:text="Timing of Gift Delivery "
+
+
+
+                android:textSize="@dimen/_10sdp"
+
+
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/txt_display_time"
+                android:gravity="left"
+                android:textSize="@dimen/_9sdp"
+android:text="1PM"
+                android:textColor="@color/sliderdrawerclick"
+android:paddingTop="@dimen/_5sdp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <!--android:layout_height="wrap_content"></ListView>-->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_weight="3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/sliderdrawerclick"
+                android:text="Dates in blue indicate availability of delivery of gifts"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:text="Dates greyed out implies no delivery on those days"
+
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:id="@+id/layout_deal_note"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:id="@+id/imageview_book"
+            android:layout_gravity="center"
+
+            android:background="@drawable/booking_details"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/note_deal"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
+
+            android:text="@string/note_deal"/>
+    </LinearLayout>
+</FrameLayout>
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/next"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_gravity="bottom"
+        android:background="@color/button_othrcolor"
+        android:text="NEXT"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp" />
+
+
+</LinearLayout>

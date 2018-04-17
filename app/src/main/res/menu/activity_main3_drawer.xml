@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/sidebar_about"
+            android:title="ABOUT US" />
+      <!--  <item
+            android:id="@+id/nav_COUPONS"
+            android:icon="@drawable/icons_giftcard"
+            android:title="COUPONS" />-->
+        <item
+            android:id="@+id/nav_REWARDS"
+            android:icon="@drawable/icons_medal"
+            android:title="REWARDS" />
+        <item
+            android:id="@+id/nav_CHAT"
+            android:icon="@drawable/e_mail_envelope"
+            android:title="EMAIL" />
+        <item
+            android:id="@+id/nav_FAQ"
+            android:icon="@drawable/sidebar_faq"
+            android:title="FAQ" />
+
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/contact"
+            android:title="CONTACT US" />
+        <item
+            android:id="@+id/nav_terms"
+            android:icon="@drawable/terms_conditions"
+            android:title="TERMS OF USE" />
+        <item
+            android:id="@+id/nav_privacy"
+            android:icon="@drawable/privacy_policy"
+            android:title="PRIVACY POLICY" />
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/rate_this"
+            android:title="RATE THE APP" />
+
+        <item
+            android:id="@+id/nav_LOGIN"
+            android:icon="@drawable/log_in"
+            android:title="LOGIN" />
+
+
+
+    </group>
+
+
+</menu>

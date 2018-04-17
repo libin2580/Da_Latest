@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    android:orientation="vertical"
+    android:id="@+id/lay_coupon"
+    android:background="@drawable/coupon_box"
+    android:layout_margin="@dimen/_5sdp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_20sdp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_coupon"
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_110sdp" />
+
+        <TextView
+            android:id="@+id/textView_offer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textSize="@dimen/_10sdp"
+            android:text="DIWALI OFFERS"
+            android:textAllCaps="true"
+            android:textColor="@color/grey"
+            android:textStyle="bold" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="EXPIRES IN "
+
+            android:textAllCaps="true"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textView_validity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textSize="@dimen/_10sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView_off_perc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/_10sdp"
+
+            android:paddingRight="@dimen/_5sdp"
+            android:textAllCaps="true"
+            android:textColor="@color/grey"
+            android:textStyle="bold" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="OFF"
+                android:textSize="@dimen/_10sdp"
+                android:textAllCaps="true"
+                android:textColor="@color/grey"
+                android:textStyle="bold" />
+            </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+

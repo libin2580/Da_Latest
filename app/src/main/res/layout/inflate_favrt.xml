@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+
+    android:layout_height="@dimen/_180sdp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/relativeLayout1"
+        android:layout_height="200dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_180sdp"
+                android:layout_weight="1"
+                android:background="@color/button_othrcolor"
+                android:id="@+id/image_favrt"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/whishselected"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="19dp"
+                android:layout_marginEnd="19dp"
+                android:layout_marginTop="18dp"
+                android:id="@+id/img_wishfavrt" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="860dp"
+            android:layout_height="80dp"
+            android:paddingEnd="@dimen/_20sdp"
+            android:layout_alignParentLeft="true"
+
+            android:layout_alignParentStart="true"
+            android:paddingRight="@dimen/_50sdp"
+            android:layout_alignParentBottom="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+
+                android:id="@+id/imageView3"
+                />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#fff"-->
+                <!--android:textSize="12sp"-->
+                <!--android:layout_marginTop="@dimen/_25sdp"-->
+
+                <!--android:text="777"-->
+                <!--android:paddingRight="@dimen/_5sdp"-->
+                <!--android:layout_marginLeft="@dimen/_10sdp"-->
+                <!--android:id="@+id/txt_pricefav" />-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$ 50"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textSize="@dimen/_25sdp"
+                android:visibility="gone"
+
+                android:id="@+id/txt_pricefavrtback"
+                android:paddingLeft="@dimen/_5sdp"
+                android:layout_centerVertical="true"
+               />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SENTOSA"
+                android:textColor="#ffff"
+                android:gravity="left"
+                android:textAllCaps="true"
+                android:textSize="@dimen/_14sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:id="@+id/txt_titlefavrt"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+
+                android:layout_alignBaseline="@+id/txt_pricefavrtback"
+                android:layout_alignBottom="@+id/txt_pricefavrtback"
+                android:layout_toRightOf="@+id/txt_pricefavrtback"
+                android:layout_toEndOf="@+id/txt_pricefavrtback" />
+
+            <TextView
+                android:text="8 customers booked in last 2 hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_descriptionfavrt"
+                android:gravity="bottom"
+                android:textColor="#fff"
+                android:textSize="@dimen/_12sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:visibility="invisible"
+                android:layout_below="@+id/txt_pricefavrtback"
+                android:layout_alignLeft="@+id/txt_titlefavrt"
+                android:layout_alignStart="@+id/txt_titlefavrt" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

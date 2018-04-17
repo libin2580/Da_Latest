@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_15sdp"
+
+        android:background="@drawable/rewrd_outerbox"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/_100sdp"
+
+                android:layout_height="@dimen/_100sdp"
+                android:id="@+id/img_first"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_2sdp"
+
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/stage_title"
+                android:text="silver"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:padding="@dimen/_2sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"
+
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/stage_away"
+                android:textColor="@color/grey"
+                android:text="dsff"
+                android:padding="@dimen/_2sdp"
+                android:textSize="@dimen/_12sdp"
+                android:layout_height="wrap_content" />
+            <WebView
+                android:layout_width="@dimen/_150sdp"
+                android:padding="@dimen/_3sdp"
+
+                android:id="@+id/stage_points"
+                android:layout_height="wrap_content"></WebView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

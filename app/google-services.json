@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "637871429304",
+    "firebase_url": "https://dateout-155.firebaseio.com",
+    "project_id": "dateout-155",
+    "storage_bucket": "dateout-155.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637871429304:android:542705d5a378d63f",
+        "android_client_info": {
+          "package_name": "com.meridian.dateout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637871429304-bds6gr9esvkhba43372lobmo1nmg098q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHrJE1et6_egL43XCpNSYVcg7wj4i1_JE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637871429304-bds6gr9esvkhba43372lobmo1nmg098q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

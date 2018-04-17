@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar android:id="@+id/toolbar_tops1"
+    android:layout_height="@dimen/_45sdp"
+    android:layout_width="match_parent"
+    android:background="@drawable/navigationbarbg"
+    android:navigationIcon="@android:color/white"
+    app:theme="@style/ToolbarStyle"
+    app:contentInsetEnd="0dp"
+    app:contentInsetStart="0dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/relativeLayout">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/menu"
+            android:layout_weight=".2"
+            android:gravity="center">
+            <ImageView
+
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:background="@drawable/back_icon_new"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+         </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".6"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CHAT WITH US"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_14sdp"
+            android:textAllCaps="true"
+            android:id="@+id/toolbar_txt"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:src="@drawable/faq_one"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:gravity="right|center"
+            android:id="@+id/img_top_faq" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/filter"
+            android:layout_weight=".2"
+            android:gravity="center">
+            <ImageView
+
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:background="@drawable/filter"
+                android:id="@+id/filter1"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.Toolbar>

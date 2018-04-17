@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/explore_coordintr"
+    android:layout_width="match_parent"
+    android:background="@drawable/login_background"
+    android:layout_height="match_parent"
+
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/MyAppbars"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_230sdp"
+        android:fitsSystemWindows="true">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/CollapsingToolbarLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_230sdp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:background="@color/button_othrcolor"
+            android:fitsSystemWindows="true">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_collapseMode="parallax">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax"
+                android:scaleType="center"
+                android:layout_gravity="center"
+                android:id="@+id/lin_country" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/_18sdp"
+                android:text="Hey Guest,"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_20sdp"
+                android:id="@+id/name_guest"
+                android:inputType="textCapSentences"
+                android:layout_marginTop="@dimen/_150sdp"
+                android:layout_height="@dimen/_40sdp"
+                tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/_180sdp"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_15sdp"
+                android:inputType="textCapSentences"
+                android:id="@+id/experience"
+                android:paddingLeft="@dimen/_18sdp"
+                android:layout_height="wrap_content"
+                tools:ignore="RtlSymmetry" />
+
+
+        </FrameLayout>
+          </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        style="@style/scrollbar_style"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_below="@+id/frameLayout">
+
+        <android.support.v7.widget.RecyclerView
+            android:windowSoftInputMode="adjustNothing"
+            android:id="@+id/recycler_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/yoursdrawablefile"
+            style="@style/scrollbar_style"
+
+            android:layout_gravity="center_horizontal|top"
+            android:layout_below="@+id/frameLayout"
+            android:layout_toRightOf="@+id/progress_bar"
+            android:layout_toEndOf="@+id/progress_bar" />
+    </android.support.v4.widget.NestedScrollView>
+  </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer1"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            style="@style/scrollbar_style"
+
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_below="@+id/frameLayout">
+
+            <android.support.v7.widget.RecyclerView
+                android:windowSoftInputMode="adjustNothing"
+                android:id="@+id/recycler_vertical1"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                style="@style/scrollbar_style"
+
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_below="@+id/frameLayout"
+                android:layout_toRightOf="@+id/progress_bar"
+                android:layout_toEndOf="@+id/progress_bar" />
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_empty"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:text="There are no results that match your search!"/>
+    <ProgressBar
+        android:id="@+id/progress_bar_explore"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background ="@xml/progress"
+        android:layout_gravity="center"/>
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4797c4</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#4797c4</color>
+    <color name="button_color">#114f73</color>
+    <color name="button_othrcolor">#368aba</color>
+    <color name="calendarback_colr">#036096</color>
+    <color name="calendar_click_color">#3F90BF</color>
+    <color name="txtcolor_icons">#4797c4</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#696969</color>
+    <color name="sliderdrawerclick">#00a3d9</color>
+    <color name="circle_color">#28d94949</color>
+    <color name="circle_border_color">#ff0000</color>
+    <color name="path_color2">#7a000000</color><!--#da0026ff-->
+    <color name="background_transparency">#6e000000</color>
+    <color name="gray_circle">#DCDCDC</color>
+    <color name="normal">#3F90BF</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="gold">#D4AF37</color><!--#da0026ff-->
+    <color name="platinum">#4C87C9</color>
+    <color name="diamond">#9BCAD4</color>
+
+
+</resources>

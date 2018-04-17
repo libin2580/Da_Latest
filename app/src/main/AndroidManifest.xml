@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.meridian.dateout">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+
+        android:permission="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:name="android.support.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:alwaysRetainTaskState="true"
+        android:exported="true"
+        android:icon="@mipmap/launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sidebar.WebviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.SplashScreen"
+            android:screenOrientation="portrait">
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="www.dateout.co.php56-27.phx1-2.websitetestlink.com"/>
+                <data android:scheme="http"/>
+                <data android:scheme="https" />
+
+            </intent-filter>
+        </activity>
+
+        <service android:name=".fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/dateout_logo" />
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+
+
+        <!-- <application android:label="@string/app_name" > -->
+
+
+        <!-- <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/appid"/> -->
+
+
+        <!-- </application> -->
+        <!-- <provider android:authorities="com.facebook.app.FacebookContentProvider238471753256413" -->
+        <!-- android:name="com.facebook.FacebookContentProvider" -->
+        <!-- android:exported="true" /> -->
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/appid" />
+
+        <activity
+            android:name=".login.MainActivityNw"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".explore.category_booking_detailspage.CategoryDealDetail"
+            android:label=" "
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".login.FrameLayoutActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".explore.address.Adddetails"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".explore.address.EdittestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".explore.cart.Cart_details"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".explore.CheckOutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".explore.category_booking_detailspage.Booking_DetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.TermsOfUse"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <data android:scheme="id.web.freelancer.example.TCActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".sidebar.RewardsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.Googlelogin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.CaldroidSampleActivity"
+            android:screenOrientation="portrait" />
+        <!-- <activity -->
+        <!-- android:name=".login.MapsActivity" -->
+        <!-- android:label="@string/title_activity_maps"></activity> -->
+
+        <activity
+            android:name=".explore.StripeCheck"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".intro.New_WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sidebar.MapsActivity5"
+            android:label="@string/title_activity_maps5"
+            android:screenOrientation="portrait" />
+        <activity android:name=".collections.CollectionsActivity" />
+        <activity android:name=".account.AccountsActivity" />
+        <activity android:name=".chat.Chat_Activity" />
+
+        <receiver android:name=".MySMSBroadCastReceiver">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".reminder.AlarmReceiver" />
+        <receiver android:name=".reminder.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

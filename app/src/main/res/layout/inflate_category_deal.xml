@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="@dimen/_180sdp">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/image_category_deal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+      android:layout_marginTop="@dimen/_150sdp"
+        android:layout_gravity="bottom"
+      android:background="@drawable/deal_background"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Changi Point Coastal Walk"
+                android:textSize="@dimen/_11sdp"
+        android:paddingLeft="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:textColor="@android:color/white"
+                android:id="@+id/txt_title"/>
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:layout_weight="1"-->
+                <!--android:paddingLeft="@dimen/_5sdp"-->
+                <!--android:text="20 Lake Circus,Singapore"-->
+                <!--android:id="@+id/txt_description"/>-->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content"
+
+                android:textSize="@dimen/_10sdp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/txt_pricedeal"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content"
+               android:layout_gravity="center"
+
+                android:textSize="@dimen/_15sdp"
+                android:id="@+id/txt_discount"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
+

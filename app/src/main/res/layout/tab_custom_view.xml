@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:paddingRight="@dimen/_10sdp"
+        android:id="@+id/txt1"
+        android:text="Adult"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+
+        android:id="@+id/txt2"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="0"
+        />
+</LinearLayout>

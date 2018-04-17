@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content_category_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:fitsSystemWindows="true"
+        android:elevation="@dimen/_5sdp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            app:layout_collapseMode="parallax"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:layout_alignParentStart="true"
+            android:id="@+id/toolbar_tops" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/relativeLayout"
+                    >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight=".1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <ImageView
+
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:background="@drawable/back_icon_new"
+                            android:id="@+id/img_crcdtlnam"
+                            />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_11sdp"
+                            android:textAllCaps="true"
+                            android:id="@+id/toolbar_CRCNAM" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight=".1"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:id="@+id/cart"
+                        android:layout_height="match_parent">
+                        <ImageView
+
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:tint="@color/white"
+                            app:srcCompat="@drawable/cart" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight=".1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/home"
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:background="@drawable/home" />
+                    </LinearLayout>
+                </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="#0099cc"
+            app:expandedTitleMarginEnd="@dimen/_50sdp"
+            app:expandedTitleMarginStart="@dimen/_50sdp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:background="@color/button_othrcolor"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+
+                android:textAlignment="center"
+
+
+                >
+
+
+            </com.daimajia.slider.library.SliderLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/nested_scroll"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <include layout="@layout/include_layout_detail1" />
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:background="@color/button_color"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4797c4">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:id="@+id/share"
+        android:paddingLeft="@dimen/_12sdp"
+
+        android:paddingTop="@dimen/_10sdp"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+
+            android:background="@drawable/layer_ten"
+
+
+   />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="match_parent"
+        android:id="@+id/checkout"
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+android:textSize="@dimen/_12sdp"
+
+        android:text="LET'S GO"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:paddingLeft="@dimen/_9sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:id="@+id/lin_wish"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/wish_list1"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@drawable/heart_two_" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:paddingLeft="@dimen/_9sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:id="@+id/lin_wish_selected"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/wish_list"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@drawable/whishselected" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/layout_loader"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+<ProgressBar
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_55sdp"
+    android:id="@+id/progress"
+    android:visibility="gone"
+    android:layout_gravity="center"/>
+</android.support.design.widget.CoordinatorLayout>

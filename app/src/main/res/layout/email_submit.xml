@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/activity_adddetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+        <include layout="@layout/toolbar_inner"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_15sdp"
+            android:orientation="vertical"
+            android:backgroundTint="@color/gray_btn_bg_color"
+            android:background="@drawable/big_box">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:id="@+id/email_txt_name"
+                    android:backgroundTint="@color/caldroid_darker_gray"
+
+                    android:hint="Name"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@android:color/black"
+                    android:paddingLeft="@dimen/_1sdp"
+                    android:drawablePadding="@dimen/_1sdp"
+                    android:paddingBottom="@dimen/_15sdp"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/_5sdp"
+
+                    android:textColorHint="@android:color/darker_gray"
+                    android:gravity="left"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:id="@+id/email_txt_email"
+                    android:hint="Email"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@android:color/black"
+                    android:paddingLeft="@dimen/_1sdp"
+                    android:drawablePadding="@dimen/_1sdp"
+                    android:paddingBottom="@dimen/_15sdp"
+                    android:inputType="textPersonName"
+                    android:backgroundTint="@color/caldroid_darker_gray"
+
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/_5sdp"
+
+                    android:textColorHint="@android:color/darker_gray"
+                    android:gravity="left"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:id="@+id/email_txt_contact"
+                    android:hint="Contact No"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@android:color/black"
+                    android:paddingLeft="@dimen/_1sdp"
+                    android:drawablePadding="@dimen/_1sdp"
+                    android:paddingBottom="@dimen/_15sdp"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:backgroundTint="@color/caldroid_darker_gray"
+
+                    android:textColorHint="@android:color/darker_gray"
+                    android:gravity="left"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:backgroundTint="@color/gray_btn_bg_color"
+                android:background="@drawable/big_box">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:orientation="vertical">
+
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:id="@+id/email_txt_comment"
+                        android:hint="Comments"
+                        android:background="@null"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@android:color/black"
+                        android:paddingLeft="@dimen/_1sdp"
+                        android:drawablePadding="@dimen/_1sdp"
+                        android:paddingBottom="@dimen/_15sdp"
+                        android:inputType="textMultiLine"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/_5sdp"
+
+                        android:textColorHint="@android:color/darker_gray"
+                        android:gravity="left"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center"
+                android:id="@+id/lin_btn"
+                android:gravity="center"
+                >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/btn_sent"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button"
+                    android:text="SENT"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTintMode="src_atop"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="#0067b6"></ProgressBar>
+</RelativeLayout>
