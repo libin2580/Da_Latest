@@ -3,15 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DateOut.iml" filepath="$PROJECT_DIR$/DateOut.iml" />
-      <module fileurl="file://E:\Aandroid Studio\27march2018\DateOut\.idea\DateOut.iml" filepath="E:\Aandroid Studio\27march2018\DateOut\.idea\DateOut.iml" />
-      <module fileurl="file://E:\DateOut\DateOut.iml" filepath="E:\DateOut\DateOut.iml" />
-      <module fileurl="file://F:\Backup\DateOut\DateOut.iml" filepath="F:\Backup\DateOut\DateOut.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://F:\Backup\DateOut\app\app.iml" filepath="F:\Backup\DateOut\app\app.iml" />
-      <module fileurl="file://E:\DateOut\app\app.iml" filepath="E:\DateOut\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://E:\DateOut\library\library.iml" filepath="E:\DateOut\library\library.iml" />
-      <module fileurl="file://F:\Backup\DateOut\library\library.iml" filepath="F:\Backup\DateOut\library\library.iml" />
     </modules>
   </component>
 </project>
