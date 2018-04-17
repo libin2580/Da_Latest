@@ -5,6 +5,7 @@ package com.meridian.dateout;
  */
 
 public class Constants {
+    String helo;
     public  static  String URL="http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/";
     public  static  String URL1="http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/";
 
