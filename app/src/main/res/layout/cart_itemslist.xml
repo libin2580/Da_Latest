@@ -236,6 +236,7 @@ android:layout_marginRight="@dimen/_10sdp"
     android:gravity="center"
     android:layout_marginLeft="@dimen/_10sdp"
     android:background="@drawable/border_box"
+    android:id="@+id/layout_wish"
     android:layout_marginRight="@dimen/_5sdp"
     >
         <ImageView
