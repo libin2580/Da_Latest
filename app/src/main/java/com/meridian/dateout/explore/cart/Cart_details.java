@@ -2,6 +2,7 @@ package com.meridian.dateout.explore.cart;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import kotlin.Pair;
 
 import static com.meridian.dateout.Constants.URL1;
@@ -173,6 +175,22 @@ public class Cart_details extends AppCompatActivity {
                                 Total_txt.setText("$" + String.valueOf(totalprize_for_order));
 
                             }
+                        }
+                        else {
+                            final SweetAlertDialog dialog = new SweetAlertDialog(Cart_details.this,SweetAlertDialog.WARNING_TYPE);
+                            dialog.setTitleText("Cart is empty!")
+                                    .setConfirmText("OK")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            dialog.dismissWithAnimation();
+                                            finish();
+
+                                        }
+                                    })
+                                    .show();
+                            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
                         }
                     }
 
