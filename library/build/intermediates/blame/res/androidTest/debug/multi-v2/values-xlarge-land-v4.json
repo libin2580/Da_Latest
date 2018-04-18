@@ -1,6 +1,28 @@
 {
     "logs": [
         {
+            "outputFile": "E:\\Aandroid Studio\\27march2018\\DateOut\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xlarge-land-v4\\values-xlarge-land-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Binu Lal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\222f42e201294cab4aac487f64b5a504\\res\\values-xlarge-land\\values.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "56",
+                        "endColumns": "63",
+                        "endOffsets": "115"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "63",
+                        "endOffsets": "114"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "F:\\Backup\\DateOut\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xlarge-land-v4\\values-xlarge-land-v4.xml",
             "map": [
                 {

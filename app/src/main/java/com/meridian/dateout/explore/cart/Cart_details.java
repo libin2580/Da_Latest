@@ -176,22 +176,22 @@ public class Cart_details extends AppCompatActivity {
 
                             }
                         }
-                        else {
-                            final SweetAlertDialog dialog = new SweetAlertDialog(Cart_details.this,SweetAlertDialog.WARNING_TYPE);
-                            dialog.setTitleText("Cart is empty!")
-                                    .setConfirmText("OK")
-                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sDialog) {
-                                            dialog.dismissWithAnimation();
-                                            finish();
+                    }
+                    else {
+                        final SweetAlertDialog dialog = new SweetAlertDialog(Cart_details.this,SweetAlertDialog.WARNING_TYPE);
+                        dialog.setTitleText("Cart is empty!")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        dialog.dismissWithAnimation();
+                                        finish();
 
-                                        }
-                                    })
-                                    .show();
-                            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                                    }
+                                })
+                                .show();
+                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
-                        }
                     }
 
 

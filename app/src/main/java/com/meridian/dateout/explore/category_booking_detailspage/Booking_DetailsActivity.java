@@ -1354,7 +1354,21 @@ public class Booking_DetailsActivity extends AppCompatActivity {
 
                     }
                     else {
-                        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                        String msg = jsonObj.getString("message");
+                        final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this,SweetAlertDialog.WARNING_TYPE);
+                        dialog.setTitleText(msg)
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        dialog.dismissWithAnimation();
+                                        finish();
+
+                                    }
+                                })
+                                .show();
+                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
                     }
 
                 } catch (JSONException e) {
