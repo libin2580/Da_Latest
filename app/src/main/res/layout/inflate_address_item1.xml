@@ -109,7 +109,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/call"
-                    android:text="96333332673"/>
+                    android:id="@+id/phone"
+                    android:text=""/>
 
 
             </LinearLayout>

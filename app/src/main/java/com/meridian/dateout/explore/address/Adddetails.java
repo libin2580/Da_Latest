@@ -271,6 +271,7 @@ public class Adddetails extends AppCompatActivity {
                             String pin = jsonobject.getString("pin");
                             String work_home = jsonobject.getString("type");
 
+
                             addressModel.setId(id);
                             addressModel.setName(name);
                             addressModel.setPhone(phone);

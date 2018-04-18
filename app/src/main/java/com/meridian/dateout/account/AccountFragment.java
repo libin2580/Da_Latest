@@ -35,7 +35,6 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.account.order.OrderMainFragment;
@@ -388,7 +387,7 @@ public class AccountFragment extends Fragment {
 
                 if(firstName != null && lastName != null && str_emails != null)
                 {
-System.out.println("not.....1.......");
+                    System.out.println("not.....1.......");
                     replacefragment(NotificationFragment.newInstance(), "not");
                 }
                 else if((str_fullname1 != null && str_email1 != null ))

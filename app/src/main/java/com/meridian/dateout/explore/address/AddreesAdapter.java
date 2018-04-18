@@ -46,7 +46,7 @@ String ad_type;
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, flat_address, area, city, state, pin, work_home, adress_title, edit, email;
+        TextView name, flat_address, area, city, state, pin, work_home, adress_title, edit, email,phone;
         CheckBox address_check;
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -60,6 +60,7 @@ String ad_type;
             state = (TextView) itemView.findViewById(R.id.state);
             pin = (TextView) itemView.findViewById(R.id.pin);
             work_home = (TextView) itemView.findViewById(R.id.work_home);
+            phone = (TextView) itemView.findViewById(R.id.phone);
             edit = (TextView) itemView.findViewById(R.id.edit);
             address_check = (CheckBox) itemView.findViewById(R.id.address_work);
         }
@@ -91,6 +92,7 @@ String ad_type;
         holder1.pin.setText(addressModels.get(position).getPin());
         holder1.work_home.setText(addressModels.get(position).getPin());
         holder1.work_home.setText(addressModels.get(position).getWork_home());
+        holder1.phone.setText(addressModels.get(position).getPhone());
         holder1.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,14 +101,14 @@ String ad_type;
                 Intent i = new Intent(context, EdittestActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("id",addressModels.get(position).getId());
-                        i.putExtra("name",addressModels.get(position).getName());
-                        i.putExtra("phone",addressModels.get(position).getPhone());
-                        i.putExtra("city",addressModels.get(position).getCity());
-                        i.putExtra("street",addressModels.get(position).getArea());
-                        i.putExtra("flat_no",addressModels.get(position).getFlat_address());
-                        i.putExtra("state",addressModels.get(position).getState());
-                        i.putExtra("pin",addressModels.get(position).getPin());
-                        i.putExtra("type",addressModels.get(position).getWork_home());
+                i.putExtra("name",addressModels.get(position).getName());
+                i.putExtra("phone",addressModels.get(position).getPhone());
+                i.putExtra("city",addressModels.get(position).getCity());
+                i.putExtra("street",addressModels.get(position).getArea());
+                i.putExtra("flat_no",addressModels.get(position).getFlat_address());
+                i.putExtra("state",addressModels.get(position).getState());
+                i.putExtra("pin",addressModels.get(position).getPin());
+                i.putExtra("type",addressModels.get(position).getWork_home());
 
                 context.startActivity(i);
             }
