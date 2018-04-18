@@ -35,6 +35,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.account.order.OrderMainFragment;
@@ -59,6 +60,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.analytics;
 
 
 /**
@@ -136,11 +138,13 @@ public class AccountFragment extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account, container, false);
+        analytics.setCurrentScreen(getActivity(), "AccountFragment", null /* class override */);
 
          name = (TextView) v.findViewById(R.id.txt_acountname);
         email = (TextView) v.findViewById(R.id.txt_acountemail);
