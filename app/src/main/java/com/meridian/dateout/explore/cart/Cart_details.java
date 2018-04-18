@@ -148,49 +148,51 @@ public class Cart_details extends AppCompatActivity {
                     System.out.println("s**********" + s);
                     String status = jsonObj.getString("status");
                     if (status.equalsIgnoreCase("true")) {
+                       if(jsonObj.has("data")){
+                           JSONArray dataArray = jsonObj.getJSONArray("data");
+                           for (int i = 0; i < dataArray.length(); i++) {
+                               JSONObject obj = dataArray.getJSONObject(i);
+                               ohm = new CartHistoryModel();
+                               ohm.setTitle(obj.getString("title"));
+                               ohm.setImage(obj.getString("image"));
+                               ohm.setAmount(obj.getString("amount"));
+                               ohm.setBooking_date(obj.getString("date_added"));
+                               ohm.setQuantity(obj.getString("quantity"));
+                               ohm.setcart_item_id(obj.getString("cart_item_id"));
+                               ohm.setDeal_id(obj.getString("deal_id"));
+                               OrderHistoryArraylist.add(ohm);
 
-                        JSONArray dataArray = jsonObj.getJSONArray("data");
-                        for (int i = 0; i < dataArray.length(); i++) {
-                            JSONObject obj = dataArray.getJSONObject(i);
-                            ohm = new CartHistoryModel();
-                            ohm.setTitle(obj.getString("title"));
-                            ohm.setImage(obj.getString("image"));
-                            ohm.setAmount(obj.getString("amount"));
-                            ohm.setBooking_date(obj.getString("date_added"));
-                            ohm.setQuantity(obj.getString("quantity"));
-                            ohm.setcart_item_id(obj.getString("cart_item_id"));
-                            ohm.setDeal_id(obj.getString("deal_id"));
-                            OrderHistoryArraylist.add(ohm);
+                               Log.e("##########", String.valueOf(OrderHistoryArraylist));
 
-                            Log.e("##########", String.valueOf(OrderHistoryArraylist));
+                           }
+                           if (OrderHistoryArraylist.size() > 0) {
+                               totalprize_for_order -= totalprize_for_order;
+                               ohad = new CartHistoryAdapter(getApplicationContext(), OrderHistoryArraylist);
+                               recyclerView.setAdapter(ohad);
+                               for (int i = 0; i < OrderHistoryArraylist.size(); i++) {
+                                   valuu = Integer.parseInt(OrderHistoryArraylist.get(i).getamount());
+                                   totalprize_for_order += valuu;
+                                   Total_txt.setText("$" + String.valueOf(totalprize_for_order));
 
-                        }
-                        if (OrderHistoryArraylist.size() > 0) {
-                            totalprize_for_order -= totalprize_for_order;
-                            ohad = new CartHistoryAdapter(getApplicationContext(), OrderHistoryArraylist);
-                            recyclerView.setAdapter(ohad);
-                            for (int i = 0; i < OrderHistoryArraylist.size(); i++) {
-                                valuu = Integer.parseInt(OrderHistoryArraylist.get(i).getamount());
-                                totalprize_for_order += valuu;
-                                Total_txt.setText("$" + String.valueOf(totalprize_for_order));
+                               }
+                           }
+                       }
+                       else {
+                           final SweetAlertDialog dialog = new SweetAlertDialog(Cart_details.this,SweetAlertDialog.WARNING_TYPE);
+                           dialog.setTitleText("Cart is empty!")
+                                   .setConfirmText("OK")
+                                   .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                       @Override
+                                       public void onClick(SweetAlertDialog sDialog) {
+                                           dialog.dismissWithAnimation();
+                                           finish();
 
-                            }
-                        }
-                    }
-                    else {
-                        final SweetAlertDialog dialog = new SweetAlertDialog(Cart_details.this,SweetAlertDialog.WARNING_TYPE);
-                        dialog.setTitleText("Cart is empty!")
-                                .setConfirmText("OK")
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        dialog.dismissWithAnimation();
-                                        finish();
+                                       }
+                                   })
+                                   .show();
+                           dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
-                                    }
-                                })
-                                .show();
-                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                       }
 
                     }
 

@@ -1160,7 +1160,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                             add(new Pair<String, String>("child_number",String.valueOf(ch_number)));
                             add(new Pair<String, String>("quantity", String.valueOf(people)));
                             add(new Pair<String, String>("comment", str_comnt));
-                            add(new Pair<String, String>("amount", String.valueOf(total)));
+                            add(new Pair<String, String>("amount", String.valueOf(total/people)));
                             add(new Pair<String, String>("deal_optionsJSON ",somejson));
                         }};
 
@@ -1179,7 +1179,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                             add(new Pair<String, String>("child_number",String.valueOf(ch_number)));
                             add(new Pair<String, String>("quantity", String.valueOf(people)));
                             add(new Pair<String, String>("comment", str_comnt));
-                            add(new Pair<String, String>("amount", String.valueOf(total)));
+                            add(new Pair<String, String>("amount", String.valueOf(total/people)));
                             add(new Pair<String, String>("deal_optionsJSON ",somejson));
 
                         }};
