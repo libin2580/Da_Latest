@@ -84,7 +84,6 @@ public class EdittestActivity extends AppCompatActivity {
 
         addr_name.setText(name);
         addr_phone.setText(phone);
-        addr_phone.setText(city);
         addr_city.setText(city);
         addr_area.setText(street);
         addrs_flat.setText(flat_no);
