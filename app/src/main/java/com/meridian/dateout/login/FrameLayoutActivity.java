@@ -58,6 +58,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.account.AccountFragment;
@@ -169,7 +170,8 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         setContentView(R.layout.activity_main3);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
-        analytics.setCurrentScreen(this,this.getLocalClassName(), null /* class override */);
+        analytics = FirebaseAnalytics.getInstance(FrameLayoutActivity.this);
+        analytics.setCurrentScreen(FrameLayoutActivity.this,"Homepage",FrameLayoutActivity.this.getLocalClassName() /* class override */);
 
         token  =pref.getString("regId", null);
         System.out.println("tokennnnn"+token);
