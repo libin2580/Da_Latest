@@ -48,6 +48,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.analytics;
 
 
 /**
@@ -115,6 +116,8 @@ public class Upcominghistory extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_history, container, false);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview1);
         txt_empty=(TextView)view.findViewById(R.id.txt_empty);
         try {

@@ -43,6 +43,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,6 +120,7 @@ public class Email_Submit_Fragment extends Fragment {
         progress=(ProgressBar) view.findViewById(R.id.progress_bar);
 
 
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
 
         txt= (TextView) view.findViewById(R.id.toolbar_txt);

@@ -53,6 +53,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 
 /**
@@ -168,6 +169,7 @@ public class RewardsMainFragment extends Fragment {
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);
 
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         linear_my_rewards=(LinearLayout)view.findViewById(R.id.linear_my_rewards);
         linear_all_rewards=(LinearLayout)view.findViewById(R.id.linear_all_rewards);

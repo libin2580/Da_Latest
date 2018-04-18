@@ -33,6 +33,7 @@ import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 public class Faqfragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -97,6 +98,8 @@ public class Faqfragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragmentfaq, container, false);
+        analytics.setCurrentScreen(getActivity(), "Faqfragment", null /* class override */);
+
         toolbar = (Toolbar)  v.findViewById(R.id.toolbar_tops1);
    toolbar.setVisibility(View.VISIBLE);
       TextView text_toolbar= (TextView) v.findViewById(R.id. toolbar_txt);

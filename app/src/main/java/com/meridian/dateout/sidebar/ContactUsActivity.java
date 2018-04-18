@@ -41,6 +41,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class ContactUsActivity extends Fragment {
     ImageView back, phone1, mail1;
     TextView email,phone,address;
@@ -70,6 +72,7 @@ public class ContactUsActivity extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contact_us, container, false);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         back = (ImageView) view. findViewById(R.id.img_crcdtlnam);
         lin_mail=view.findViewById(R.id.lin_mail);

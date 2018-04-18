@@ -45,6 +45,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -128,6 +130,7 @@ LinearLayout menu;
 //        String name = getActivity().getIntent().getStringExtra("names");
         System.out.println("categry_id" + category_id);
       //  relativeLayout1.setVisibility(View.VISIBLE);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
       //  FrameLayoutActivity.img_toolbar_crcname.setText(name);
         FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);

@@ -37,6 +37,8 @@ import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,6 +104,7 @@ LinearLayout menu;
         menu= (LinearLayout) view. findViewById(R.id.menu);
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         txt.setText("Notification");
         menu.setOnClickListener(new View.OnClickListener() {

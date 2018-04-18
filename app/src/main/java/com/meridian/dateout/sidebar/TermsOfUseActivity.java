@@ -36,6 +36,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class TermsOfUseActivity extends Fragment {
 LinearLayout back;
     ArrayList<Sidebar_Model> sidebarlist;
@@ -64,6 +66,7 @@ LinearLayout back;
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
 
         back = (LinearLayout)view. findViewById(R.id.img_crcdtlnam);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         description= (TextView) view.findViewById(R.id.description);
         back.setOnClickListener(new View.OnClickListener() {

@@ -36,10 +36,13 @@ import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.meridian.dateout.R;
+import com.meridian.dateout.nearme.NearMeFragment;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
+
+import static com.meridian.dateout.Constants.analytics;
 
 
 public class ReminderEditActivity extends AppCompatActivity implements
@@ -100,7 +103,7 @@ public class ReminderEditActivity extends AppCompatActivity implements
         mDateText = (TextView) findViewById(R.id.set_date);
         mTimeText = (TextView) findViewById(R.id.set_time);
 
-
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         // Setup Toolbar
         setSupportActionBar(mToolbar);
 

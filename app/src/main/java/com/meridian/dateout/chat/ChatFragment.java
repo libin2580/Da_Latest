@@ -20,6 +20,7 @@ import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 
 /**
@@ -78,6 +79,7 @@ public class ChatFragment extends Fragment {
         FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
         FrameLayoutActivity.my_location.setVisibility(View.GONE);
 
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
         FrameLayoutActivity.img_toolbar_crcname.setText("EMAIL");

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 
+import static com.meridian.dateout.Constants.analytics;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +71,8 @@ public class WalletFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.activity_wallet, container, false);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         menu= (LinearLayout) v. findViewById(R.id.menu);
         txt= (TextView) v.findViewById(R.id.toolbar_txt);
         toolbar = (Toolbar)v.findViewById(R.id.toolbar_tops1);

@@ -78,6 +78,7 @@ import kotlin.Pair;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.URL1;
+import static com.meridian.dateout.Constants.analytics;
 
 
 public class Booking_DetailsActivity extends AppCompatActivity {
@@ -168,6 +169,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         android_id = Settings.Secure.getString(Booking_DetailsActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID);
 
+        analytics.setCurrentScreen(this,this.getLocalClassName(), null /* class override */);
 
         //displayPopup_comment();
 

@@ -45,6 +45,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 public class ChangePassword extends Fragment {
     EditText oldpassword, newpassword, edt_confirmpass;
@@ -76,6 +77,7 @@ public class ChangePassword extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_change_password, container, false);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
+        analytics.setCurrentScreen(getActivity(), "AccountFragment", null /* class override */);
 
         progress = (ProgressBar)  view.findViewById(R.id.progress_bar);
         oldpassword = (EditText)  view.findViewById(R.id.edt_oldpassword);

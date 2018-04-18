@@ -74,6 +74,8 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     Button login, bsignup;
     TextView Reg, txtnew, gst;
@@ -135,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
 

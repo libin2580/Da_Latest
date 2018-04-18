@@ -51,6 +51,8 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class RegisterActivity extends AppCompatActivity {
     TextView AlReg;
     EditText edtemail, edtfulnam, edtcntct, edtpass, edtuser, edtcnfrmpass;
@@ -84,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
         //  edtfulnam = (EditText) findViewById(R.id.edt_fulname);
         // edtphon= (EditText) findViewById(R.id.edt_phone);
         //  edtcntct = (EditText) findViewById(R.id.edt_cntct);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
       //  final Typeface myFont1 = Typeface.createFromAsset(getApplicationContext().getAssets(), "Roboto-Regular.ttf");
 

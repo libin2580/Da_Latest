@@ -103,6 +103,7 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.login.FrameLayoutActivity.places;
 
 /**
@@ -224,6 +225,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
         FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
         FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
         Re_center = (ImageView) v.findViewById(R.id.recenter);
+        analytics.setCurrentScreen(getActivity(),getActivity().getLocalClassName(), null /* class override */);
 
         markers = new ArrayList<>();
         FrameLayoutActivity.filter.setOnClickListener(new View.OnClickListener() {

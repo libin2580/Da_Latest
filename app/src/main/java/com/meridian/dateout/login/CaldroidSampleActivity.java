@@ -46,6 +46,8 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.meridian.dateout.Constants.analytics;
+
 @SuppressLint("SimpleDateFormat")
 public class CaldroidSampleActivity extends AppCompatActivity {
     private boolean undo = false;
@@ -102,6 +104,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                analytics.setCurrentScreen(CaldroidSampleActivity.this,CaldroidSampleActivity.this.getLocalClassName(), null /* class override */);
 
    CategoryDealDetail.checkout.performClick();
 

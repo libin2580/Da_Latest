@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 
+import static com.meridian.dateout.Constants.analytics;
+
 
 public class OrderMainFragment  extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
@@ -67,6 +69,8 @@ public class OrderMainFragment  extends Fragment{
 
 
         View v=inflater.inflate(R.layout.activity_order_main, container, false);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
         tabLayoutl=v.findViewById(R.id.remin_tab_layout);
         viewPager=v.findViewById(R.id.remin_view_pager);

@@ -108,6 +108,8 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class FrameLayoutActivity extends AppCompatActivity implements Pasthistory.OnFragmentInteractionListener,Upcominghistory.OnFragmentInteractionListener,ReminderAddFragment_new.OnFragmentInteractionListener,ReminderMainFragment.OnFragmentInteractionListener,Email_Submit_Fragment.OnFragmentInteractionListener,OrderHistory.OnFragmentInteractionListener,PointHistory.OnFragmentInteractionListener,MembershipFragment.OnFragmentInteractionListener,CouponFragment.OnFragmentInteractionListener,ChangePassword.OnFragmentInteractionListener,FavrtFragment.OnFragmentInteractionListener, NotificationFragment.OnFragmentInteractionListener, RewardsMainFragment.OnFragmentInteractionListener, ChatListingFragment.OnFragmentInteractionListener, ChatFragment.OnFragmentInteractionListener, WalletFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, CategoryDealFragment.OnFragmentInteractionListener, CategoryDealFragment1.OnFragmentInteractionListener, ExploreFragment.OnFragmentInteractionListener, CollectionsFragment.OnFragmentInteractionListener, AccountFragment.OnFragmentInteractionListener, Faqfragment.OnFragmentInteractionListener,NearMeFragment.OnFragmentInteractionListener,MyRewardFragment.OnFragmentInteractionListener,AllRewardsFragment.OnFragmentInteractionListener,UpdateProfile.OnFragmentInteractionListener {
     RecyclerView recyclerView;
     String id, id1, category, background, icon;
@@ -167,6 +169,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         setContentView(R.layout.activity_main3);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+        analytics.setCurrentScreen(this,this.getLocalClassName(), null /* class override */);
 
         token  =pref.getString("regId", null);
         System.out.println("tokennnnn"+token);

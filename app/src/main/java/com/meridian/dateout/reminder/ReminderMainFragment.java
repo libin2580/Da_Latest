@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -59,6 +60,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -132,6 +134,7 @@ public class ReminderMainFragment extends Fragment {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_reminder_main, container, false);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         recycle_upcoming=(RecyclerView)v.findViewById(R.id.recyler_upcoming);
         recycle_past=(RecyclerView)v.findViewById(R.id.recyler_past);
@@ -188,6 +191,7 @@ public class ReminderMainFragment extends Fragment {
         compactCalendarView.setCurrentDayBackgroundColor(getResources().getColor(R.color.colorAccent));
 
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onDayClick(final Date date_day) {
                 if (new Date().after(date_day)) {

@@ -43,6 +43,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,6 +104,8 @@ LinearLayout menu;
         menu= (LinearLayout) view.findViewById(R.id.menu);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
         txt.setText("Email");
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         toolbar = (Toolbar) view.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);
         menu.setOnClickListener(new View.OnClickListener() {

@@ -60,6 +60,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.analytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -181,6 +182,7 @@ public class MembershipFragment extends Fragment {
                 mPopupWindow.dismiss();
             }
         });
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         menu= (LinearLayout) v. findViewById(R.id.menu);
         txt.setText("MEMBERSHIP INFO");

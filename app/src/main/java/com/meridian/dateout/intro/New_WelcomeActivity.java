@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
 
+import static com.meridian.dateout.Constants.analytics;
+
 
 public class New_WelcomeActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -63,6 +65,7 @@ public class New_WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.new_activity_welcome);
         getstarted= (Button) findViewById(R.id.getstarted);
         progress = (ProgressBar) findViewById(R.id.progress_bar);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         mPager = (ViewPager) findViewById(R.id.pager);
 

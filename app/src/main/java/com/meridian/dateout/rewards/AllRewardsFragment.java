@@ -39,6 +39,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -105,6 +106,7 @@ String title,image,discription,start_date,end_date,current_points,id,user_type,u
         View view = inflater.inflate(R.layout.fragment_all_rewards, container, false);
         System.out.println("INSIDE ALL REWARD FRAGMENT");
         setRetainInstance(true);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
 
         lLayout = new GridLayoutManager(getActivity(), 2);

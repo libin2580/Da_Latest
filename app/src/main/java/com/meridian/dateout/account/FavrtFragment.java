@@ -45,6 +45,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 
 /**
@@ -124,6 +125,8 @@ String status;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favrt, container, false);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName() , null /* class override */);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_favrt);
         empty_text= (TextView) view.findViewById(R.id.empty_text);
         txt= (TextView) view.findViewById(R.id.toolbar_txt);

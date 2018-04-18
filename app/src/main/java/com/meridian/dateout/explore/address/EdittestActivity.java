@@ -25,6 +25,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import kotlin.Pair;
 
 import static com.meridian.dateout.Constants.URL1;
+import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.address.Adddetails.place_order;
 
 /**
@@ -48,6 +49,7 @@ public class EdittestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_address_edit);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         id = getIntent().getStringExtra("id");
         name = getIntent().getStringExtra("name");

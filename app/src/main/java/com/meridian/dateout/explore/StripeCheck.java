@@ -54,6 +54,7 @@ import kotlin.Pair;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.URL1;
+import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.address.Adddetails.address_id;
 
 public class StripeCheck extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -111,6 +112,8 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
             startActivity(i);
         }
         });
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
+
         SharedPreferences preferences_coupon_code =getApplicationContext().getSharedPreferences("coupon_code", MODE_PRIVATE);
         coupon_code=preferences_coupon_code.getString("coupon_code",null);
             back.setOnClickListener(new View.OnClickListener() {

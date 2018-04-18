@@ -42,6 +42,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -111,6 +112,8 @@ TextView txt_points_in_hand_date,txt_points_in_hand_points,txt_points_earned_dat
         progress_bar=(ProgressBar)v.findViewById(R.id.progress_bar);
         txt= (TextView) v.findViewById(R.id.toolbar_txt);
         menu= (LinearLayout) v. findViewById(R.id.menu);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         txt.setText("POINTS HISTORY");
         toolbar = (Toolbar)v.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);

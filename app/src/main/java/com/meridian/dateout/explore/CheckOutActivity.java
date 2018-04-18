@@ -42,6 +42,8 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class CheckOutActivity extends AppCompatActivity {
     ImageView back;
    static String addphone, addemail, addfulname,address_add;
@@ -69,6 +71,8 @@ public class CheckOutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkout_pay);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
+
         address = getIntent().getStringExtra("address");
         addphone = getIntent().getStringExtra("addphone");
         addemail = getIntent().getStringExtra("addemail");

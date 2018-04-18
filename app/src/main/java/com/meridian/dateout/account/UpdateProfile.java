@@ -63,6 +63,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.analytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -152,6 +153,8 @@ LinearLayout menu;
         menu= (LinearLayout) v. findViewById(R.id.menu);
         toolbar = (Toolbar)  v.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         txt.setText("UPDATE PROFILE");
         menu.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -40,6 +40,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class AboutActivity  extends Fragment {
     ArrayList<Sidebar_Model> sidebarlist;
     String id,title,description1;
@@ -72,6 +74,7 @@ public class AboutActivity  extends Fragment {
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops);
        toolbar.setVisibility(View.VISIBLE);
         back = (LinearLayout)view. findViewById(R.id.img_crcdtlnam);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

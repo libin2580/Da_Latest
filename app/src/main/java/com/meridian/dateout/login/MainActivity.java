@@ -48,6 +48,8 @@ import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     String id, id1, category, background, icon;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
         setSupportActionBar(toolbar);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
 
         toolbar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {

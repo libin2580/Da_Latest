@@ -36,6 +36,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class PrivacyActivity extends Fragment {
 LinearLayout back;
     ArrayList<Sidebar_Model> sidebarlist;
@@ -75,6 +77,7 @@ LinearLayout back;
         });
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops);
         toolbar.setVisibility(View.VISIBLE);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         privacy();
         return  view;

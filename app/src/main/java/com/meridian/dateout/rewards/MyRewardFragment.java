@@ -40,6 +40,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.rewards.RewardsMainFragment.rewrd_current_points;
 
 /**
@@ -108,6 +109,8 @@ private RecyclerView my_reward_recyclerview;
         View view =inflater.inflate(R.layout.fragment_my_reward, container, false);
 
         setRetainInstance(true);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         text_myrewrds= (LinearLayout) view.findViewById(R.id.lay_text_my_rewrds);
         lLayout = new GridLayoutManager(getActivity(), 2);
         my_rewardArraylist=new ArrayList<>();

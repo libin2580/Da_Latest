@@ -73,6 +73,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.analytics;
 
 
 public class CollectionsFragment extends Fragment implements View.OnClickListener{
@@ -114,6 +115,8 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.activity_collections, container, false);
         coordinatorLayout = (LinearLayout) view.findViewById(R.id.activity_category_list);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         progress1= (ProgressBar) view.findViewById(R.id.progress1);
         FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
         FrameLayoutActivity.my_location.setVisibility(View.GONE);

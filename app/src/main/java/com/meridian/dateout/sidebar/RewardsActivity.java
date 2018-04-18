@@ -20,6 +20,8 @@ import com.meridian.dateout.model.Sidebar_Model;
 
 import java.util.ArrayList;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class RewardsActivity extends AppCompatActivity {
     ArrayList<Sidebar_Model> sidebarlist;
     String id,title,description1;
@@ -48,6 +50,7 @@ LinearLayout back;
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        analytics.setCurrentScreen(RewardsActivity.this, RewardsActivity.this.getLocalClassName(), null /* class override */);
 
         //about_us();
         description.getSettings().setLoadsImagesAutomatically(true);

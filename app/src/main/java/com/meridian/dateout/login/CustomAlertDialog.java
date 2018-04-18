@@ -26,6 +26,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 /**
  * Created by user 1 on 11-07-2016.
  */
@@ -50,6 +52,8 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.customalert);
+        //analytics.setCurrentScreen(CustomAlertDialog.this, con.getLocalClassName(), null /* class override */);
+
         editText = (EditText) findViewById(R.id.alert_email);
         progress = (ProgressBar) findViewById(R.id.progress_bars);
         progress.setOnTouchListener(new View.OnTouchListener() {

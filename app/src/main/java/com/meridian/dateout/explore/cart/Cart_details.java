@@ -33,6 +33,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import kotlin.Pair;
 
 import static com.meridian.dateout.Constants.URL1;
+import static com.meridian.dateout.Constants.analytics;
 
 /**
  * Created by SIDDEEQ DESIGNER on 3/17/2018.
@@ -61,6 +62,8 @@ public class Cart_details extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         progress_bar_explore = (ProgressBar)findViewById(R.id.progress_bar_explore);
         Checkout = (LinearLayout)findViewById(R.id.checkout);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
+
         promocode=findViewById(R.id.promocode);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_categorydeal);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());

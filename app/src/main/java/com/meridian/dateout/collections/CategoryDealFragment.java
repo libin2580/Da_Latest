@@ -64,6 +64,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.analytics;
 
 
 /**
@@ -196,6 +197,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
                getActivity().onBackPressed();
             }
         });
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         final LayoutInflater inflator = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         custompopup_view = inflator.inflate(R.layout.filterlayout, null);

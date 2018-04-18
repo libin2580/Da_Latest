@@ -43,6 +43,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.analytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -190,6 +191,7 @@ public class FaceBukFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fac_layout, container, false);
         progressDialog=view.findViewById(R.id.progress_bar);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");

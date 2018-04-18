@@ -48,6 +48,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash_screen);
+
         PackageInfo packageInfo;
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);

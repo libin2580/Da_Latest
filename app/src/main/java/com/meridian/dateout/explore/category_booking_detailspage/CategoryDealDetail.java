@@ -82,6 +82,8 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyCallback {
     int deal_id;
     String id;
@@ -148,6 +150,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail1);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         deal_id = getIntent().getIntExtra("deal_id", 0);
         deal_slug = getIntent().getStringExtra("deal_slug");

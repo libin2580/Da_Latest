@@ -61,6 +61,7 @@ import kotlin.Pair;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.URL1;
+import static com.meridian.dateout.Constants.analytics;
 
 public class Adddetails extends AppCompatActivity {
     Button add_details;
@@ -102,6 +103,8 @@ public class Adddetails extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
         setSupportActionBar(toolbar);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
+
         address = getIntent().getStringExtra("address");
         adult_tkt_price = getIntent().getIntExtra("adult_discnt_price", 0);
         booking_date = getIntent().getStringExtra("booking_date");

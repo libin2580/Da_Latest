@@ -31,6 +31,8 @@ import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,6 +103,8 @@ public class CouponFragment extends Fragment {
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);
         txt.setText("Coupon");
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

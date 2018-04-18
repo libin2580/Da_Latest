@@ -21,6 +21,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.meridian.dateout.R;
 
+import static com.meridian.dateout.Constants.analytics;
+
 /**
  * Created by libin on 1/3/2017.
  */
@@ -53,6 +55,7 @@ public class Googlelogin extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.google_layout);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         //Initializing Views
         textViewName = (TextView) findViewById(R.id.textViewName);

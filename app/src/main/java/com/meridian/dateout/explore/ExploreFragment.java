@@ -72,6 +72,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.CollectionsAdapter1.jsonlist;
 import static com.meridian.dateout.explore.CollectionsAdapter2.str_sorted_by;
 
@@ -130,6 +131,8 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.explore1, container, false);
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.explore_coordintr);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+
         appBarLayout = (AppBarLayout) view.findViewById(R.id.MyAppbars);
         appBarLayout.setExpanded(true);
         search_empty = (TextView) view.findViewById(R.id.search_empty);

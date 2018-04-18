@@ -144,7 +144,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account, container, false);
-        analytics.setCurrentScreen(getActivity(), "AccountFragment", null /* class override */);
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
          name = (TextView) v.findViewById(R.id.txt_acountname);
         email = (TextView) v.findViewById(R.id.txt_acountemail);
