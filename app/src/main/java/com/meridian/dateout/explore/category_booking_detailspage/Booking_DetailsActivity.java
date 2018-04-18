@@ -1362,7 +1362,26 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
                                         dialog.dismissWithAnimation();
-                                        finish();
+                                        View v = findViewById(R.id.add_to_cart);
+                                        ObjectAnimator animation = ObjectAnimator.ofFloat(v, "rotationX", 0.0f, 360f);
+                                        animation.setDuration(2000);
+                                        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+                                        animation.start();
+                                        View v1 = findViewById(R.id.next);
+                                        ObjectAnimator animation1 = ObjectAnimator.ofFloat(v1, "rotationX", 0.0f, 360f);
+                                        animation1.setDuration(1000);
+                                        animation1.setInterpolator(new AccelerateDecelerateInterpolator());
+                                        animation1.start();
+                                        final Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                next.setVisibility(View.VISIBLE);
+                                                add_to_cart.setVisibility(View.GONE);
+
+                                            }
+                                        }, 1000);
 
                                     }
                                 })
