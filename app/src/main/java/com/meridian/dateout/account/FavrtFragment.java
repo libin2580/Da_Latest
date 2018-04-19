@@ -26,6 +26,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.RecyclerItemClickListener;
@@ -125,6 +126,7 @@ String status;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favrt, container, false);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName() , null /* class override */);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_favrt);

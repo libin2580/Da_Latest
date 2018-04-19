@@ -38,6 +38,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -182,6 +183,8 @@ public class MembershipFragment extends Fragment {
                 mPopupWindow.dismiss();
             }
         });
+        analytics = FirebaseAnalytics.getInstance(getActivity());
+
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         menu= (LinearLayout) v. findViewById(R.id.menu);

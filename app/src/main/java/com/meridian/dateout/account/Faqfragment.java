@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.collections.HttpHandler;
@@ -98,6 +99,7 @@ public class Faqfragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragmentfaq, container, false);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), "Faqfragment", null /* class override */);
 
         toolbar = (Toolbar)  v.findViewById(R.id.toolbar_tops1);

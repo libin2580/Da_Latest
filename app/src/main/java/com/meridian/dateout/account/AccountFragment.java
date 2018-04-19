@@ -35,6 +35,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.account.order.OrderMainFragment;
@@ -143,6 +144,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account, container, false);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
          name = (TextView) v.findViewById(R.id.txt_acountname);

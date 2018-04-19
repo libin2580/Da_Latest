@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.account.NotificationFragment;
@@ -116,6 +117,7 @@ public class Pasthistory extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_history, container, false);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview1);

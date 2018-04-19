@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.NetworkCheckingClass;
@@ -106,6 +107,8 @@ String title,image,discription,start_date,end_date,current_points,id,user_type,u
         View view = inflater.inflate(R.layout.fragment_all_rewards, container, false);
         System.out.println("INSIDE ALL REWARD FRAGMENT");
         setRetainInstance(true);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
+
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
 

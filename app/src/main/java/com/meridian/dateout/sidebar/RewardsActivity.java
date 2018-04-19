@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.model.Sidebar_Model;
@@ -50,6 +51,8 @@ LinearLayout back;
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        analytics = FirebaseAnalytics.getInstance(RewardsActivity.this);
+
         analytics.setCurrentScreen(RewardsActivity.this, RewardsActivity.this.getLocalClassName(), null /* class override */);
 
         //about_us();

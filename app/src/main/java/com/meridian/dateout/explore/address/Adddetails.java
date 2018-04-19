@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.collections.HttpHandler;
@@ -103,6 +104,7 @@ public class Adddetails extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
         setSupportActionBar(toolbar);
+        analytics = FirebaseAnalytics.getInstance(Adddetails.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         address = getIntent().getStringExtra("address");

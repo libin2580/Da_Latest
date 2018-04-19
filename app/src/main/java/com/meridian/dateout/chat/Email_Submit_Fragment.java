@@ -28,6 +28,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.collections.HttpHandler;
@@ -118,7 +119,7 @@ public class Email_Submit_Fragment extends Fragment {
         lin=(LinearLayout) view.findViewById(R.id.lin_btn);
         back = (LinearLayout)view. findViewById(R.id.img_crcdtlnam);
         progress=(ProgressBar) view.findViewById(R.id.progress_bar);
-
+        analytics = FirebaseAnalytics.getInstance(getActivity());
 
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 

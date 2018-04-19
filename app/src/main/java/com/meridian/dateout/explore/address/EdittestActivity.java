@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.NetworkCheckingClass;
 
@@ -48,7 +49,7 @@ public class EdittestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_address_edit);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        analytics = FirebaseAnalytics.getInstance(EdittestActivity.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         id = getIntent().getStringExtra("id");

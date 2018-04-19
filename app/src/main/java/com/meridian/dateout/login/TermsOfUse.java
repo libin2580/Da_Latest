@@ -18,6 +18,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.model.Sidebar_Model;
@@ -32,6 +33,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.meridian.dateout.Constants.analytics;
+
 public class TermsOfUse extends AppCompatActivity {
 LinearLayout back;
     ArrayList<Sidebar_Model> sidebarlist;
@@ -41,6 +44,10 @@ LinearLayout back;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_termsof_use);
+        analytics = FirebaseAnalytics.getInstance(TermsOfUse.this);
+
+        //  analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         back = (LinearLayout) findViewById(R.id.img_crcdtlnam);
      // title= (TextView) findViewById(R.id.title);
         description= (TextView) findViewById(R.id.description);

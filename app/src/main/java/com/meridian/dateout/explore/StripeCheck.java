@@ -34,6 +34,7 @@ import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
@@ -112,6 +113,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
             startActivity(i);
         }
         });
+        analytics = FirebaseAnalytics.getInstance(StripeCheck.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         SharedPreferences preferences_coupon_code =getApplicationContext().getSharedPreferences("coupon_code", MODE_PRIVATE);

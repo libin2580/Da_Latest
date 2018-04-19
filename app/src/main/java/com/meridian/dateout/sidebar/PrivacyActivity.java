@@ -20,6 +20,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -62,6 +63,9 @@ LinearLayout back;
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_privacy_policy, container, false);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
+
+        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
        // title= (TextView) view.findViewById(R.id.title);
         back = (LinearLayout)view. findViewById(R.id.img_crcdtlnam);
       //  fb= (ImageView)view. findViewById(R.id.fb);

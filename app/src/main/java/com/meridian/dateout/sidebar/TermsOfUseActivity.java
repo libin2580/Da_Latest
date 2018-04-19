@@ -20,6 +20,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -66,6 +67,8 @@ LinearLayout back;
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
 
         back = (LinearLayout)view. findViewById(R.id.img_crcdtlnam);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
+
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         description= (TextView) view.findViewById(R.id.description);

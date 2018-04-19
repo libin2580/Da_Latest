@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -153,6 +154,7 @@ LinearLayout menu;
         menu= (LinearLayout) v. findViewById(R.id.menu);
         toolbar = (Toolbar)  v.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         txt.setText("UPDATE PROFILE");

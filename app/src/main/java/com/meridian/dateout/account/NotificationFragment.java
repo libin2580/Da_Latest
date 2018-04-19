@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.collections.HttpHandler;
@@ -104,6 +105,7 @@ LinearLayout menu;
         menu= (LinearLayout) view. findViewById(R.id.menu);
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         txt.setText("Notification");

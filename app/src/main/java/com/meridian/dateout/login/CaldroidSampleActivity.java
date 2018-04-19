@@ -22,6 +22,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.calendar.CaldroidSampleCustomFragment;
@@ -101,10 +102,12 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         linearLayout_schedule = (LinearLayout) findViewById(R.id.linear_sch);
         text_display_time= (TextView) findViewById(R.id.txt_display_time);
         note_deal= (TextView) findViewById(R.id.note_deal);
+        analytics = FirebaseAnalytics.getInstance(CaldroidSampleActivity.this);
+        analytics.setCurrentScreen(CaldroidSampleActivity.this,CaldroidSampleActivity.this.getLocalClassName(), null /* class override */);
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                analytics.setCurrentScreen(CaldroidSampleActivity.this,CaldroidSampleActivity.this.getLocalClassName(), null /* class override */);
 
    CategoryDealDetail.checkout.performClick();
 

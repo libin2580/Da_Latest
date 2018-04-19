@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.nearme.NearMeFragment;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -102,6 +103,7 @@ public class ReminderEditActivity extends AppCompatActivity implements
         mTitleText = (EditText) findViewById(R.id.reminder_title);
         mDateText = (TextView) findViewById(R.id.set_date);
         mTimeText = (TextView) findViewById(R.id.set_time);
+        analytics = FirebaseAnalytics.getInstance(ReminderEditActivity.this);
 
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         // Setup Toolbar

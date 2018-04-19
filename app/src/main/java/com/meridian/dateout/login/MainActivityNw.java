@@ -8,7 +8,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
+
+import static com.meridian.dateout.Constants.analytics;
 
 
 public class MainActivityNw extends FragmentActivity {
@@ -23,6 +26,9 @@ public class MainActivityNw extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_activity_nw);
+        analytics = FirebaseAnalytics.getInstance(MainActivityNw.this);
+
+        analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         container = (FrameLayout) findViewById(R.id.frame_container);
         execute();
     }

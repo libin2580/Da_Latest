@@ -39,6 +39,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.fcm.Config;
@@ -86,6 +87,9 @@ public class RegisterActivity extends AppCompatActivity {
         //  edtfulnam = (EditText) findViewById(R.id.edt_fulname);
         // edtphon= (EditText) findViewById(R.id.edt_phone);
         //  edtcntct = (EditText) findViewById(R.id.edt_cntct);
+        analytics = FirebaseAnalytics.getInstance(RegisterActivity.this);
+
+      //  analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
       //  final Typeface myFont1 = Typeface.createFromAsset(getApplicationContext().getAssets(), "Roboto-Regular.ttf");

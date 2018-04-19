@@ -56,6 +56,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.fcm.Config;
@@ -136,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 return false;
             }
         });
+        analytics = FirebaseAnalytics.getInstance(LoginActivity.this);
 
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 

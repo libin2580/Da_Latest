@@ -45,6 +45,7 @@ import com.android.volley.toolbox.Volley;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.CollectionsAdapter1;
@@ -115,6 +116,7 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.activity_collections, container, false);
         coordinatorLayout = (LinearLayout) view.findViewById(R.id.activity_category_list);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         progress1= (ProgressBar) view.findViewById(R.id.progress1);

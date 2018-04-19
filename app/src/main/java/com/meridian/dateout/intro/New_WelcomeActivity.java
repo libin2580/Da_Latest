@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.LoginActivity;
@@ -65,6 +66,7 @@ public class New_WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.new_activity_welcome);
         getstarted= (Button) findViewById(R.id.getstarted);
         progress = (ProgressBar) findViewById(R.id.progress_bar);
+        analytics = FirebaseAnalytics.getInstance(New_WelcomeActivity.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         mPager = (ViewPager) findViewById(R.id.pager);

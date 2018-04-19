@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.NetworkCheckingClass;
@@ -109,6 +110,8 @@ private RecyclerView my_reward_recyclerview;
         View view =inflater.inflate(R.layout.fragment_my_reward, container, false);
 
         setRetainInstance(true);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
+
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         text_myrewrds= (LinearLayout) view.findViewById(R.id.lay_text_my_rewrds);

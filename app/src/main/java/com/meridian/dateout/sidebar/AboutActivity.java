@@ -24,6 +24,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -74,6 +75,8 @@ public class AboutActivity  extends Fragment {
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops);
        toolbar.setVisibility(View.VISIBLE);
         back = (LinearLayout)view. findViewById(R.id.img_crcdtlnam);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
+
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         back.setOnClickListener(new View.OnClickListener() {

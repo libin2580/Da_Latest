@@ -26,6 +26,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.RecyclerItemClickListener;
@@ -104,6 +105,7 @@ LinearLayout menu;
         menu= (LinearLayout) view.findViewById(R.id.menu);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
         txt.setText("Email");
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         toolbar = (Toolbar) view.findViewById(R.id.toolbar_tops1);

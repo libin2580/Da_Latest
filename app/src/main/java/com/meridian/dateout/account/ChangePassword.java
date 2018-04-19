@@ -32,6 +32,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.MainActivity;
 import com.meridian.dateout.R;
@@ -77,6 +78,7 @@ public class ChangePassword extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_change_password, container, false);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), "AccountFragment", null /* class override */);
 
         progress = (ProgressBar)  view.findViewById(R.id.progress_bar);

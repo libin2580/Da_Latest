@@ -67,12 +67,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.collections.HttpHandler;
 import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.explore.category_booking_detailspage.CategoryDealDetail;
 import com.meridian.dateout.login.FrameLayoutActivity;
+import com.meridian.dateout.login.RegisterActivity;
 import com.meridian.dateout.model.DealsModel;
 import com.meridian.dateout.nearme.map.DetectConnection;
 import com.meridian.dateout.nearme.map.GPSTracker1;
@@ -225,6 +227,10 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
         FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
         FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
         Re_center = (ImageView) v.findViewById(R.id.recenter);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
+
+        //  analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
+       // analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         analytics.setCurrentScreen(getActivity(),getActivity().getLocalClassName(), null /* class override */);
 
         markers = new ArrayList<>();

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 
@@ -78,7 +79,7 @@ public class ChatFragment extends Fragment {
 
         FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
         FrameLayoutActivity.my_location.setVisibility(View.GONE);
-
+        analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);

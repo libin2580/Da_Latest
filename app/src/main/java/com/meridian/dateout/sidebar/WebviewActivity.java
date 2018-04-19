@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 
 import static com.meridian.dateout.Constants.analytics;
@@ -23,6 +24,8 @@ String url;
         wv= (WebView) findViewById(R.id.webvw);
         progress = (ProgressBar)findViewById(R.id.progress_bar);
         Bundle extras = getIntent().getExtras();
+        analytics = FirebaseAnalytics.getInstance(WebviewActivity.this);
+
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         if (extras != null) {

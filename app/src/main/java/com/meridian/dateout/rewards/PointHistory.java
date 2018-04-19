@@ -26,6 +26,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -112,6 +113,8 @@ TextView txt_points_in_hand_date,txt_points_in_hand_points,txt_points_earned_dat
         progress_bar=(ProgressBar)v.findViewById(R.id.progress_bar);
         txt= (TextView) v.findViewById(R.id.toolbar_txt);
         menu= (LinearLayout) v. findViewById(R.id.menu);
+        analytics = FirebaseAnalytics.getInstance(getActivity());
+
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         txt.setText("POINTS HISTORY");

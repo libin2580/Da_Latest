@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.address.Adddetails;
 
@@ -62,6 +63,7 @@ public class Cart_details extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         progress_bar_explore = (ProgressBar)findViewById(R.id.progress_bar_explore);
         Checkout = (LinearLayout)findViewById(R.id.checkout);
+        analytics = FirebaseAnalytics.getInstance(Cart_details.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 
         promocode=findViewById(R.id.promocode);
