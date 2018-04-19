@@ -65,6 +65,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.explore.CollectionsAdapter1.jsonlist;
+import static com.meridian.dateout.explore.CollectionsAdapter2.str_sorted_by;
 
 
 /**
@@ -265,20 +267,17 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
         apply_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filter_popupwindow.dismiss();
-                if (filter_by.equalsIgnoreCase("catagories")) {
-                    Toast.makeText(getApplicationContext(), "catagories", Toast.LENGTH_SHORT).show();
-                    // get_filter_list_by_catagories(jsonlist);
-                }
+
+
                 if (filter_by.equalsIgnoreCase("location")) {
-                    Toast.makeText(getApplicationContext(), "location", Toast.LENGTH_SHORT).show();
-                    //get_filter_list_by_location();
+
+                    get_filter_list_by_location(jsonlist);
                 }
                 if (filter_by.equalsIgnoreCase("price")) {
                     str_range_from = tvMin.getText().toString();
                     str_range_to = tvMax.getText().toString();
-                    Toast.makeText(getApplicationContext(), "price", Toast.LENGTH_SHORT).show();
-                    //  get_filter_list_by_price(str_range_from, str_range_to);
+
+                      get_filter_list_by_price(str_range_from, str_range_to);
                 }
                 if (filter_by.equalsIgnoreCase("schedule")) {
                     Date start_date = calendar_view.getSelectedDates().get(0);
@@ -286,12 +285,12 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
                     final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     String start_date1 = formatter.format(start_date);
                     String end_date1 = formatter.format(end_date);
-                    Toast.makeText(getApplicationContext(), "schedule", Toast.LENGTH_SHORT).show();
-                    // get_filter_list_by_schedule(start_date1, end_date1);
+
+                     get_filter_list_by_schedule(start_date1, end_date1);
                 }
                 if (filter_by.equalsIgnoreCase("sort_by")) {
 
-                    //get_filter_list_sort_by(str_sorted_by);
+                    get_filter_list_sort_by(str_sorted_by);
                 }
             }
         });
@@ -331,8 +330,8 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
     }
 
     private void recycler_inflate() {
-
-
+        categoryDealModelArrayList = new ArrayList<>();
+        categoryDealModelArrayList.clear();
         NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
         boolean i = networkCheckingClass.ckeckinternet();
         if (i == true) {
@@ -348,7 +347,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
 
                             try {
                                 JSONArray jsonarray = new JSONArray(response);
-                                categoryDealModelArrayList = new ArrayList<>();
+
 
 
                                 for (int i = 0; i < jsonarray.length(); i++) {
@@ -440,7 +439,6 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
                                                     }
                                                 })
                                         );
-////
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -460,9 +458,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-
                     params.put("category_id", String.valueOf(category_id));
-
                     return params;
                 }
 
@@ -764,6 +760,697 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
         stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
+    }
+    private void get_filter_list_by_price(final String range_from, final String range_to) {
+           progress.setVisibility(View.VISIBLE);
+           categoryDealModelArrayList = new ArrayList<>();
+            categoryDealModelArrayList.clear();
+            NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
+            boolean i = networkCheckingClass.ckeckinternet();
+            if (i) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/category-deals-byfilter.php",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                //  tv.setText("Response is: "+ response);
+                                progress.setVisibility(View.GONE);
+                                System.out.println("++++++++++++++RESPONSE+++++++++++++++   dealactivity :" + response);
+                                filter_popupwindow.dismiss();
+
+                                try {
+                                    JSONObject jsonObjec = new JSONObject(response);
+                                    String data=jsonObjec.getString("data");
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if (jsonObject.has("deals")) {
+                                            try {
+                                                JSONArray jsonarray = jsonObject.getJSONArray("deals");
+                                                for (int i = 0; i < jsonarray.length(); i++) {
+                                                    CategoryDealModel categoryDealModel = new CategoryDealModel();
+
+                                                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                                    if(jsonobject.has("id")) {
+                                                        id = jsonobject.getString("id");
+                                                    }
+                                                    if(jsonobject.has("title")) {
+                                                        title = jsonobject.getString("title");
+                                                    }
+                                                    if(jsonobject.has("image")) {
+                                                        image = jsonobject.getString("image");
+                                                    }
+                                                    if(jsonobject.has("description")) {
+                                                        description = jsonobject.getString("description");
+                                                    }
+                                                    if(jsonobject.has("timing")) {
+                                                        timing = jsonobject.getString("timing");
+                                                    }
+                                                    if(jsonobject.has("delivery")) {
+                                                        delivery = jsonobject.getString("delivery");
+                                                    }
+
+                                                    if(jsonobject.has("tags")) {
+                                                        tags = jsonobject.getString("tags");
+                                                    }  if(jsonobject.has("price")) {
+                                                        price = jsonobject.getString("price");
+                                                    }
+                                                    if(jsonobject.has("tkt_discounted_price")) {
+                                                        tkt_discounted_price = jsonobject.getString("tkt_discounted_price");
+                                                    }
+                                                    if(jsonobject.has("seller_id")) {
+                                                        seller_id = jsonobject.getString("seller_id");
+                                                    }
+                                                    if(jsonobject.has("currency")) {
+                                                        currency = jsonobject.getString("currency");
+                                                    }
+                                                    if(jsonobject.has("deal_slug")) {
+                                                        deal_slug = jsonobject.getString("deal_slug");
+                                                    }
+                                                    if(jsonobject.has("comment_option")) {
+                                                        comment_option = jsonobject.getString("comment_option");
+                                                    }
+                                                    categoryDealModel.setId(id);
+                                                    categoryDealModel.setCategory(category);
+                                                    categoryDealModel.setTitle(title);
+                                                    categoryDealModel.setDelivery(delivery);
+                                                    categoryDealModel.setDescription(description);
+                                                    //   categoryDealModel.setDiscount(discount);
+                                                    categoryDealModel.setImage(image);
+                                                    categoryDealModel.setTags(tags);
+                                                    categoryDealModel.setSeller_id(seller_id);
+                                                    categoryDealModel.setTiming(timing);
+                                                    categoryDealModel.setCurrency(currency);
+                                                    categoryDealModel.setDiscount(tkt_discounted_price);
+                                                    categoryDealModel.setPrice(price);
+                                                    categoryDealModel.setDeal_slug(deal_slug);
+                                                    categoryDealModel.setcomment_option(comment_option);
+                                                    categoryDealModelArrayList.add(categoryDealModel);
+
+
+                                                }
+
+                                            } catch (JSONException ee) {
+                                                ee.printStackTrace();
+                                            }
+
+                                        }
+                                    }
+                                    catch (JSONException ee) {
+                                        ee.printStackTrace();
+                                    }
+
+
+                                    recyclerAdapterCategoryDeal = new RecyclerAdapterCategoryDeal(categoryDealModelArrayList, getActivity());
+                                    recyclerView.scheduleLayoutAnimation();
+                                    recyclerView.setAdapter(recyclerAdapterCategoryDeal);
+                                    recyclerView.addOnItemTouchListener
+                                            (
+                                                    new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                                                        @Override
+                                                        public void onItemClick(View view, int position) {
+                                                            int clickd_id =
+                                                                    Integer.parseInt(categoryDealModelArrayList.get(position).getId());
+                                                            String deal_slug = categoryDealModelArrayList.get(position).getDeal_slug();
+                                                            // int clickd_id = position + 1;
+                                                            Intent i = new Intent(getActivity(), CategoryDealDetail.class);
+                                                            i.putExtra("deal_id", clickd_id);
+                                                            i.putExtra("deal_slug", deal_slug);
+                                                            startActivity(i);
+
+
+                                                        }
+                                                    })
+                                            );
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                                progress.setVisibility(View.GONE);
+                                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("category", String.valueOf(category_id));
+                        params.put("price_from", range_from);
+                        params.put("price_to", range_to);
+                        return params;
+                    }
+
+                };
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                int socketTimeout = 30000;//30 seconds - change to what you want
+                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                stringRequest.setRetryPolicy(policy);
+                requestQueue.add(stringRequest);
+            } else {
+                final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.NORMAL_TYPE);
+                dialog.setTitleText("")
+                        .setContentText("Oops Your Connection Seems Off..")
+
+                        .setConfirmText("OK")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+                dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+
+            }
+
+
+
+
+    }
+    private void get_filter_list_by_schedule(final String strt_date, final String end_dat) {
+        progress.setVisibility(View.VISIBLE);
+        categoryDealModelArrayList = new ArrayList<>();
+        categoryDealModelArrayList.clear();
+        NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
+        boolean i = networkCheckingClass.ckeckinternet();
+        if (i) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/category-deals-byfilter.php",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            //  tv.setText("Response is: "+ response);
+                            filter_popupwindow.dismiss();
+                            System.out.println("++++++++++++++RESPONSE+++++++++++++++   dealactivity :" + response);
+                            progress.setVisibility(View.GONE);
+
+                            try {
+                                JSONObject jsonObjec = new JSONObject(response);
+                                String data=jsonObjec.getString("data");
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.has("deals")) {
+                                        try {
+                                            JSONArray jsonarray = jsonObject.getJSONArray("deals");
+                                            for (int i = 0; i < jsonarray.length(); i++) {
+                                                CategoryDealModel categoryDealModel = new CategoryDealModel();
+
+                                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                                if(jsonobject.has("id")) {
+                                                    id = jsonobject.getString("id");
+                                                }
+                                                if(jsonobject.has("title")) {
+                                                    title = jsonobject.getString("title");
+                                                }
+                                                if(jsonobject.has("image")) {
+                                                    image = jsonobject.getString("image");
+                                                }
+                                                if(jsonobject.has("description")) {
+                                                    description = jsonobject.getString("description");
+                                                }
+                                                if(jsonobject.has("timing")) {
+                                                    timing = jsonobject.getString("timing");
+                                                }
+                                                if(jsonobject.has("delivery")) {
+                                                    delivery = jsonobject.getString("delivery");
+                                                }
+
+                                                if(jsonobject.has("tags")) {
+                                                    tags = jsonobject.getString("tags");
+                                                }  if(jsonobject.has("price")) {
+                                                    price = jsonobject.getString("price");
+                                                }
+                                                if(jsonobject.has("tkt_discounted_price")) {
+                                                    tkt_discounted_price = jsonobject.getString("tkt_discounted_price");
+                                                }
+                                                if(jsonobject.has("seller_id")) {
+                                                    seller_id = jsonobject.getString("seller_id");
+                                                }
+                                                if(jsonobject.has("currency")) {
+                                                    currency = jsonobject.getString("currency");
+                                                }
+                                                if(jsonobject.has("deal_slug")) {
+                                                    deal_slug = jsonobject.getString("deal_slug");
+                                                }
+                                                if(jsonobject.has("comment_option")) {
+                                                    comment_option = jsonobject.getString("comment_option");
+                                                }
+                                                categoryDealModel.setId(id);
+                                                categoryDealModel.setCategory(category);
+                                                categoryDealModel.setTitle(title);
+                                                categoryDealModel.setDelivery(delivery);
+                                                categoryDealModel.setDescription(description);
+                                                //   categoryDealModel.setDiscount(discount);
+                                                categoryDealModel.setImage(image);
+                                                categoryDealModel.setTags(tags);
+                                                categoryDealModel.setSeller_id(seller_id);
+                                                categoryDealModel.setTiming(timing);
+                                                categoryDealModel.setCurrency(currency);
+                                                categoryDealModel.setDiscount(tkt_discounted_price);
+                                                categoryDealModel.setPrice(price);
+                                                categoryDealModel.setDeal_slug(deal_slug);
+                                                categoryDealModel.setcomment_option(comment_option);
+                                                categoryDealModelArrayList.add(categoryDealModel);
+
+
+                                            }
+
+                                        } catch (JSONException ee) {
+                                            ee.printStackTrace();
+                                        }
+
+                                    }
+                                }
+                                catch (JSONException ee) {
+                                    ee.printStackTrace();
+                                }
+
+
+                                recyclerAdapterCategoryDeal = new RecyclerAdapterCategoryDeal(categoryDealModelArrayList, getActivity());
+                                recyclerView.scheduleLayoutAnimation();
+                                recyclerView.setAdapter(recyclerAdapterCategoryDeal);
+                                recyclerView.addOnItemTouchListener
+                                        (
+                                                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                                                    @Override
+                                                    public void onItemClick(View view, int position) {
+                                                        int clickd_id =
+                                                                Integer.parseInt(categoryDealModelArrayList.get(position).getId());
+                                                        String deal_slug = categoryDealModelArrayList.get(position).getDeal_slug();
+                                                        // int clickd_id = position + 1;
+                                                        Intent i = new Intent(getActivity(), CategoryDealDetail.class);
+                                                        i.putExtra("deal_id", clickd_id);
+                                                        i.putExtra("deal_slug", deal_slug);
+                                                        startActivity(i);
+
+
+                                                    }
+                                                })
+                                        );
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                            progress.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("category", String.valueOf(category_id));
+                    params.put("date_from", strt_date);
+                    params.put("date_to", end_dat);
+                    return params;
+                }
+
+            };
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            int socketTimeout = 30000;//30 seconds - change to what you want
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            stringRequest.setRetryPolicy(policy);
+            requestQueue.add(stringRequest);
+        } else {
+            final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.NORMAL_TYPE);
+            dialog.setTitleText("")
+                    .setContentText("Oops Your Connection Seems Off..")
+
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+
+        }
+
+
+
+
+    }
+    private void get_filter_list_sort_by(final String str_sorted_by)  {
+        progress.setVisibility(View.VISIBLE);
+        categoryDealModelArrayList = new ArrayList<>();
+        categoryDealModelArrayList.clear();
+        NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
+        boolean i = networkCheckingClass.ckeckinternet();
+        if (i) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/category-deals-byfilter.php",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            //  tv.setText("Response is: "+ response);
+                            filter_popupwindow.dismiss();
+                            System.out.println("++++++++++++++RESPONSE+++++++++++++++   dealactivity :" + response);
+                            progress.setVisibility(View.GONE);
+
+                            try {
+                                JSONObject jsonObjec = new JSONObject(response);
+                                String data=jsonObjec.getString("data");
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.has("deals")) {
+                                        try {
+                                            JSONArray jsonarray = jsonObject.getJSONArray("deals");
+                                            for (int i = 0; i < jsonarray.length(); i++) {
+                                                CategoryDealModel categoryDealModel = new CategoryDealModel();
+
+                                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                                if(jsonobject.has("id")) {
+                                                    id = jsonobject.getString("id");
+                                                }
+                                                if(jsonobject.has("title")) {
+                                                    title = jsonobject.getString("title");
+                                                }
+                                                if(jsonobject.has("image")) {
+                                                    image = jsonobject.getString("image");
+                                                }
+                                                if(jsonobject.has("description")) {
+                                                    description = jsonobject.getString("description");
+                                                }
+                                                if(jsonobject.has("timing")) {
+                                                    timing = jsonobject.getString("timing");
+                                                }
+                                                if(jsonobject.has("delivery")) {
+                                                    delivery = jsonobject.getString("delivery");
+                                                }
+
+                                                if(jsonobject.has("tags")) {
+                                                    tags = jsonobject.getString("tags");
+                                                }  if(jsonobject.has("price")) {
+                                                    price = jsonobject.getString("price");
+                                                }
+                                                if(jsonobject.has("tkt_discounted_price")) {
+                                                    tkt_discounted_price = jsonobject.getString("tkt_discounted_price");
+                                                }
+                                                if(jsonobject.has("seller_id")) {
+                                                    seller_id = jsonobject.getString("seller_id");
+                                                }
+                                                if(jsonobject.has("currency")) {
+                                                    currency = jsonobject.getString("currency");
+                                                }
+                                                if(jsonobject.has("deal_slug")) {
+                                                    deal_slug = jsonobject.getString("deal_slug");
+                                                }
+                                                if(jsonobject.has("comment_option")) {
+                                                    comment_option = jsonobject.getString("comment_option");
+                                                }
+                                                categoryDealModel.setId(id);
+                                                categoryDealModel.setCategory(category);
+                                                categoryDealModel.setTitle(title);
+                                                categoryDealModel.setDelivery(delivery);
+                                                categoryDealModel.setDescription(description);
+                                                //   categoryDealModel.setDiscount(discount);
+                                                categoryDealModel.setImage(image);
+                                                categoryDealModel.setTags(tags);
+                                                categoryDealModel.setSeller_id(seller_id);
+                                                categoryDealModel.setTiming(timing);
+                                                categoryDealModel.setCurrency(currency);
+                                                categoryDealModel.setDiscount(tkt_discounted_price);
+                                                categoryDealModel.setPrice(price);
+                                                categoryDealModel.setDeal_slug(deal_slug);
+                                                categoryDealModel.setcomment_option(comment_option);
+                                                categoryDealModelArrayList.add(categoryDealModel);
+
+
+                                            }
+
+                                        } catch (JSONException ee) {
+                                            ee.printStackTrace();
+                                        }
+
+                                    }
+                                }
+                                catch (JSONException ee) {
+                                    ee.printStackTrace();
+                                }
+
+
+                                recyclerAdapterCategoryDeal = new RecyclerAdapterCategoryDeal(categoryDealModelArrayList, getActivity());
+                                recyclerView.scheduleLayoutAnimation();
+                                recyclerView.setAdapter(recyclerAdapterCategoryDeal);
+                                recyclerView.addOnItemTouchListener
+                                        (
+                                                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                                                    @Override
+                                                    public void onItemClick(View view, int position) {
+                                                        int clickd_id =
+                                                                Integer.parseInt(categoryDealModelArrayList.get(position).getId());
+                                                        String deal_slug = categoryDealModelArrayList.get(position).getDeal_slug();
+                                                        // int clickd_id = position + 1;
+                                                        Intent i = new Intent(getActivity(), CategoryDealDetail.class);
+                                                        i.putExtra("deal_id", clickd_id);
+                                                        i.putExtra("deal_slug", deal_slug);
+                                                        startActivity(i);
+
+
+                                                    }
+                                                })
+                                        );
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                            progress.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("category", String.valueOf(category_id));
+                    params.put("sortby", str_sorted_by);
+                    return params;
+                }
+
+            };
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            int socketTimeout = 30000;//30 seconds - change to what you want
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            stringRequest.setRetryPolicy(policy);
+            requestQueue.add(stringRequest);
+        } else {
+            final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.NORMAL_TYPE);
+            dialog.setTitleText("")
+                    .setContentText("Oops Your Connection Seems Off..")
+
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+
+        }
+
+
+
+
+    }
+    private void get_filter_list_by_location(final ArrayList<String> jsonlist) {
+        progress.setVisibility(View.VISIBLE);
+        categoryDealModelArrayList = new ArrayList<>();
+        categoryDealModelArrayList.clear();
+        NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
+        boolean i = networkCheckingClass.ckeckinternet();
+        if (i) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/category-deals-byfilter.php",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            progress.setVisibility(View.GONE);
+                            filter_popupwindow.dismiss();
+                            System.out.println("++++++++++++++RESPONSE+++++++++++++++   dealactivity :" + response);
+                            try {
+                                JSONObject jsonObjec = new JSONObject(response);
+                                String data=jsonObjec.getString("data");
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.has("deals")) {
+                                        try {
+                                            JSONArray jsonarray = jsonObject.getJSONArray("deals");
+                                            for (int i = 0; i < jsonarray.length(); i++) {
+                                                CategoryDealModel categoryDealModel = new CategoryDealModel();
+
+                                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                                if(jsonobject.has("id")) {
+                                                    id = jsonobject.getString("id");
+                                                }
+                                                if(jsonobject.has("title")) {
+                                                    title = jsonobject.getString("title");
+                                                }
+                                                if(jsonobject.has("image")) {
+                                                    image = jsonobject.getString("image");
+                                                }
+                                                if(jsonobject.has("description")) {
+                                                    description = jsonobject.getString("description");
+                                                }
+                                                if(jsonobject.has("timing")) {
+                                                    timing = jsonobject.getString("timing");
+                                                }
+                                                if(jsonobject.has("delivery")) {
+                                                    delivery = jsonobject.getString("delivery");
+                                                }
+
+                                                if(jsonobject.has("tags")) {
+                                                    tags = jsonobject.getString("tags");
+                                                }  if(jsonobject.has("price")) {
+                                                    price = jsonobject.getString("price");
+                                                }
+                                                if(jsonobject.has("tkt_discounted_price")) {
+                                                    tkt_discounted_price = jsonobject.getString("tkt_discounted_price");
+                                                }
+                                                if(jsonobject.has("seller_id")) {
+                                                    seller_id = jsonobject.getString("seller_id");
+                                                }
+                                                if(jsonobject.has("currency")) {
+                                                    currency = jsonobject.getString("currency");
+                                                }
+                                                if(jsonobject.has("deal_slug")) {
+                                                    deal_slug = jsonobject.getString("deal_slug");
+                                                }
+                                                if(jsonobject.has("comment_option")) {
+                                                    comment_option = jsonobject.getString("comment_option");
+                                                }
+                                                categoryDealModel.setId(id);
+                                                categoryDealModel.setCategory(category);
+                                                categoryDealModel.setTitle(title);
+                                                categoryDealModel.setDelivery(delivery);
+                                                categoryDealModel.setDescription(description);
+                                                //   categoryDealModel.setDiscount(discount);
+                                                categoryDealModel.setImage(image);
+                                                categoryDealModel.setTags(tags);
+                                                categoryDealModel.setSeller_id(seller_id);
+                                                categoryDealModel.setTiming(timing);
+                                                categoryDealModel.setCurrency(currency);
+                                                categoryDealModel.setDiscount(tkt_discounted_price);
+                                                categoryDealModel.setPrice(price);
+                                                categoryDealModel.setDeal_slug(deal_slug);
+                                                categoryDealModel.setcomment_option(comment_option);
+                                                categoryDealModelArrayList.add(categoryDealModel);
+
+
+                                            }
+
+                                        } catch (JSONException ee) {
+                                            ee.printStackTrace();
+                                        }
+
+                                    }
+                                }
+                                catch (JSONException ee) {
+                                    ee.printStackTrace();
+                                }
+
+
+                                recyclerAdapterCategoryDeal = new RecyclerAdapterCategoryDeal(categoryDealModelArrayList, getActivity());
+                                recyclerView.scheduleLayoutAnimation();
+                                recyclerView.setAdapter(recyclerAdapterCategoryDeal);
+                                recyclerView.addOnItemTouchListener
+                                        (
+                                                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                                                    @Override
+                                                    public void onItemClick(View view, int position) {
+                                                        int clickd_id =
+                                                                Integer.parseInt(categoryDealModelArrayList.get(position).getId());
+                                                        String deal_slug = categoryDealModelArrayList.get(position).getDeal_slug();
+                                                        // int clickd_id = position + 1;
+                                                        Intent i = new Intent(getActivity(), CategoryDealDetail.class);
+                                                        i.putExtra("deal_id", clickd_id);
+                                                        i.putExtra("deal_slug", deal_slug);
+                                                        startActivity(i);
+
+
+                                                    }
+                                                })
+                                        );
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                            progress.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("category", String.valueOf(category_id));
+                    params.put("Location", String.valueOf(jsonlist));
+                    return params;
+                }
+
+            };
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            int socketTimeout = 30000;//30 seconds - change to what you want
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            stringRequest.setRetryPolicy(policy);
+            requestQueue.add(stringRequest);
+        } else {
+            final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.NORMAL_TYPE);
+            dialog.setTitleText("")
+                    .setContentText("Oops Your Connection Seems Off..")
+
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+
+        }
+
+
+
+
     }
 
 }

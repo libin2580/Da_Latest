@@ -18,7 +18,7 @@ import java.util.List;
 public class CollectionsAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     private List<Spinner_model1> SpinList1;
-    static String str_sorted_by;
+    public static String str_sorted_by;
     int select_position=-1;
 
     public CollectionsAdapter2(Context context, List<Spinner_model1> SpinList1) {

@@ -19,7 +19,7 @@ import java.util.List;
 public class CollectionsAdapter1 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     private List<Spinner_model1> SpinList1;
-    static ArrayList<String> jsonlist;
+    public static ArrayList<String> jsonlist;
 
     public CollectionsAdapter1(Context context, List<Spinner_model1> SpinList1) {
         this.context = context;
