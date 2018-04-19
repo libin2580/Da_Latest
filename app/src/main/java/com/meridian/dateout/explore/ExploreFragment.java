@@ -32,7 +32,6 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -307,17 +306,17 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 filter_popupwindow.dismiss();
                 if (filter_by.equalsIgnoreCase("catagories")) {
-                    Toast.makeText(getApplicationContext(), "catagories", Toast.LENGTH_SHORT).show();
+
                     get_filter_list_by_catagories(jsonlist);
                 }
                 if (filter_by.equalsIgnoreCase("location")) {
-                    Toast.makeText(getApplicationContext(), "location", Toast.LENGTH_SHORT).show();
-                    get_filter_list_by_location();
+
+                    get_filter_list_by_location(jsonlist);
                 }
                 if (filter_by.equalsIgnoreCase("price")) {
                     str_range_from = tvMin.getText().toString();
                     str_range_to = tvMax.getText().toString();
-                    Toast.makeText(getApplicationContext(), "price", Toast.LENGTH_SHORT).show();
+
                     get_filter_list_by_price(str_range_from, str_range_to);
                 }
                 if (filter_by.equalsIgnoreCase("schedule")) {
@@ -326,7 +325,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                     final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     String start_date1 = formatter.format(start_date);
                     String end_date1 = formatter.format(end_date);
-                    Toast.makeText(getApplicationContext(), "schedule", Toast.LENGTH_SHORT).show();
+
                     get_filter_list_by_schedule(start_date1, end_date1);
                 }
                 if (filter_by.equalsIgnoreCase("sort_by")) {
@@ -433,7 +432,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
     private void get_filter_list_sort_by(final String str_sorted_by) {
         progress1.setVisibility(View.VISIBLE);
-        Toast.makeText(getApplicationContext(), "sort_by"+ str_sorted_by, Toast.LENGTH_SHORT).show();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/explore.php",
                 new Response.Listener<String>() {
                     @Override
@@ -863,7 +862,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         requestQueue.getCache().clear();
     }
 
-    private void get_filter_list_by_location() {
+    private void get_filter_list_by_location(final ArrayList<String> jsonlist) {
         progress1.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/explore.php",
                 new Response.Listener<String>() {
@@ -1062,7 +1061,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("location", "2");
+                params.put("location", String.valueOf(jsonlist));
                 System.out.println("----------- params : " + params);
                 return params;
             }

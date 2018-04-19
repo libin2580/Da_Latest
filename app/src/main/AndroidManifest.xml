@@ -51,7 +51,11 @@
         <activity
             android:name=".login.SplashScreen"
             android:screenOrientation="portrait">
+            <intent-filter>
 
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,8 +67,6 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:host="www.dateout.co.php56-27.phx1-2.websitetestlink.com"/>
                 <data android:scheme="http"/>
-                <data android:scheme="https" />
-
             </intent-filter>
         </activity>
 

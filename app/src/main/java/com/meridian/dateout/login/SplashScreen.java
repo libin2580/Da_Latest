@@ -14,16 +14,12 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.appinvite.FirebaseAppInvite;
-import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
-import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.category_booking_detailspage.CategoryDealDetail;
@@ -146,8 +142,6 @@ public class SplashScreen extends AppCompatActivity {
 
 
         }
-      //  shareIt();
-
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
@@ -183,12 +177,6 @@ public class SplashScreen extends AppCompatActivity {
                         }
 
 
-                        // Handle the deep link. For example, open the linked
-                        // content, or apply promotional credit to the user's
-                        // account.
-                        // ...
-
-                        // ...
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -198,129 +186,6 @@ public class SplashScreen extends AppCompatActivity {
                     }
                 });
     }
-    private void shareIt1() {
-        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/view_deal/"))
-                .setDynamicLinkDomain("rkag5.app.goo.gl")
-                .setAndroidParameters(
-                        new DynamicLink.AndroidParameters.Builder("com.meridian.dateout")
-                                .setMinimumVersion(125)
-                                .build())
-                .setIosParameters(
-                        new DynamicLink.IosParameters.Builder("com.meridian.wildlyyours")
-                                .setAppStoreId("123456789")
-                                .setMinimumVersion("1.0.1")
-                                .build())
-                .setGoogleAnalyticsParameters(
-                        new DynamicLink.GoogleAnalyticsParameters.Builder()
-                                .setSource("orkut")
-                                .setMedium("social")
-                                .setCampaign("example-promo")
-                                .build())
-                .setItunesConnectAnalyticsParameters(
-                        new DynamicLink.ItunesConnectAnalyticsParameters.Builder()
-                                .setProviderToken("123456")
-                                .setCampaignToken("example-promo")
-                                .build())
-                .setSocialMetaTagParameters(
-                        new DynamicLink.SocialMetaTagParameters.Builder()
-                                .setTitle("Example of a Dynamic Link")
-                                .setDescription("This link works whether the app is installed or not!")
-                                .build())
-                .buildDynamicLink();  // Or buildShortDynamicLink()
-
-        Uri dynamicLinkUri = dynamicLink.getUri();
-
-        Log.e("bbbbbbbbbbbbb", String.valueOf(dynamicLinkUri));
-
-        Intent in = new Intent();
-        String msg = dynamicLinkUri.toString();
-        in.setAction(Intent.ACTION_SEND);
-        in.putExtra(Intent.EXTRA_TEXT, msg);
-        in.setType("text/plain");
-        startActivity(in);
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void shareIt() {
-              /*  Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Date Out");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, " ");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Hey check out "+"'"+title+"'"+" Deal in DateOut website \n\n" +
-                                "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/view_deal/"+deal_slug);
-                sharingIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));*/
-
-        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/view_deal/null"))
-                .setDynamicLinkDomain("rkag5.app.goo.gl")
-                // Set parameters
-                // ...
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.meridian.dateout").build())
-                // Open links with com.example.ios on iOS
-                .setIosParameters(new DynamicLink.IosParameters.Builder("com.meridian.wildlyyours").build())
-                .buildShortDynamicLink()
-                .addOnCompleteListener(SplashScreen.this, new OnCompleteListener<ShortDynamicLink>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-                        if (task.isSuccessful()) {
-                            // Short link created
-                            Uri shortLink = task.getResult().getShortLink();
-                            Uri flowchartLink = task.getResult().getPreviewLink();
-
-                            Log.e("aaaaaaaaaaaaaaa14", String.valueOf(shortLink));
-                            Log.e("aaaaaaaaaaaaaaaa15",String.valueOf(flowchartLink));
-
-                            Intent in=new Intent();
-                            String msg=flowchartLink.toString();
-                            in.setAction(Intent.ACTION_SEND);
-                            in.putExtra(Intent.EXTRA_TEXT,msg);
-                            in.setType("text/plain");
-                            startActivity(in);
-
-
-                        } else
-                        {
-                            Log.e("aaaaaaaaaaaaaaa16","errorloading");
-                        }
-                    }
-                });
-
-
-
-               /* DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                        .setLink(Uri.parse("http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/view_deal/null"))
-                        .setDynamicLinkDomain("rkag5.app.goo.gl")
-                        // Open links with this app on Android
-                        .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.meridian.dateout").build())
-                        // Open links with com.example.ios on iOS
-                        .setIosParameters(new DynamicLink.IosParameters.Builder("com.meridian.wildlyyours").build())
-                        .buildDynamicLink();
-
-                Uri dynamicLinkUri = dynamicLink.getUri();
-
-                Log.e("aaaaaaaaaaa", String.valueOf(dynamicLinkUri));*/
-
-    }
-
-
-
-
 
     @Override
     protected void onResume() {
