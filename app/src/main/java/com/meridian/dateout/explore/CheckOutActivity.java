@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -31,16 +32,19 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.address.Adddetails;
+import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import kotlin.Pair;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.analytics;
@@ -67,6 +71,7 @@ public class CheckOutActivity extends AppCompatActivity {
     TextView ntxt_amount;
     String new_amont,status,amount,discount_amount,message;
     ImageView Home;
+    String userid,android_id,device_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +128,45 @@ public class CheckOutActivity extends AppCompatActivity {
         txt_addaddress = (TextView) findViewById(R.id.textaddress);
         button_check_out= (Button) findViewById(R.id.button_check_out);
         edt_coupon_code= (EditText) findViewById(R.id.edt_coupon_code);
+
+
+        android_id = Settings.Secure.getString(CheckOutActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID);
+        try {
+
+            SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            String  user_id = preferences.getString("user_id", null);
+
+            if (user_id != null) {
+                userid = user_id;
+               device_id="0";
+                System.out.println("userid" + userid);
+            }
+            else {
+                userid = "0";
+                device_id=android_id;
+            }
+            SharedPreferences preferences1 = getApplicationContext().getSharedPreferences("myfbid", MODE_PRIVATE);
+            String  profile_id = preferences1.getString("user_idfb", null);
+            if (profile_id != null) {
+                userid = profile_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences2 = getApplicationContext().getSharedPreferences("value_gmail", MODE_PRIVATE);
+            String profileid_gmail = preferences2.getString("user_id", null);
+            if (profileid_gmail != null) {
+                userid = profileid_gmail;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences_user_id =getApplicationContext().getSharedPreferences("user_idnew", MODE_PRIVATE);
+            SharedPreferences.Editor editor =preferences_user_id.edit();
+            editor.putString("new_userid",  userid);
+            editor.apply();
+
+        }
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
         Home= (ImageView) findViewById(R.id.home);
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,12 +290,21 @@ public class CheckOutActivity extends AppCompatActivity {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError
                         {
+                           /* if (userid != null) {
+                                userid = user_id;
+                                device_id="0";
+                                System.out.println("userid" + userid);
+                            }
+                            else {
+                                userid = "0";
+                                device_id=android_id;
+                            }*/
                             Map<String, String> params = new HashMap<String, String>();
                             //meridian.net.in/demo/etsdc/response.php?fid=1&email=" + email + "&phone=" + phon + "&name=" + fulnam + "&occupation=" + occ + "&location=" + loc + "&password=" + pass
-                            params.put("deal_id",checkout_deal_id);
+                            params.put("user_id",userid);
                             params.put("coupon",coupn_value);
-                            params.put("amount",checkout_total_price);
-
+                            params.put("device_id",android_id);
+                            System.out.println("params" + params);
                             return params;
                         }
 

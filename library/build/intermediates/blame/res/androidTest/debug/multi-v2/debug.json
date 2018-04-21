@@ -399,28 +399,6 @@
             ]
         },
         {
-            "outputFile": "E:\\Cybraum New Projects\\MOBILE_APPLICATIONS\\ANDROID\\libin\\27march2018\\DateOut\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-zh-rHK_values-zh-rHK.arsc.flat",
-            "map": [
-                {
-                    "source": "C:\\Users\\user\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\f2c1c01f9456fc77dd59fa8c5c70a684\\res\\values-zh-rHK\\values.xml",
-                    "from": {
-                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "56,151,258,381,474,574,656,753,861,957,1053,1148,1245,1340,1438",
-                        "endColumns": "94,106,122,92,99,81,96,107,95,95,94,96,94,97,112",
-                        "endOffsets": "146,253,376,469,569,651,748,856,952,1048,1143,1240,1335,1433,1546"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,150,257,380,473,573,655,752,860,956,1052,1147,1244,1339,1437",
-                        "endColumns": "94,106,122,92,99,81,96,107,95,95,94,96,94,97,112",
-                        "endOffsets": "145,252,375,468,568,650,747,855,951,1047,1142,1239,1334,1432,1545"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "E:\\Cybraum New Projects\\MOBILE_APPLICATIONS\\ANDROID\\libin\\27march2018\\DateOut\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-uz-rUZ_values-uz-rUZ.arsc.flat",
             "map": [
                 {
@@ -438,6 +416,28 @@
                         "startOffsets": "55,160,268,391,495,612,698,809,925,1034,1141,1240,1348,1453",
                         "endColumns": "104,107,122,103,116,85,110,115,108,106,98,107,104,104",
                         "endOffsets": "155,263,386,490,607,693,804,920,1029,1136,1235,1343,1448,1553"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "E:\\Cybraum New Projects\\MOBILE_APPLICATIONS\\ANDROID\\libin\\27march2018\\DateOut\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-zh-rHK_values-zh-rHK.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\user\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\f2c1c01f9456fc77dd59fa8c5c70a684\\res\\values-zh-rHK\\values.xml",
+                    "from": {
+                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "56,151,258,381,474,574,656,753,861,957,1053,1148,1245,1340,1438",
+                        "endColumns": "94,106,122,92,99,81,96,107,95,95,94,96,94,97,112",
+                        "endOffsets": "146,253,376,469,569,651,748,856,952,1048,1143,1240,1335,1433,1546"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,150,257,380,473,573,655,752,860,956,1052,1147,1244,1339,1437",
+                        "endColumns": "94,106,122,92,99,81,96,107,95,95,94,96,94,97,112",
+                        "endOffsets": "145,252,375,468,568,650,747,855,951,1047,1142,1239,1334,1432,1545"
                     }
                 }
             ]
@@ -841,23 +841,23 @@
             ]
         },
         {
-            "outputFile": "F:\\Backup\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-my-rMM_values-my-rMM.arsc.flat",
+            "outputFile": "E:\\Cybraum New Projects\\MOBILE_APPLICATIONS\\ANDROID\\libin\\27march2018\\DateOut\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ja_values-ja.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\libin\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\9d908aed24b49461e22ef0e2fa88adc8\\res\\values-my-rMM\\values.xml",
+                    "source": "C:\\Users\\user\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\f2c1c01f9456fc77dd59fa8c5c70a684\\res\\values-ja\\values.xml",
                     "from": {
                         "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "56,165,273,398,503,620,713,825,961,1086,1198,1300,1426,1537,1647",
-                        "endColumns": "108,107,124,104,116,92,111,135,124,111,101,125,110,109,122",
-                        "endOffsets": "160,268,393,498,615,708,820,956,1081,1193,1295,1421,1532,1642,1765"
+                        "startOffsets": "56,153,260,381,474,579,661,759,867,969,1068,1163,1266,1361,1457",
+                        "endColumns": "96,106,120,92,104,81,97,107,101,98,94,102,94,95,110",
+                        "endOffsets": "148,255,376,469,574,656,754,862,964,1063,1158,1261,1356,1452,1563"
                     },
                     "to": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,164,272,397,502,619,712,824,960,1085,1197,1299,1425,1536,1646",
-                        "endColumns": "108,107,124,104,116,92,111,135,124,111,101,125,110,109,122",
-                        "endOffsets": "159,267,392,497,614,707,819,955,1080,1192,1294,1420,1531,1641,1764"
+                        "startOffsets": "55,152,259,380,473,578,660,758,866,968,1067,1162,1265,1360,1456",
+                        "endColumns": "96,106,120,92,104,81,97,107,101,98,94,102,94,95,110",
+                        "endOffsets": "147,254,375,468,573,655,753,861,963,1062,1157,1260,1355,1451,1562"
                     }
                 }
             ]
@@ -885,23 +885,23 @@
             ]
         },
         {
-            "outputFile": "E:\\Cybraum New Projects\\MOBILE_APPLICATIONS\\ANDROID\\libin\\27march2018\\DateOut\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ja_values-ja.arsc.flat",
+            "outputFile": "F:\\Backup\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-my-rMM_values-my-rMM.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\user\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\f2c1c01f9456fc77dd59fa8c5c70a684\\res\\values-ja\\values.xml",
+                    "source": "C:\\Users\\libin\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\9d908aed24b49461e22ef0e2fa88adc8\\res\\values-my-rMM\\values.xml",
                     "from": {
                         "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "56,153,260,381,474,579,661,759,867,969,1068,1163,1266,1361,1457",
-                        "endColumns": "96,106,120,92,104,81,97,107,101,98,94,102,94,95,110",
-                        "endOffsets": "148,255,376,469,574,656,754,862,964,1063,1158,1261,1356,1452,1563"
+                        "startOffsets": "56,165,273,398,503,620,713,825,961,1086,1198,1300,1426,1537,1647",
+                        "endColumns": "108,107,124,104,116,92,111,135,124,111,101,125,110,109,122",
+                        "endOffsets": "160,268,393,498,615,708,820,956,1081,1193,1295,1421,1532,1642,1765"
                     },
                     "to": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,152,259,380,473,578,660,758,866,968,1067,1162,1265,1360,1456",
-                        "endColumns": "96,106,120,92,104,81,97,107,101,98,94,102,94,95,110",
-                        "endOffsets": "147,254,375,468,573,655,753,861,963,1062,1157,1260,1355,1451,1562"
+                        "startOffsets": "55,164,272,397,502,619,712,824,960,1085,1197,1299,1425,1536,1646",
+                        "endColumns": "108,107,124,104,116,92,111,135,124,111,101,125,110,109,122",
+                        "endOffsets": "159,267,392,497,614,707,819,955,1080,1192,1294,1420,1531,1641,1764"
                     }
                 }
             ]
@@ -1219,28 +1219,6 @@
             ]
         },
         {
-            "outputFile": "F:\\Backup\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-is-rIS_values-is-rIS.arsc.flat",
-            "map": [
-                {
-                    "source": "C:\\Users\\libin\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\9d908aed24b49461e22ef0e2fa88adc8\\res\\values-is-rIS\\values.xml",
-                    "from": {
-                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "56,156,264,387,484,596,681,782,896,1006,1114,1212,1321,1420,1523",
-                        "endColumns": "99,107,122,96,111,84,100,113,109,107,97,108,98,102,117",
-                        "endOffsets": "151,259,382,479,591,676,777,891,1001,1109,1207,1316,1415,1518,1636"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,155,263,386,483,595,680,781,895,1005,1113,1211,1320,1419,1522",
-                        "endColumns": "99,107,122,96,111,84,100,113,109,107,97,108,98,102,117",
-                        "endOffsets": "150,258,381,478,590,675,776,890,1000,1108,1206,1315,1414,1517,1635"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "E:\\Aandroid Studio\\27march2018\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-mn-rMN_values-mn-rMN.arsc.flat",
             "map": [
                 {
@@ -1258,6 +1236,28 @@
                         "startOffsets": "55,168,276,399,499,612,699,805,917,1026,1130,1227,1335,1436,1539",
                         "endColumns": "112,107,122,99,112,86,105,111,108,103,96,107,100,102,121",
                         "endOffsets": "163,271,394,494,607,694,800,912,1021,1125,1222,1330,1431,1534,1656"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "F:\\Backup\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-is-rIS_values-is-rIS.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\libin\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\9d908aed24b49461e22ef0e2fa88adc8\\res\\values-is-rIS\\values.xml",
+                    "from": {
+                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "56,156,264,387,484,596,681,782,896,1006,1114,1212,1321,1420,1523",
+                        "endColumns": "99,107,122,96,111,84,100,113,109,107,97,108,98,102,117",
+                        "endOffsets": "151,259,382,479,591,676,777,891,1001,1109,1207,1316,1415,1518,1636"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,155,263,386,483,595,680,781,895,1005,1113,1211,1320,1419,1522",
+                        "endColumns": "99,107,122,96,111,84,100,113,109,107,97,108,98,102,117",
+                        "endOffsets": "150,258,381,478,590,675,776,890,1000,1108,1206,1315,1414,1517,1635"
                     }
                 }
             ]
@@ -1483,28 +1483,6 @@
             ]
         },
         {
-            "outputFile": "F:\\Backup\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-w720dp-v13_values-w720dp-v13.arsc.flat",
-            "map": [
-                {
-                    "source": "C:\\Users\\libin\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\9d908aed24b49461e22ef0e2fa88adc8\\res\\values-w720dp\\values.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "56",
-                        "endColumns": "76",
-                        "endOffsets": "128"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "76",
-                        "endOffsets": "127"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "E:\\Cybraum New Projects\\MOBILE_APPLICATIONS\\ANDROID\\libin\\27march2018\\DateOut\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
             "map": [
                 {
@@ -1543,6 +1521,28 @@
                         "endLines": "22,23,32,37,38,39,40,47,49,51,53,55,65,66,73,74,77,78,79,193,194,201,212,228,229,230,231,1283,1292",
                         "endColumns": "51,59,51,52,53,51,59,57,57,57,57,57,50,58,54,55,44,62,54,43,49,53,46,53,48,67,40,12,12",
                         "endOffsets": "1411,1471,2164,2497,2551,2603,2663,3227,3344,3461,3578,3695,4337,4396,4862,4918,5104,5167,5222,22282,22332,22830,23345,24529,24578,24646,24687,100339,100846"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "F:\\Backup\\DateOut\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-w720dp-v13_values-w720dp-v13.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\libin\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\9d908aed24b49461e22ef0e2fa88adc8\\res\\values-w720dp\\values.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "56",
+                        "endColumns": "76",
+                        "endOffsets": "128"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "76",
+                        "endOffsets": "127"
                     }
                 }
             ]
