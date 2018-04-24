@@ -573,9 +573,9 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                                         }
 
                                     }
-                                    if (jsonObject.has("banner")) {
+                                    if (jsonObject.has("banners")) {
                                         try {
-                                            JSONArray jsonarray = jsonObject.getJSONArray("banner");
+                                            JSONArray jsonarray = jsonObject.getJSONArray("banners");
                                             for (int i = 0; i < jsonarray.length(); i++) {
                                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                                 String imageid = jsonobject.getString("id");
@@ -786,9 +786,9 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                                         }
 
                                     }
-                                    if (jsonObject.has("banner")) {
+                                    if (jsonObject.has("banners")) {
                                         try {
-                                            JSONArray jsonarray = jsonObject.getJSONArray("banner");
+                                            JSONArray jsonarray = jsonObject.getJSONArray("banners");
                                             for (int i = 0; i < jsonarray.length(); i++) {
                                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                                 String imageid = jsonobject.getString("id");
@@ -871,6 +871,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                         progress1.setVisibility(View.GONE);
                         if (response != null) {
                             try {
+                                System.out.println("----------- params : " + response);
                                 JSONObject jsonObjec = new JSONObject(response);
                                 String status=jsonObjec.getString("status");
                                 String data=jsonObjec.getString("data");
@@ -1000,9 +1001,9 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                                         }
 
                                     }
-                                    if (jsonObject.has("banner")) {
+                                    if (jsonObject.has("banners")) {
                                         try {
-                                            JSONArray jsonarray = jsonObject.getJSONArray("banner");
+                                            JSONArray jsonarray = jsonObject.getJSONArray("banners");
                                             for (int i = 0; i < jsonarray.length(); i++) {
                                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                                 String imageid = jsonobject.getString("id");
@@ -1212,9 +1213,9 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                                         }
 
                                     }
-                                    if (jsonObject.has("banner")) {
+                                    if (jsonObject.has("banners")) {
                                         try {
-                                            JSONArray jsonarray = jsonObject.getJSONArray("banner");
+                                            JSONArray jsonarray = jsonObject.getJSONArray("banners");
                                             for (int i = 0; i < jsonarray.length(); i++) {
                                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                                 String imageid = jsonobject.getString("id");
@@ -1425,9 +1426,9 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                                         }
 
                                     }
-                                    if (jsonObject.has("banner")) {
+                                    if (jsonObject.has("banners")) {
                                         try {
-                                            JSONArray jsonarray = jsonObject.getJSONArray("banner");
+                                            JSONArray jsonarray = jsonObject.getJSONArray("banners");
                                             for (int i = 0; i < jsonarray.length(); i++) {
                                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                                 String imageid = jsonobject.getString("id");
