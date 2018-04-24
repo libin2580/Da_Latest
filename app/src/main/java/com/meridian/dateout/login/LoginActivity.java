@@ -138,6 +138,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
         analytics = FirebaseAnalytics.getInstance(LoginActivity.this);
+
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         token  =pref.getString("regId", null);

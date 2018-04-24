@@ -389,8 +389,6 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
             }
         });
 
-
-
     }
 
     @Override

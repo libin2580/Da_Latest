@@ -21,14 +21,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:background="@drawable/rounded_rectangle_box"
-
             android:orientation="vertical"
             android:id="@+id/pop_layout"
             android:padding="@dimen/_20sdp"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_53sdp"
+                android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginBottom="@dimen/_10sdp"
@@ -56,19 +55,15 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
                 android:gravity=""
-
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/colorPrimary"
-
-
                     android:layout_height="match_parent"
                     android:id="@+id/txt_titlesss"
                     android:gravity="left|center"
@@ -91,7 +86,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
                     android:layout_gravity="center"
@@ -102,7 +97,7 @@
                     android:layout_weight="1"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:layout_height="wrap_content"
                     android:id="@+id/txt_pop_Amnt"
                     android:layout_gravity="center"
@@ -121,7 +116,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:textSize="@dimen/_12sdp"
                     android:layout_height="wrap_content"
                     android:text="Booking Code      :"/>
@@ -130,7 +125,7 @@
                     android:layout_weight="1"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:layout_gravity="center"
                     android:id="@+id/txt_pop_booking_id"
                     android:layout_height="wrap_content" />
@@ -147,7 +142,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:textSize="@dimen/_12sdp"
                     android:layout_height="wrap_content"
                     android:text="Transaction         :"/>
@@ -156,7 +151,7 @@
                     android:layout_weight="1"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:layout_gravity="center"
                     android:id="@+id/txt_pop_transactn"
                     android:layout_height="wrap_content" />
@@ -172,7 +167,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:textSize="@dimen/_12sdp"
                     android:text="Description          :"
                     android:layout_gravity="center"
@@ -181,7 +176,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:layout_gravity="center"
                     android:id="@+id/txt_pop_descrptn"
                     android:layout_height="wrap_content" />
@@ -197,7 +192,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+
                     android:textSize="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
@@ -206,7 +201,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:layout_gravity="center"
                     android:id="@+id/txt_pop_date_time"
                     android:layout_height="wrap_content" />
@@ -218,13 +212,11 @@
                 android:layout_height="@dimen/_30sdp"
                 android:gravity="center"
                 android:orientation="horizontal"
-
                 android:layout_marginTop="@dimen/_18sdp">
                 <Button
                     android:layout_width="100dp"
                     android:text="Ok"
                     android:textSize="@dimen/_12sdp"
-
                     android:background="@drawable/rounded_rectangle_3"
                     android:textColor="@color/white"
                     android:layout_height="wrap_content"
