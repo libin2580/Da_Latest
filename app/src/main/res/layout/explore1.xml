@@ -7,21 +7,21 @@
     android:layout_width="match_parent"
     android:background="@drawable/login_background"
     android:layout_height="match_parent"
-
+    android:layout_marginTop="@dimen/_30sdp"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/MyAppbars"
         android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_230sdp"
+        android:layout_height="@dimen/_200sdp"
         android:fitsSystemWindows="true">
 
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/CollapsingToolbarLayout1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_230sdp"
+            android:layout_height="@dimen/_200sdp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:background="@color/button_othrcolor"
             android:fitsSystemWindows="true">
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_collapseMode="parallax"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_gravity="center"
                 android:id="@+id/lin_country" />
 
@@ -45,13 +45,13 @@
                 android:textSize="@dimen/_20sdp"
                 android:id="@+id/name_guest"
                 android:inputType="textCapSentences"
-                android:layout_marginTop="@dimen/_150sdp"
+                android:layout_marginTop="@dimen/_110sdp"
                 android:layout_height="@dimen/_40sdp"
                 tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginTop="@dimen/_180sdp"
+                android:layout_marginTop="@dimen/_140sdp"
                 android:text=""
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_15sdp"
