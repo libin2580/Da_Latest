@@ -56,6 +56,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.fcm.Config;
@@ -136,11 +137,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 return false;
             }
         });
-
+        analytics = FirebaseAnalytics.getInstance(LoginActivity.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
-
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
-
         token  =pref.getString("regId", null);
         System.out.println("*******token"+token);
         edtpass = (EditText) findViewById(R.id.edt_pass);
