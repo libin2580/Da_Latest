@@ -167,8 +167,8 @@ LinearLayout menu;
         FrameLayoutActivity.txt_explorenam.setTextColor(getResources().getColor(R.color.black));
         FrameLayoutActivity.img_collections.setBackgroundResource(R.drawable.collections);
         FrameLayoutActivity. txt_collctnz_nam.setTextColor(getResources().getColor(R.color.txtcolor_icons));
-        FrameLayoutActivity.img_account.setBackgroundResource(R.drawable.account);
-        FrameLayoutActivity. txt_accnt_name.setTextColor(getResources().getColor(R.color.txtcolor_icons));
+        FrameLayoutActivity.img_account.setBackgroundResource(R.drawable.account_click);
+        FrameLayoutActivity. txt_accnt_name.setTextColor(getResources().getColor(R.color.black));
         FrameLayoutActivity.img_chat.setBackgroundResource(R.drawable.email_blue);
         FrameLayoutActivity. txt_chat_name.setTextColor(getResources().getColor(R.color.txtcolor_icons));
 

@@ -51,17 +51,13 @@
         <activity
             android:name=".login.SplashScreen"
             android:screenOrientation="portrait">
-            <intent-filter>
 
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter android:autoVerify="true">
+            <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter >
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
@@ -84,22 +80,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/dateout_logo" />
-        <!--
-             Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more.
-        -->
 
-
-        <!-- <application android:label="@string/app_name" > -->
-
-
-        <!-- <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/appid"/> -->
-
-
-        <!-- </application> -->
-        <!-- <provider android:authorities="com.facebook.app.FacebookContentProvider238471753256413" -->
-        <!-- android:name="com.facebook.FacebookContentProvider" -->
-        <!-- android:exported="true" /> -->
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
