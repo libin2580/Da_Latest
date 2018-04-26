@@ -12,38 +12,23 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
-import com.meridian.dateout.explore.CheckOutActivity;
 import com.meridian.dateout.explore.address.Adddetails;
-import com.meridian.dateout.login.NetworkCheckingClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import kotlin.Pair;
@@ -65,15 +50,12 @@ public class Cart_details extends AppCompatActivity {
     public static TextView Total_txt;
     LinearLayout Checkout,_close;
     List<Pair<String, String>> params;
-    List<Pair<String, String>> params1;
-
     public static ProgressBar progress_bar_explore;
     int valuu=0;
     public static int totalprize_for_order=0;
 
     EditText promocode;
     String coupon_code;
-    Button coupn_click;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,8 +68,6 @@ public class Cart_details extends AppCompatActivity {
 
         promocode=findViewById(R.id.promocode);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_categorydeal);
-        coupn_click = (Button)findViewById(R.id.coupn_click);
-
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.scheduleLayoutAnimation();
@@ -150,159 +130,7 @@ public class Cart_details extends AppCompatActivity {
             }};
         }
 
-coupn_click.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        coupon_code=promocode.getText().toString();
-        {
 
-          //  final String coupn_value= edt_coupon_code.getText().toString();
-          //  System.out.println("check_____   checkout_deal_id" +   checkout_deal_id+"........couponvalue"+coupn_value+"amount...."+checkout_total_price);
-            String url= Constants.URL+"applycoupon.php?";
-
-            NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getApplicationContext());
-            boolean i = networkCheckingClass.ckeckinternet();
-            if (i) {
-
-                StringRequest stringRequest2 = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(final String response) {
-                                // progress.setVisibility(ProgressBar.GONE);
-                                System.out.println("response"+response);
-
-
-
-
-                                if(response != null && !response.isEmpty() && !response.equals("null")) {
-
-                                    System.out.println("responseeeee" + response);
-                                    JSONObject jsonObj = null;
-                                    try {
-                                        jsonObj = new JSONObject(response);
-                                        System.out.println("s**********" + response);
-                                        String status = jsonObj.getString("status");
-
-                                        if( status.contentEquals("failed")) {
-                                            //  lin_newamt.setVisibility(View.VISIBLE);
-                                            final SweetAlertDialog dialog = new SweetAlertDialog(Cart_details.this,SweetAlertDialog.NORMAL_TYPE);
-                                            dialog.setTitleText("COUPON")
-                                                    .setContentText("Please enter a valid coupon code")
-
-                                                    .setConfirmText("OK")
-                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                        @Override
-                                                        public void onClick(SweetAlertDialog sDialog) {
-                                                            dialog.dismiss();
-                                                        }
-                                                    })
-                                                    .show();
-                                            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-                                         //   ntxt_amount.setText("Please enter a valid coupon code");
-
-                                        }
-                                        else {
-                                            String amount = jsonObj.getString("amount");
-                                            String discount_amount = jsonObj.getString("discount_amount");
-                                            String new_amount = jsonObj.getString("new_amount");
-                                            //lin_newamt.setVisibility(View.VISIBLE);
-                                            Total_txt.setText("$" +new_amount);
-                                            promocode.setText("");
-                                        }
-                                    }
-                                    catch (JSONException e)
-                                    {
-                                        e.printStackTrace();
-                                    }
-
-
-
-                                }
-
-
-
-
-
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError
-                    {
-                        if(userid!=null)
-                        {
-                            android_id="0";
-
-                        }else {
-                           userid="0" ;
-                        }
-                        Map<String, String> params = new HashMap<String, String>();
-                        //meridian.net.in/demo/etsdc/response.php?fid=1&email=" + email + "&phone=" + phon + "&name=" + fulnam + "&occupation=" + occ + "&location=" + loc + "&password=" + pass
-                        params.put("user_id",userid);
-                        params.put("coupon",coupon_code);
-                        params.put("device_id",android_id);
-                        System.out.println("params1111111111" + params);
-                        return params;
-                    }
-
-                };
-
-                RequestQueue requestQueue2= Volley.newRequestQueue(getApplicationContext());
-                int socketTimeout = 30000;//30 seconds - change to what you want
-                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-                stringRequest2.setRetryPolicy(policy);
-                requestQueue2.add(stringRequest2);
-            }
-            else
-            {
-
-                final SweetAlertDialog dialog = new SweetAlertDialog(Cart_details.this,SweetAlertDialog.NORMAL_TYPE);
-                dialog.setTitleText("")
-                        .setContentText("Oops Your Connection Seems Off..")
-
-                        .setConfirmText("OK")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
-                dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-
-
-            }
-
-        }
-       /* if(userid!=null)
-        {
-            params1 = new ArrayList<Pair<String, String>>() {{
-                add(new Pair<String, String>("user_id",userid));
-                add(new Pair<String, String>("device_id ","0"));
-                add(new Pair<String, String>("coupon",coupon_code));
-
-
-            }};
-        }
-        else {
-            params1 = new ArrayList<Pair<String, String>>() {{
-                add(new Pair<String, String>("device_token",android_id));
-                add(new Pair<String, String>("user_id","0"));
-                add(new Pair<String, String>("coupon",coupon_code));
-
-
-            }};
-        }
-
-        coupon_check();
-        System.out.println("<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>"+params1);*/
-    }
-});
         Checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -314,57 +142,6 @@ coupn_click.setOnClickListener(new View.OnClickListener() {
         view_cart();
 
     }
-
-    private void coupon_check() {
-        {
-
-
-            progress_bar_explore.setVisibility(View.VISIBLE);
-            Fuel.post(URL1 +"applycoupon.php?", params1).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
-                @Override
-                public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
-                    progress_bar_explore.setVisibility(View.GONE);
-                    System.out.println("s**********11111111111111" + response.toString());
-
-                    try {
-                        JSONObject jsonObj = new JSONObject(s);
-                        System.out.println("s**********" + s);
-                        String status = jsonObj.getString("status");
-                        String amount = jsonObj.getString("amount");
-                        String discount_amount = jsonObj.getString("discount_amount");
-                        String new_amount = jsonObj.getString("new_amount");
-
-
-
-                        System.out.println("s**********" + status);
-                        System.out.println("s**********" + amount);
-                        System.out.println("s**********" + discount_amount);
-
-                        System.out.println("s**********" + new_amount);
-
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
-
-                }
-            });
-
-
-
-
-
-
-
-        }
-    }
-
     private void view_cart() {
         OrderHistoryArraylist.clear();
         progress_bar_explore.setVisibility(View.VISIBLE);
