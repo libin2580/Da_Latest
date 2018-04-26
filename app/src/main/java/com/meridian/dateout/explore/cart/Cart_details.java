@@ -120,11 +120,13 @@ public class Cart_details extends AppCompatActivity {
         {
             params = new ArrayList<Pair<String, String>>() {{
                 add(new Pair<String, String>("user_id",userid));
+                add(new Pair<String, String>("device_token","0"));
             }};
         }
         else {
             params = new ArrayList<Pair<String, String>>() {{
                 add(new Pair<String, String>("device_token",android_id));
+                add(new Pair<String, String>("user_id","0"));
             }};
         }
 

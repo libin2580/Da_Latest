@@ -48,6 +48,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.address.Adddetails;
 import com.meridian.dateout.explore.calendar.CaldroidSampleCustomFragment;
@@ -142,6 +143,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
     String ad, cd, timing;
     String userid,str_comnt;
     List<Pair<String, String>> params;
+    List<Pair<String, String>> params_item;
     EditText edt_comment;
     Button but_comnt;
     LinearLayout layout_selected_date, layout_selected_time;
@@ -167,8 +169,9 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking__details_new);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        android_id = Settings.Secure.getString(Booking_DetailsActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID);
 
+        android_id = Settings.Secure.getString(Booking_DetailsActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID);
+        analytics = FirebaseAnalytics.getInstance(this);
         analytics.setCurrentScreen(this,this.getLocalClassName(), null /* class override */);
 
         //displayPopup_comment();
@@ -180,7 +183,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.recyclerView);
         GridLayoutManager llm = new GridLayoutManager(getApplicationContext(),1);
         recyclerView.setLayoutManager(llm);
-        item();
+
         Bundle args = new Bundle();
         args.putBoolean(CaldroidFragment.ENABLE_SWIPE,false);
         args.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
@@ -315,6 +318,13 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         txt_title = (TextView) findViewById(R.id.txt_book_title);
         deal_id = getIntent().getIntExtra("deal_id", 0);
         checkout_deal_id = String.valueOf(deal_id);
+        System.out.println("****checkout_deal_id"+checkout_deal_id);
+        params_item = new ArrayList<Pair<String, String>>() {{
+            add(new Pair<String, String>("deal_id", checkout_deal_id));
+
+        }};
+
+        item();
         time = getIntent().getStringExtra("time");
         linearLayout_schedule = (LinearLayout) findViewById(R.id.linear_sch);
         layout_other = (LinearLayout) findViewById(R.id.layout_other);
@@ -1155,7 +1165,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                         params = new ArrayList<Pair<String, String>>() {{
                             add(new Pair<String, String>("deal_id", checkout_deal_id));
                             add(new Pair<String, String>("user_id",userid));
-                            add(new Pair<String, String>("device_token",""));
+                            add(new Pair<String, String>("device_token","0"));
                             add(new Pair<String, String>("cust_selected_date", booking_date));
                             add(new Pair<String, String>("cust_selected_time", booking_time));
                             add(new Pair<String, String>("adult_number", String.valueOf(ad_number)));
@@ -1167,13 +1177,13 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                         }};
 
                         System.out.println("params********"+params);
-
+                        addto_cart();
 
                     }
                     else {
                         params = new ArrayList<Pair<String, String>>() {{
                             add(new Pair<String, String>("deal_id", checkout_deal_id));
-                            add(new Pair<String, String>("user_id",""));
+                            add(new Pair<String, String>("user_id","0"));
                             add(new Pair<String, String>("device_token",android_id));
                             add(new Pair<String, String>("cust_selected_date", booking_date));
                             add(new Pair<String, String>("cust_selected_time", booking_time));
@@ -1186,9 +1196,9 @@ public class Booking_DetailsActivity extends AppCompatActivity {
 
                         }};
                         System.out.println("params********"+params);
-
+                        addto_cart1();
                     }
-                    addto_cart1();
+
 
 
                 }
@@ -1308,7 +1318,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
 
 
     }
-    private void addto_cart1() {
+    private void addto_cart() {
 
         progress_bar_explore.setVisibility(View.VISIBLE);
         Fuel.post(URL1+"add_to_cart.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
@@ -1318,7 +1328,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
 
                 try {
                     JSONObject jsonObj = new JSONObject(s);
-
+                    System.out.println("*************result : " + s);
                     String status = jsonObj.getString("status");
                     if (status.equalsIgnoreCase("true")) {
                         final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this,SweetAlertDialog.SUCCESS_TYPE);
@@ -1405,19 +1415,160 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         });
 
     }
+    private void addto_cart1() {
+
+        progress_bar_explore.setVisibility(View.VISIBLE);
+        Fuel.post(URL1+"add_to_cart.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            @Override
+            public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+                progress_bar_explore.setVisibility(View.GONE);
+
+                try {
+                    JSONObject jsonObj = new JSONObject(s);
+                    System.out.println("*************result : " + s);
+                    String status = jsonObj.getString("status");
+                    if (status.equalsIgnoreCase("true")) {
+                        final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this,SweetAlertDialog.SUCCESS_TYPE);
+                        dialog.setTitleText("Item Added Successfully")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        dialog.dismissWithAnimation();
+                                        View v = findViewById(R.id.add_to_cart);
+                                        ObjectAnimator animation = ObjectAnimator.ofFloat(v, "rotationX", 0.0f, 360f);
+                                        animation.setDuration(2000);
+                                        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+                                        animation.start();
+                                        View v1 = findViewById(R.id.next);
+                                        ObjectAnimator animation1 = ObjectAnimator.ofFloat(v1, "rotationX", 0.0f, 360f);
+                                        animation1.setDuration(1000);
+                                        animation1.setInterpolator(new AccelerateDecelerateInterpolator());
+                                        animation1.start();
+                                        final Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                next.setVisibility(View.VISIBLE);
+                                                add_to_cart.setVisibility(View.GONE);
+
+                                            }
+                                        }, 1000);
+
+                                    }
+                                })
+                                .show();
+                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+                    }
+                    else {
+                        String msg = jsonObj.getString("message");
+                        final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this,SweetAlertDialog.WARNING_TYPE);
+                        dialog.setTitleText(msg)
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        dialog.dismissWithAnimation();
+                                /*        View v = findViewById(R.id.add_to_cart);
+                                        ObjectAnimator animation = ObjectAnimator.ofFloat(v, "rotationX", 0.0f, 360f);
+                                        animation.setDuration(2000);
+                                        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+                                        animation.start();
+                                        View v1 = findViewById(R.id.next);
+                                        ObjectAnimator animation1 = ObjectAnimator.ofFloat(v1, "rotationX", 0.0f, 360f);
+                                        animation1.setDuration(1000);
+                                        animation1.setInterpolator(new AccelerateDecelerateInterpolator());
+                                        animation1.start();
+                                        final Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                next.setVisibility(View.VISIBLE);
+                                                add_to_cart.setVisibility(View.GONE);
+
+                                            }
+                                        }, 1000);*/
+
+                                    }
+                                })
+                                .show();
+                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+            }
+        });
+
+    }
 
     private void item() {
+        progress_bar_explore.setVisibility(View.VISIBLE);
         NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getApplicationContext());
         boolean i = networkCheckingClass.ckeckinternet();
         if (i) {
+            Fuel.post(URL1+"deal-options.php",params_item).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+                @Override
+                public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+                    progress_bar_explore.setVisibility(View.GONE);
+                    System.out.println("*************s: " + s);
+                    try {
+
+                        JSONObject  jsonObject = new JSONObject(s);
+                        String status = jsonObject.getString("status");
+                        if (status.equalsIgnoreCase("true")) {
+                            String data = jsonObject.getString("data");
+                            JSONArray jsonArray = new JSONArray(data);
+                            for (int j = 0; j < jsonArray.length(); j++) {
+                                JSONObject obj = jsonArray.getJSONObject(j);
+                                String opt_label = obj.getString("opt_label");
+                                String opt_values = obj.getString("opt_values");
+                                System.out.println("Upcoming resulttype : " + opt_values);
+                                Im=new ItemModel();
+                                Im.setname(opt_label);
+                                Im.settype(opt_values);
+                                item_list.add(Im);
+                                itemAdapter = new ItemAdapter(item_list, getApplicationContext());
+                                recyclerView.scheduleLayoutAnimation();
+                                recyclerView.setAdapter(itemAdapter);
+                                recyclerView.setHasFixedSize(true);
+
+                            }
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+                }
+            });
+
+          /*  Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/deal-options.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            System.out.println("Upcoming result : " + response);
+                            try {
+                                   Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
 
-                            if (response != null && !response.isEmpty()) {
-                                try {
-                                    System.out.println("Upcoming result : " + response);
                                     JSONObject  jsonObject = new JSONObject(response);
                                     String status = jsonObject.getString("status");
                                     if (status.equalsIgnoreCase("true")) {
@@ -1445,9 +1596,6 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-
-                            }
-
                         }
                     },
                     new Response.ErrorListener() {
@@ -1468,7 +1616,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
             int socketTimeout = 30000;
             RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
             stringRequest.setRetryPolicy(policy);
-            requestQueue.add(stringRequest);
+            requestQueue.add(stringRequest);*/
         }
         else {
             final SweetAlertDialog dialog = new SweetAlertDialog(this,SweetAlertDialog.NORMAL_TYPE);
