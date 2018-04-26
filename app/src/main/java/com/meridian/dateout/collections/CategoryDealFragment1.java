@@ -184,7 +184,7 @@ LinearLayout menu;
 
         NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
         boolean i = networkCheckingClass.ckeckinternet();
-        if (i == true) {
+        if (i) {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                     new Response.Listener<String>() {
                         @Override
