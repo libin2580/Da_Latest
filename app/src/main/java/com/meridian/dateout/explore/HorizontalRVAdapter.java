@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.meridian.dateout.R;
+import com.meridian.dateout.collections.CategoryDealFragment;
 import com.meridian.dateout.collections.CategoryDealFragment1;
 import com.meridian.dateout.model.CategoryModel;
 
@@ -105,7 +106,7 @@ public class HorizontalRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                     sweetAlertDialog.dismiss();
                                     FragmentTransaction trans = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
 
-                                    Fragment fragment = CategoryDealFragment1.newInstance();
+                                    Fragment fragment = CategoryDealFragment.newInstance();
                                     Bundle args = new Bundle();
                                     args.putInt("category_id", id);
 
@@ -123,7 +124,7 @@ public class HorizontalRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 else {
                     FragmentTransaction trans = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
 
-                    Fragment fragment = CategoryDealFragment1.newInstance();
+                    Fragment fragment = CategoryDealFragment.newInstance();
                     Bundle args = new Bundle();
                     args.putInt("category_id", id);
 

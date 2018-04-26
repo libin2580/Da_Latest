@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.meridian.dateout.R;
-import com.meridian.dateout.collections.CategoryDealFragment1;
+import com.meridian.dateout.collections.CategoryDealFragment;
 import com.meridian.dateout.explore.category_booking_detailspage.CategoryDealDetail;
 import com.meridian.dateout.model.DealsModel;
 
@@ -108,7 +108,7 @@ public class RecyclerAdapterCategory1 extends RecyclerView.Adapter<RecyclerAdapt
                     int id = Integer.parseInt(dealsModelArrayList.get(i).getCategory_id());
                     FragmentTransaction trans =((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
 
-                    Fragment fragment = CategoryDealFragment1.newInstance();
+                    Fragment fragment = CategoryDealFragment.newInstance();
 
                     Bundle args=new Bundle();
                     args.putInt("category_id", id);
