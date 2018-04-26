@@ -144,7 +144,6 @@ public class Cart_details extends AppCompatActivity {
     }
     private void view_cart() {
         OrderHistoryArraylist.clear();
-
         progress_bar_explore.setVisibility(View.VISIBLE);
         Fuel.post(URL1 + "view_cart.php", params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
             @Override

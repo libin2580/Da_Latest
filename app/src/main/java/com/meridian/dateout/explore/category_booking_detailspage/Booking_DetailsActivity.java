@@ -1514,6 +1514,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
     }
 
     private void item() {
+
         progress_bar_explore.setVisibility(View.VISIBLE);
         NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getApplicationContext());
         boolean i = networkCheckingClass.ckeckinternet();
