@@ -122,12 +122,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                                                 System.out.println("-----------test[0]" + test[0]);
                                                 String[] b = test[0].split(",");
                                                 list_nw1.addAll(Arrays.asList(b));
-
+                                                System.out.println("-----------list_nw1" +list_nw1.size());
                                             }
-                                            somejson=list_nw1.get(list_nw1.size()-2)+","+list_nw1.get(list_nw1.size()-1);
-                                            somejson=somejson.replace("#",",");
-                                            somejson = String.valueOf("[" +somejson + "]");
-                                            System.out.println("-----------list_test" +somejson);
+                                            if(list_nw1.size()==1){
+                                                somejson=somejson.replace("#",",");
+                                                somejson = String.valueOf("[" +somejson + "]");
+                                                System.out.println("-----------list_test" +somejson);
+                                            }
+                                            else {
+                                                somejson=list_nw1.get(list_nw1.size()-2)+","+list_nw1.get(list_nw1.size()-1);
+                                                somejson = String.valueOf("[" +somejson + "]");
+                                                System.out.println("-----------list_test" +somejson);
+                                            }
+
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
