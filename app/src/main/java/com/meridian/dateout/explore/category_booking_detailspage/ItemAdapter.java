@@ -124,6 +124,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                                                 list_nw1.addAll(Arrays.asList(b));
                                                 System.out.println("-----------list_nw1" +list_nw1.size());
                                             }
+
                                             if(list_nw1.size()==1){
                                                 somejson=somejson.replace("#",",");
                                                 somejson = String.valueOf("[" +somejson + "]");

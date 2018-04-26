@@ -151,6 +151,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail1);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         analytics = FirebaseAnalytics.getInstance(this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
 

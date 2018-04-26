@@ -92,7 +92,6 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
         });
 
     }
-
     private void delete(final int position,final int k) {
         progress_bar_explore.setVisibility(View.VISIBLE);
         Fuel.post(URL1+"delete-cart-item.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
