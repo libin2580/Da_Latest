@@ -205,6 +205,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
             }
         });
         String strtext=getArguments().getString("key");
+        System.out.println("_______^^^^^^^^^^^^^^strtext" +strtext);
         readFormat = new SimpleDateFormat( "dd/MM/yyyy HH:mm");
         writeFormat = new SimpleDateFormat( "EEE MMM dd HH:mm:ss aa yyyy");
 
@@ -251,7 +252,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
         System.out.println("_______^^^^^^^^^^^^^^flag_1" + flag_time_visible);
         System.out.println("_______^^^^^^^^^^^^^^flag_2" +flag_date_visible);
         System.out.println("_______^^^^^^^^^^^^^^flag_3" + flag_time_visible);
-        System.out.println("_______^^^^^^^^^^^^^^strtext" +strtext);
+
         mDateText_event.setText(strtext);
         txt_DateText_event.setText(strtext);
         formatted_date=strtext;
@@ -398,19 +399,24 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
         System.out.println("_______^^^^^^^^^^^^^^TimeeeeeZone "+tz.getDisplayName(false, TimeZone.SHORT));
         System.out.println("_______^^^^^^^^^^^^^^TimeeeeeZone>>>IDD "+tz.getID());
 
-
-
-
-
+        mDate_event = formatted_date;
         mCalendar1 = Calendar.getInstance();
         mHour_event = mCalendar1.get(Calendar.HOUR_OF_DAY);
         mMinute_event = mCalendar1.get(Calendar.MINUTE);
-        mYear_event = mCalendar1.get(Calendar.YEAR);
-        mMonth_event = mCalendar1.get(Calendar.MONTH) + 1;
-        mDay_event = mCalendar1.get(Calendar.DATE);
-
-        mDate_event = mDay_event + "/" + mMonth_event + "/" + mYear_event;
         mTime_event = mHour_event + ":" + mMinute_event;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date d = sdf.parse(mDate_event);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(d);
+            mMonth_event = (cal.get(Calendar.MONTH)+1);
+            mDay_event = (cal.get(Calendar.DATE));
+            mYear_event = (cal.get(Calendar.YEAR));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         calender =  Calendar.getInstance();
         calendar1 = Calendar.getInstance();
         calendar2 = Calendar.getInstance();
@@ -900,12 +906,9 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
                     title_type.setError("Reminder Type cannot be blank!");
                     error = true;
                 } else if (txt_TimeText_event.getVisibility() == View.VISIBLE) {
-                    txt_TimeText_event.setError("Please select Event Date");
+                    txt_TimeText_event.setError("Please select Event Time");
                     error = true;
-                } else if (txt_DateText_event.getVisibility() == View.VISIBLE) {
-                    txt_DateText_event.setError("Please select Event Date");
-                    error = true;
-                } else {
+                }  else {
                     input_filled_flag=1;
                     error = false;
                 }
@@ -1587,6 +1590,9 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
                                                     reminder_details.setText("");
                                                     progress.setVisibility(View.GONE);
                                                     serverdialog.dismiss();
+                                                    if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
+                                                        getActivity().getSupportFragmentManager().popBackStack();
+                                                    }
                                                 }
                                             });
 
@@ -1640,7 +1646,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
                 params.put("event_name",str_mTitle);
                 params.put("event_type",str_Title_type);
                 params.put("event_details",str_details);
-                params.put("event_date", String.valueOf(formatted_date));
+                params.put("event_date",formatted_date);
                 params.put("event_time",mTime_event);
                 params.put("reminder_date",passed_date );//String.valueOf(formatted_date_remind)
                 params.put("reminder_time",passed_time);//mTime
