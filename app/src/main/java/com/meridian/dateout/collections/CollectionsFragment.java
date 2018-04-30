@@ -50,12 +50,17 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.CollectionsAdapter1;
 import com.meridian.dateout.explore.CollectionsAdapter2;
+import com.meridian.dateout.explore.PreCachingLayoutManager;
+import com.meridian.dateout.explore.RecyclerAdapterCategory;
+import com.meridian.dateout.explore.RecyclerAdapterCategory1;
 import com.meridian.dateout.explore.RecyclerItemClickListener;
 import com.meridian.dateout.explore.Spinner_model1;
 import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
 import com.meridian.dateout.model.CategoryModel;
+import com.meridian.dateout.model.DealsModel;
+import com.squareup.picasso.Picasso;
 import com.squareup.timessquare.CalendarPickerView;
 
 import org.json.JSONArray;
@@ -74,15 +79,24 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.URL;
 import static com.meridian.dateout.Constants.analytics;
 
 
 public class CollectionsFragment extends Fragment implements View.OnClickListener{
-    ArrayList<CategoryModel> categoryModelArrayList;
-    String id, id1, category, background, icon;
-    static RecyclerView recyclerView;
+
+
+    static RecyclerView recyclerView,recyclerView_search;
     int mRowIndex = -1;
+    String id, category, background, icon, _18plusOnly;
+    ArrayList<CategoryModel> categoryModelArrayList;
+    ArrayList<CategoryModel> categoryModelArrayList1;
+    ArrayList<DealsModel> dealsModelArrayList;
+    ArrayList<DealsModel> alldeals_categryModelArrayList;
+    String title,image,description,timing,delivery,id_deal,category1, currency,tags, category_id, categorys,seller_id, tkt_discounted_price, price;
+    ArrayList<String> all_background;
     CollectionsAdapter collectionsAdapter;
+    CollectionsAdapter3 collectionsAdapter3;
     Button sort_by, categry, location, prce, schedule, duration;
     CrystalRangeSeekbar rangeSeekbar;
     LinearLayout apply_btn,popup_close,catagories_list_main;
@@ -239,6 +253,8 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
         duration.setOnClickListener(this);
         // getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_collections);
+        recyclerView_search = (RecyclerView) view.findViewById(R.id.recycler_collections1);
+        get_explore();
         apply_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -722,6 +738,178 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
             }
 
         }
+    private void get_explore() {
+        progress1.setVisibility(View.VISIBLE);
+        all_background = new ArrayList<>();
+        alldeals_categryModelArrayList=new ArrayList<>();
+        categoryModelArrayList1=new ArrayList<>();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL +"all-deals-categories-banners.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(final String response) {
+                        progress1.setVisibility(View.GONE);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.has("categories")) {
+                                try {
+                                    JSONArray jsonarray = jsonObject.getJSONArray("categories");
+                                    for (int i = 0; i < jsonarray.length(); i++) {
+                                        CategoryModel categoryModel = new CategoryModel();
+                                        DealsModel dealsModel = new DealsModel();
+
+                                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                        if (jsonobject.has("id")) {
+                                            category_id = jsonobject.getString("id");
+                                        }
+                                        if (jsonobject.has("category")) {
+                                            categorys = jsonobject.getString("category");
+                                        }
+                                        if (jsonobject.has("background")) {
+                                            background = jsonobject.getString("background");
+                                        }
+                                        if (jsonobject.has("_18plusOnly")) {
+                                            _18plusOnly = jsonobject.getString("_18plusOnly");
+                                        }
+                                        if (jsonobject.has("icon")) {
+                                            icon = jsonobject.getString("icon");
+                                        }
+                                        dealsModel.setCategory_background(background);
+                                        dealsModel.setTitle(categorys);
+                                        dealsModel.setCategory_name(categorys);
+                                        dealsModel.setCategory_icon(icon);
+                                        dealsModel.setCategory_id(category_id);
+                                        dealsModel.setCategory_type("category");
+                                        dealsModel.setType("category");
+                                        dealsModel.setDelivery("");
+                                        dealsModel.setDescription("");
+                                        dealsModel.setDiscount("");
+                                        dealsModel.setImage(background);
+                                        dealsModel.setTags("");
+                                        dealsModel.setSeller_id("");
+                                        dealsModel.setTiming("");
+                                        dealsModel.setCurrency("");
+                                        dealsModel.setPrice("");
+                                        categoryModel.setBackground(background);
+                                        categoryModel.setCategory(categorys);
+                                        categoryModel.setIcon(icon);
+                                        categoryModel.setId(category_id);
+                                        categoryModel.set_18plusOnly(_18plusOnly);
+                                        categoryModel.setType("category");
+                                        categoryModelArrayList1.add(categoryModel);
+                                        all_background.add(background);
+                                        alldeals_categryModelArrayList.add(dealsModel);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            if (jsonObject.has("deals")) {
+                                dealsModelArrayList = new ArrayList<>();
+                                try {
+                                    JSONArray jsonarray = jsonObject.getJSONArray("deals");
+                                    for (int i = 0; i < jsonarray.length(); i++) {
+                                        DealsModel dealsModel = new DealsModel();
+
+                                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                        if (jsonobject.has("id")) {
+                                            id_deal = jsonobject.getString("id");
+                                        }
+                                        if (jsonobject.has("title")) {
+                                            title = jsonobject.getString("title");
+                                        }
+                                        if (jsonobject.has("image")) {
+                                            image = jsonobject.getString("image");
+                                        }
+                                        if (jsonobject.has("description")) {
+                                            description = jsonobject.getString("description");
+                                        }
+                                        if (jsonobject.has("timing")) {
+                                            timing = jsonobject.getString("timing");
+                                        }
+                                        if (jsonobject.has("delivery")) {
+                                            delivery = jsonobject.getString("delivery");
+                                        }
+                                        if (jsonobject.has("category")) {
+                                            category1 = jsonobject.getString("category");
+                                        }
+                                        if (jsonobject.has("tags")) {
+                                            tags = jsonobject.getString("tags");
+                                        }
+                                        if (jsonobject.has("price")) {
+                                            price = jsonobject.getString("price");
+                                        }
+                                        if (jsonobject.has("tkt_discounted_price")) {
+                                            tkt_discounted_price = jsonobject.getString("tkt_discounted_price");
+                                        }
+                                        if (jsonobject.has("seller_id")) {
+                                            seller_id = jsonobject.getString("seller_id");
+                                        }
+                                        if (jsonobject.has("currency")) {
+                                            currency = jsonobject.getString("currency");
+                                        }
+                                        dealsModel.setId(id_deal);
+                                        dealsModel.setCategory_id(category);
+                                        dealsModel.setTitle(title);
+                                        dealsModel.setType("deal");
+                                        dealsModel.setDelivery(delivery);
+                                        dealsModel.setDescription(description);
+                                        dealsModel.setDiscount(tkt_discounted_price);
+                                        dealsModel.setImage(image);
+                                        dealsModel.setTags(tags);
+                                        dealsModel.setSeller_id(seller_id);
+                                        dealsModel.setTiming(timing);
+                                        dealsModel.setCurrency(currency);
+                                        if (price == null || price.equals(0)) {
+                                            dealsModel.setPrice("0");
+                                        } else {
+                                            dealsModel.setPrice(price);
+                                        }
+                                        alldeals_categryModelArrayList.add(dealsModel);
+                                        dealsModel.setType("deal");
+                                        dealsModelArrayList.add(dealsModel);
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        PreCachingLayoutManager layoutManager1 = new PreCachingLayoutManager(getActivity());
+                        recyclerView_search.setLayoutManager(layoutManager1);
+                        recyclerView_search.setNestedScrollingEnabled(false);
+                        recyclerView_search.setHasFixedSize(true);
+                        recyclerView_search.setItemViewCacheSize(20);
+                        recyclerView_search.setDrawingCacheEnabled(true);
+                        recyclerView_search.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                        if (alldeals_categryModelArrayList != null) {
+                            collectionsAdapter3 = new CollectionsAdapter3(alldeals_categryModelArrayList, getActivity());
+                            recyclerView_search.setAdapter(collectionsAdapter3);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progress1.setVisibility(View.GONE);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        int socketTimeout = 30000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
+    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
@@ -750,6 +938,8 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
                 FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
                 FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
                 FrameLayoutActivity.img_toolbar_crcname.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView_search.setVisibility(View.GONE);
 
                 return false;
             }
@@ -765,14 +955,14 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                collectionsAdapter.filter(query);
+                collectionsAdapter3.filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                collectionsAdapter.filter(newText);
+                collectionsAdapter3.filter(newText);
                 return true;
             }
         });

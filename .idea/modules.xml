@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DateOut.iml" filepath="$PROJECT_DIR$/DateOut.iml" />
+      <module fileurl="file://E:\DateOutNew\DateOut.iml" filepath="E:\DateOutNew\DateOut.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DateOutNew.iml" filepath="$PROJECT_DIR$/.idea/DateOutNew.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\DateOutNew\app\app.iml" filepath="E:\DateOutNew\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://E:\DateOutNew\library\library.iml" filepath="E:\DateOutNew\library\library.iml" />
     </modules>
   </component>
 </project>

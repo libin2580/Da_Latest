@@ -60,17 +60,22 @@
 
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
-        <!-- <ScrollView
-             android:fillViewport="true"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             >-->
+
         <android.support.v7.widget.RecyclerView
             android:layout_marginTop="@dimen/_45sdp"
             style="@style/scrollbar_style"
             android:id="@+id/recycler_collections"
             android:layout_width="match_parent"
+
             android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/_45sdp"
+            style="@style/scrollbar_style"
+            android:id="@+id/recycler_collections1"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
     <ProgressBar
