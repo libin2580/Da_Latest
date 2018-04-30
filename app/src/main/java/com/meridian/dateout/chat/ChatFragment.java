@@ -1,6 +1,7 @@
 package com.meridian.dateout.chat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -95,9 +96,9 @@ public class ChatFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+               Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
 
             }
         });

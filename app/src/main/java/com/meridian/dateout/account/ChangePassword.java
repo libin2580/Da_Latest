@@ -97,9 +97,9 @@ public class ChangePassword extends Fragment {
             public void onClick(View v) {
                 //Intent i = new Intent(getApplicationContext(), FrameLayoutActivity.class);
                 //startActivity(i);
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
 
             }
         });

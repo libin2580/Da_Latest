@@ -2,6 +2,7 @@ package com.meridian.dateout.reminder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -42,6 +43,7 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
+import com.meridian.dateout.login.TermsOfUse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -507,9 +509,9 @@ public class ReminderMainFragment extends Fragment {
         {
             @Override
             public void onClick(View v) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
 
             }
         });

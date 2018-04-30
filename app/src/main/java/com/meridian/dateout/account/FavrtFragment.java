@@ -140,9 +140,9 @@ String status;
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
             }
         });
         deal_id = getArguments().getString("id");

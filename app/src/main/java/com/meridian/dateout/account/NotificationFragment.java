@@ -112,22 +112,10 @@ LinearLayout menu;
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(not!=null)
-                {
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
-                    transaction.replace(R.id.flFragmentPlaceHolder,ExploreFragment.newInstance(), "e");
-                    transaction.commit();
-                }
-                else
-                    {
-                    if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0)
-                    {
-                        getActivity().getSupportFragmentManager().popBackStack();
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
 
-                    }
-                }
 
             }
         });

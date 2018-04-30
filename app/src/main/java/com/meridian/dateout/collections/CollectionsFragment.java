@@ -134,23 +134,6 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
 
         progress1= (ProgressBar) view.findViewById(R.id.progress1);
-        FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
-        FrameLayoutActivity.my_location.setVisibility(View.GONE);
-        FrameLayoutActivity.img_collections.setBackgroundResource(R.drawable.collections);
-        FrameLayoutActivity.txt_collctnz_nam.setTextColor(getResources().getColor(R.color.txtcolor_icons));
-        FrameLayoutActivity.img_account.setBackgroundResource(R.drawable.account_click);
-        FrameLayoutActivity.txt_accnt_name.setTextColor(getResources().getColor(R.color.black));
-        FrameLayoutActivity.img_chat.setBackgroundResource(R.drawable.email_blue);
-        FrameLayoutActivity.txt_chat_name.setTextColor(getResources().getColor(R.color.txtcolor_icons));
-        FrameLayoutActivity.img_explore.setBackgroundResource(R.drawable.explore_click);
-        FrameLayoutActivity.txt_explorenam.setTextColor(getResources().getColor(R.color.black));
-        FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
-        FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.filter.setVisibility(View.GONE);
-        FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.img_toolbar_crcname.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.img_toolbar_crcname.setText("Collections");
-        FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
         FrameLayoutActivity.filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

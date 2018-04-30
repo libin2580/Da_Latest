@@ -83,6 +83,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.meridian.dateout.Constants.URL;
 import static com.meridian.dateout.Constants.analytics;
 
 public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyCallback {
@@ -375,7 +376,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
 
                 Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
                        // .setLink(Uri.parse("http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/view_deal/null"))
-                        .setLink(Uri.parse("http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/dealsbyid.php?deal_id="+deal_id))
+                        .setLink(Uri.parse(URL+"dealsbyid.php?deal_id="+deal_id))
                         .setDynamicLinkDomain("rkag5.app.goo.gl")
                         // Set parameters
                         // ...
@@ -522,11 +523,18 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
         linear_navigate_me.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("google.navigation:q="+latitude+","+longitude);
+                String uri = "https://www.google.co.in/maps/place/Singapore/" + latitude + "," + logitude + ",22.25z/data=!4m5!3m4!1s0x31da11238a8b9375:0x887869cf52abf5c4!8m2!3d1.3511931!4d103.8098145";
+
+                //String strUri = "http://maps.google.com/maps?q=loc:" + latitude + "," + logitude + " (" + "" + ")";
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                startActivity(intent);
+
+               /* System.out.println("google.navigation:q="+latitude+","+longitude);
                 Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
+                startActivity(mapIntent);*/
             }
         });
 

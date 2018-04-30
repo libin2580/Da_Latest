@@ -1,10 +1,12 @@
 package com.meridian.dateout.login;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,14 +50,16 @@ LinearLayout back;
 
         //  analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         back = (LinearLayout) findViewById(R.id.img_crcdtlnam);
      // title= (TextView) findViewById(R.id.title);
         description= (TextView) findViewById(R.id.description);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             onBackPressed();
-
+                Intent i=new Intent(TermsOfUse.this, FrameLayoutActivity.class);
+                startActivity(i);
+                finish();
             }
         });
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
@@ -164,6 +168,8 @@ LinearLayout back;
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Intent i=new Intent(TermsOfUse.this, FrameLayoutActivity.class);
+        startActivity(i);
+        finish();
     }
 }

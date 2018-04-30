@@ -156,15 +156,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         mySwipeRefreshLayout.setEnabled(false);
         mySwipeRefreshLayout1.setRefreshing(false);
         mySwipeRefreshLayout1.setEnabled(false);
-        FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.img_toolbar_crcname.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
-        FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
-        FrameLayoutActivity.my_location.setVisibility(View.GONE);
-        FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.img_toolbar_crcname.setText("SINGAPORE");
+
         FrameLayoutActivity.filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

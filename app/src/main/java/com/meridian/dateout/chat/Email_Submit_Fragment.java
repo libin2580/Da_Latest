@@ -1,6 +1,7 @@
 package com.meridian.dateout.chat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
@@ -133,9 +134,9 @@ public class Email_Submit_Fragment extends Fragment {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
             }
         });
 

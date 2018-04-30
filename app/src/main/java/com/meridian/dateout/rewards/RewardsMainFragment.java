@@ -41,6 +41,7 @@ import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.LoginActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
 import com.meridian.dateout.model.CreditsModel;
+import com.meridian.dateout.sidebar.PrivacyActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -161,10 +162,9 @@ public class RewardsMainFragment extends Fragment {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0)
-                {
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
             }
         });
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);

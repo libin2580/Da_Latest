@@ -61,6 +61,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.login.FrameLayoutActivity.flFragmentPlaceHolder;
 
 
 /**
@@ -169,15 +170,7 @@ public class AccountFragment extends Fragment {
         progress_bar=(ProgressBar)v.findViewById(R.id.progress_bar);
         linearLayout8= (RelativeLayout) v.findViewById(R.id.linearLayout8);
         lin_remind= (LinearLayout) v.findViewById(R.id.lin_remind);
-        FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
-        FrameLayoutActivity.img_toolbar_crcname.setText("My Account");
-        FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
-        FrameLayoutActivity.my_location.setVisibility(View.GONE);
-        FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
-        FrameLayoutActivity.filter.setVisibility(View.GONE);
-        // FrameLayoutActivity.img_top_cal.setVisibility(View.INVISIBLE);
-        FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+
         SharedPreferences preferences_user = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
         user_id=preferences_user.getString("user_id",null);
 
@@ -332,6 +325,7 @@ public class AccountFragment extends Fragment {
                 OnClickListener() {
             @Override
             public void onClick(View view) {
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
                 if(firstName != null && lastName != null && str_emails != null) {
                     replacefragment(FavrtFragment.newInstance(), "fav");
                 }
@@ -356,6 +350,8 @@ public class AccountFragment extends Fragment {
         lin_remind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
+
                 if(firstName != null && lastName != null && str_emails != null) {
 //                    Intent i=new Intent(getActivity(), ReminderActivity.class);
 //                    getActivity().startActivity(i);
@@ -386,7 +382,7 @@ public class AccountFragment extends Fragment {
         linear_notif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
                 if(firstName != null && lastName != null && str_emails != null)
                 {
                     System.out.println("not.....1.......");
@@ -415,6 +411,7 @@ public class AccountFragment extends Fragment {
         lin_order_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
                 replacefragment(OrderMainFragment.newInstance(), "f");
             }
         });
@@ -422,6 +419,7 @@ public class AccountFragment extends Fragment {
         linear_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
                 if(firstName != null && lastName != null && str_emails != null) {
                     replacefragment(WalletFragment.newInstance(), "wallet");
                 }
@@ -447,7 +445,7 @@ public class AccountFragment extends Fragment {
         linear_credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
              //  FrameLayoutActivity.lay_rewrd_name.performClick();
                 if(firstName != null && lastName != null && str_emails != null) {
 
@@ -477,6 +475,7 @@ public class AccountFragment extends Fragment {
         linearLayout8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
                 replacefragment(ChangePassword.newInstance(), "change");
             }
         });
@@ -484,6 +483,7 @@ public class AccountFragment extends Fragment {
         lin_update_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
                 replacefragment(UpdateProfile.newInstance(), "update_profile");
             }
         });
@@ -491,6 +491,7 @@ public class AccountFragment extends Fragment {
         linear_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
 
                 final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
                 dialog.setTitleText("")

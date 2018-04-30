@@ -218,14 +218,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
         View v = inflater.inflate(R.layout.fragment_nearme, container, false);
         //    FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
         final String user_id, str_fullname, str_email, photo, str_emails, str_names, str_fullname1, str_email1;
-        FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.img_toolbar_crcname.setText("NEAR ME");
-        FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
 
-        FrameLayoutActivity.search_nearby.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.my_location.setVisibility(View.GONE);
-        FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
         Re_center = (ImageView) v.findViewById(R.id.recenter);
         analytics = FirebaseAnalytics.getInstance(getActivity());
 
@@ -234,7 +227,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
         analytics.setCurrentScreen(getActivity(),getActivity().getLocalClassName(), null /* class override */);
 
         markers = new ArrayList<>();
-        FrameLayoutActivity.filter.setOnClickListener(new View.OnClickListener() {
+        FrameLayoutActivity.filter1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 displaypopup_filter_popupwindow();
@@ -649,7 +642,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
             @Override
             public void onError(Status status) {
                 location_selected = false;
-                Toast.makeText(getApplicationContext(), "No any near by deals please search a location", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), "No any near by deals please search a location", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -799,27 +792,13 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
         // change compass position
 
         try {
-            assert mapFragment.getView() != null;
-            final ViewGroup parent = (ViewGroup) mapFragment.getView().findViewWithTag("GoogleMapMyLocationButton").getParent();
-            parent.post(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        for (int i = 0, n = parent.getChildCount(); i < n; i++) {
-                            View view = parent.getChildAt(i);
-                            View compassButton = mapView.findViewWithTag("GoogleMapCompass");//this works for me
-                            RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) compassButton.getLayoutParams();
-                            rlp.addRule(RelativeLayout.ALIGN_PARENT_END);
-                            rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                            rlp.addRule(RelativeLayout.ALIGN_PARENT_START,0);
-                            rlp.topMargin = 50;
-                            view.requestLayout();
-                        }
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            });
+            View compassButton = mapView.findViewWithTag("GoogleMapCompass");//this works for me
+            RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) compassButton.getLayoutParams();
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_END);
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_START,0);
+            rlp.topMargin = 50;
+            compassButton.requestLayout();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -1065,7 +1044,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
                         if (marker_found_flag == 1) {
                             Toast.makeText(getContext(), "You have deals near you", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), "No any Deals near by please search a location", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getContext(), "No any Deals near by please search a location", Toast.LENGTH_SHORT).show();
                         }
                 }
                 catch (Exception e)
@@ -1080,7 +1059,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
 
             }
             else {
-                Toast.makeText(getContext(), "No any Deals near by please search a location", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "No any Deals near by please search a location", Toast.LENGTH_SHORT).show();
                 main_progressbar.setVisibility(View.GONE);
             }
 

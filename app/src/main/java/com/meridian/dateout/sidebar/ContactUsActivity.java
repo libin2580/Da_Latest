@@ -1,5 +1,6 @@
 package com.meridian.dateout.sidebar;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
+import com.meridian.dateout.login.TermsOfUse;
 import com.meridian.dateout.model.Contact_us_Model;
 
 import org.json.JSONArray;
@@ -44,7 +47,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.meridian.dateout.Constants.analytics;
 
-public class ContactUsActivity extends Fragment {
+public class ContactUsActivity extends Activity {
     ImageView back, phone1, mail1;
     TextView email,phone,address;
     ArrayList<Contact_us_Model> contactlist;
@@ -52,63 +55,54 @@ public class ContactUsActivity extends Fragment {
     Toolbar toolbar;
     LinearLayout lin_mail,lin_phone;
     ImageView cntctt_fb,cntctt_google;
-    double latitude=11.27;
-    double longitude=25.23;
-    public static ContactUsActivity newInstance() {
-     ContactUsActivity fragment = new ContactUsActivity();
+    double latitude=1.3525;
+    double longitude=103.82226;
 
-        return fragment;
-    }
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       FrameLayoutActivity.img_toolbar_crcname.setText("CONTACT US");
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_contact_us, container, false);
+        setContentView(R.layout.fragment_contact_us);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
-        analytics = FirebaseAnalytics.getInstance(getActivity());
+        analytics = FirebaseAnalytics.getInstance(ContactUsActivity.this);
 
-        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
-
-        back = (ImageView) view. findViewById(R.id.img_crcdtlnam);
-        lin_mail=view.findViewById(R.id.lin_mail);
-        lin_phone=view.findViewById(R.id.lin_phone);
-        cntctt_fb=view.findViewById(R.id.cntctt_fb);
-        cntctt_google=view.findViewById(R.id.cntctt_google);
+        analytics.setCurrentScreen(ContactUsActivity.this, ContactUsActivity.this.getLocalClassName(), null /* class override */);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        back = (ImageView)  findViewById(R.id.img_crcdtlnam);
+        lin_mail=findViewById(R.id.lin_mail);
+        lin_phone=findViewById(R.id.lin_phone);
+        cntctt_fb=findViewById(R.id.cntctt_fb);
+        cntctt_google=findViewById(R.id.cntctt_google);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
-
+                Intent i=new Intent(ContactUsActivity.this, FrameLayoutActivity.class);
+                startActivity(i);
+                finish();
             }
         });
-        toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_tops);
         toolbar.setVisibility(View.VISIBLE);
 
-        phone1 = (ImageView)view .findViewById(R.id.phone);
-        mail1 = (ImageView)view . findViewById(R.id.mail);
-        back = (ImageView) view .findViewById(R.id.img_crcdtlnam);
-        email= (TextView)view . findViewById(R.id.txt_email);
-        phone= (TextView)view . findViewById(R.id.txt_phone);
-        address= (TextView) view .findViewById(R.id.txt_address);
+        phone1 = (ImageView)findViewById(R.id.phone);
+        mail1 = (ImageView) findViewById(R.id.mail);
+        back = (ImageView) findViewById(R.id.img_crcdtlnam);
+        email= (TextView)findViewById(R.id.txt_email);
+        phone= (TextView) findViewById(R.id.txt_phone);
+        address= (TextView) findViewById(R.id.txt_address);
+
         address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                intent.setPackage("com.google.android.apps.maps");
-                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+              //  String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+             //  String uri="https://www.google.co.in/maps/place/Singapore/"+latitude+","+ longitude+"z/data=!4m5!3m4!1s0x31da11238a8b9375:0x887869cf52abf5c4!8m2!3d1.3511931!4d103.8098145";
+                String uri = "https://www.google.co.in/maps/place/Singapore/@1.3891507,103.7776101,13.25z/data=!4m5!3m4!1s0x31da11238a8b9375:0x887869cf52abf5c4!8m2!3d1.3511931!4d103.8098145";
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 startActivity(intent);
+
                 try
                 {
                     startActivity(intent);
@@ -117,12 +111,13 @@ public class ContactUsActivity extends Fragment {
                 {
                     try
                     {
-                        Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                        startActivity(unrestrictedIntent);
+                        Intent intents = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+                        intents.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                        startActivity(intents);
                     }
                     catch(ActivityNotFoundException innerEx)
                     {
-                        Toast.makeText(getActivity(), "Please install a maps application", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ContactUsActivity.this, "Please install a maps application", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -175,7 +170,7 @@ public class ContactUsActivity extends Fragment {
 
 
 
-        return  view;
+
     }
 
 
@@ -185,7 +180,7 @@ public class ContactUsActivity extends Fragment {
 
     private  void contact()
     {
-        NetworkCheckingClass networkCheckingClass=new NetworkCheckingClass(getActivity());
+        NetworkCheckingClass networkCheckingClass=new NetworkCheckingClass(ContactUsActivity.this);
         boolean i= networkCheckingClass.ckeckinternet();
         if(i==true) {
 
@@ -246,7 +241,7 @@ public class ContactUsActivity extends Fragment {
                         public void onErrorResponse(VolleyError error) {
 
 
-                            Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ContactUsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                         }
                     }) {
                 @Override
@@ -257,7 +252,7 @@ public class ContactUsActivity extends Fragment {
 
             };
 
-            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            RequestQueue requestQueue = Volley.newRequestQueue(ContactUsActivity.this);
             int socketTimeout = 30000;//30 seconds - change to what you want
             RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
             stringRequest.setRetryPolicy(policy);
@@ -266,7 +261,7 @@ public class ContactUsActivity extends Fragment {
         else {
 
 
-            final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.NORMAL_TYPE);
+            final SweetAlertDialog dialog = new SweetAlertDialog(ContactUsActivity.this,SweetAlertDialog.NORMAL_TYPE);
             dialog.setTitleText("")
                     .setContentText("Oops Your Connection Seems Off..s")
 
@@ -285,5 +280,11 @@ public class ContactUsActivity extends Fragment {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(ContactUsActivity.this, FrameLayoutActivity.class);
+        startActivity(i);
+        finish();
+    }
 
 }

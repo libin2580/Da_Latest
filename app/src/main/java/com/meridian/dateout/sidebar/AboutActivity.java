@@ -1,6 +1,7 @@
 package com.meridian.dateout.sidebar;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,6 +31,7 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
+import com.meridian.dateout.login.TermsOfUse;
 import com.meridian.dateout.model.Sidebar_Model;
 
 import org.json.JSONArray;
@@ -43,7 +46,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.meridian.dateout.Constants.analytics;
 
-public class AboutActivity  extends Fragment {
+public class AboutActivity  extends Activity {
     ArrayList<Sidebar_Model> sidebarlist;
     String id,title,description1;
     TextView description;
@@ -51,45 +54,39 @@ public class AboutActivity  extends Fragment {
    ImageView fb;
     Toolbar toolbar;
     ProgressBar progressBar;
-    public static AboutActivity newInstance() {
+   /* public static AboutActivity newInstance() {
      AboutActivity fragment = new AboutActivity();
 
         return fragment;
-    }
+    }*/
+
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.activity_about, container, false);
+        setContentView(R.layout.activity_about);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
-
-        progressBar= (ProgressBar)view. findViewById(R.id.progress_bar);
-        toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        progressBar= (ProgressBar)findViewById(R.id.progress_bar);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_tops);
        toolbar.setVisibility(View.VISIBLE);
-        back = (LinearLayout)view. findViewById(R.id.img_crcdtlnam);
-        analytics = FirebaseAnalytics.getInstance(getActivity());
+        back = (LinearLayout)findViewById(R.id.img_crcdtlnam);
+        analytics = FirebaseAnalytics.getInstance(AboutActivity.this);
 
-        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+        analytics.setCurrentScreen(AboutActivity.this, AboutActivity.this.getLocalClassName(), null /* class override */);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+                Intent i=new Intent(AboutActivity.this, FrameLayoutActivity.class);
+                startActivity(i);
+                finish();
 
             }
         });
-        fb= (ImageView)view. findViewById(R.id.fb);
-        description= (TextView) view.findViewById(R.id.description);
+        fb= (ImageView) findViewById(R.id.fb);
+        description= (TextView)findViewById(R.id.description);
         about_us();
 
 
@@ -97,21 +94,20 @@ public class AboutActivity  extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Intent i=new Intent(getActivity(), WebviewActivity.class);
+                Intent i=new Intent(AboutActivity.this, WebviewActivity.class);
                 i.putExtra("url","https://www.facebook.com/Date-Out-552484931628419/");
 
                 startActivity(i);
 
             }
         });
-        return  view;
     }
 
 
     private  void about_us()
     {
         progressBar.setVisibility(View.VISIBLE);
-        NetworkCheckingClass networkCheckingClass=new NetworkCheckingClass(getActivity());
+        NetworkCheckingClass networkCheckingClass=new NetworkCheckingClass(AboutActivity.this);
         boolean i= networkCheckingClass.ckeckinternet();
         if(i==true) {
 
@@ -166,7 +162,7 @@ public class AboutActivity  extends Fragment {
                         public void onErrorResponse(VolleyError error) {
                             try {
 
-                                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(AboutActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                             }
                             catch (Exception e)
                             {
@@ -183,7 +179,7 @@ public class AboutActivity  extends Fragment {
 
             };
 
-            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            RequestQueue requestQueue = Volley.newRequestQueue(AboutActivity.this);
             int socketTimeout = 30000;//30 seconds - change to what you want
             RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
             stringRequest.setRetryPolicy(policy);
@@ -192,7 +188,7 @@ public class AboutActivity  extends Fragment {
         else {
 
 
-            final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.NORMAL_TYPE);
+            final SweetAlertDialog dialog = new SweetAlertDialog(AboutActivity.this,SweetAlertDialog.NORMAL_TYPE);
             dialog.setTitleText("")
                     .setContentText("Oops Your Connection Seems Off..s")
 
@@ -209,6 +205,12 @@ public class AboutActivity  extends Fragment {
 
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(AboutActivity.this, FrameLayoutActivity.class);
+        startActivity(i);
+        finish();
     }
 
 

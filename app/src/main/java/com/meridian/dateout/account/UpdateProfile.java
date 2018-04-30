@@ -162,9 +162,9 @@ LinearLayout menu;
             @Override
             public void onClick(View v) {
 
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
 
             }
         });
@@ -316,7 +316,7 @@ LinearLayout menu;
         }
     }
 
-    @Override
+   /* @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -325,7 +325,7 @@ LinearLayout menu;
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    }*/
 
     @Override
     public void onDetach() {
@@ -502,6 +502,10 @@ LinearLayout menu;
         UploadVideo uv = new UploadVideo();
         uv.execute();
     }
+
+    public interface OnFragmentInteractionListene {
+    }
+
     class SendToServer extends AsyncTask<String,String,String>{
         @Override
         protected void onPreExecute() {

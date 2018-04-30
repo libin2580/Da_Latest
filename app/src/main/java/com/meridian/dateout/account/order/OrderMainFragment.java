@@ -5,6 +5,7 @@ package com.meridian.dateout.account.order;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -92,10 +93,9 @@ public class OrderMainFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
-
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();
             }
         });
         return v;

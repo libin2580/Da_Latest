@@ -1,5 +1,7 @@
 package com.meridian.dateout.sidebar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
+import com.meridian.dateout.login.TermsOfUse;
 import com.meridian.dateout.model.Sidebar_Model;
 
 import org.json.JSONArray;
@@ -39,57 +43,45 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.meridian.dateout.Constants.analytics;
 
-public class PrivacyActivity extends Fragment {
+public class PrivacyActivity extends Activity {
 LinearLayout back;
     ArrayList<Sidebar_Model> sidebarlist;
     String id,title1,description1;
     TextView title,description;
     Toolbar toolbar;
-    public static PrivacyActivity newInstance() {
-    PrivacyActivity fragment = new PrivacyActivity();
-    return fragment;
-    }
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-     // FrameLayoutActivity.img_toolbar_crcname.setText("PRIVACY POLICY");
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_privacy_policy, container, false);
+        setContentView(R.layout.fragment_privacy_policy);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
-        analytics = FirebaseAnalytics.getInstance(getActivity());
+        analytics = FirebaseAnalytics.getInstance(PrivacyActivity.this);
 
-        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+        analytics.setCurrentScreen(PrivacyActivity.this, PrivacyActivity.this.getLocalClassName(), null /* class override */);
        // title= (TextView) view.findViewById(R.id.title);
-        back = (LinearLayout)view. findViewById(R.id.img_crcdtlnam);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        back = (LinearLayout)findViewById(R.id.img_crcdtlnam);
       //  fb= (ImageView)view. findViewById(R.id.fb);
-        description= (TextView) view.findViewById(R.id.description);
+        description= (TextView) findViewById(R.id.description);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
-
+                Intent i=new Intent(PrivacyActivity.this, FrameLayoutActivity.class);
+                startActivity(i);
+                finish();
             }
         });
-        toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_tops);
         toolbar.setVisibility(View.VISIBLE);
-        analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
+        analytics.setCurrentScreen(PrivacyActivity.this, PrivacyActivity.this.getLocalClassName(), null /* class override */);
 
         privacy();
-        return  view;
     }
 
     private  void privacy()
     {
-        NetworkCheckingClass networkCheckingClass=new NetworkCheckingClass(getActivity());
+        NetworkCheckingClass networkCheckingClass=new NetworkCheckingClass(PrivacyActivity.this);
         boolean i= networkCheckingClass.ckeckinternet();
         if(i==true) {
 
@@ -147,7 +139,7 @@ LinearLayout back;
                         public void onErrorResponse(VolleyError error) {
 
 
-                            Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(PrivacyActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                         }
                     }) {
                 @Override
@@ -163,7 +155,7 @@ LinearLayout back;
 
             };
 
-            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            RequestQueue requestQueue = Volley.newRequestQueue(PrivacyActivity.this);
             int socketTimeout = 30000;//30 seconds - change to what you want
             RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
             stringRequest.setRetryPolicy(policy);
@@ -172,7 +164,7 @@ LinearLayout back;
         else {
 
 
-            final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.NORMAL_TYPE);
+            final SweetAlertDialog dialog = new SweetAlertDialog(PrivacyActivity.this,SweetAlertDialog.NORMAL_TYPE);
             dialog.setTitleText("")
                     .setContentText("Oops Your Connection Seems Off..s")
 
@@ -193,5 +185,11 @@ LinearLayout back;
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(PrivacyActivity.this, FrameLayoutActivity.class);
+        startActivity(i);
+        finish();
+    }
 
 }

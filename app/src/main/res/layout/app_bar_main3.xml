@@ -94,6 +94,13 @@
                         android:visibility="gone"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:id="@+id/filter" />
+                    <ImageView
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/filter"
+                        android:visibility="gone"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:id="@+id/filter1" />
 
 
                     <ImageView
@@ -112,6 +119,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main3" />
+    <include layout="@layout/myaccount" />
 
 </android.support.design.widget.CoordinatorLayout>

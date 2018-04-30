@@ -723,35 +723,91 @@ android:layout_gravity="left|center"
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="8dp"
+                    android:paddingEnd="@dimen/_20sdp"
+                    android:id="@+id/linearLayout17"
+                    android:layout_below="@+id/linearLayout6"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:paddingRight="@dimen/_20sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/lin_order_history"
+                        android:background="@drawable/account_button"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginStart="23dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:paddingLeft="@dimen/_12sdp"
+
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_width="@dimen/_13sdp"
+                                android:layout_height="@dimen/_13sdp"
+                                android:backgroundTint="#9b9696"
+                                android:background="@drawable/order_icon"
+
+                                android:layout_gravity="left|center"
+                                android:id="@+id/imageView_order_history" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+
+                            android:layout_gravity="center"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Orders"
+
+                                android:gravity="left"
+                                android:textSize="@dimen/_14sdp"
+
+                                android:id="@+id/imageView1_order_history" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="right"
+                            android:gravity="right|center_vertical"
+
+                            android:paddingRight="@dimen/_10sdp"
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
+
+                            <ImageView
+                                android:layout_width="@dimen/_8sdp"
+                                android:layout_height="@dimen/_8sdp"
+                                android:src="@drawable/arow"
+                                android:layout_gravity="center|right"
 
 
 
 
 
+                                android:layout_weight="0.31" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -838,115 +894,6 @@ android:layout_gravity="left|center"
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="8dp"
-                    android:paddingEnd="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:id="@+id/linearLayout17"
-                    android:layout_below="@+id/linearLayout6"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:paddingRight="@dimen/_20sdp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:id="@+id/lin_order_history"
-                        android:background="@drawable/account_button"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginLeft="23dp"
-                        android:layout_marginStart="23dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:paddingLeft="@dimen/_12sdp"
-
-                            android:layout_height="match_parent">
-                            <ImageView
-                                android:layout_width="@dimen/_13sdp"
-                                android:layout_height="@dimen/_13sdp"
-                                android:backgroundTint="#9b9696"
-                                android:background="@drawable/order_icon"
-
-                                android:layout_gravity="left|center"
-                                android:id="@+id/imageView_order_history" />
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
-
-                            android:layout_gravity="center"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="Orders"
-
-                                android:gravity="left"
-                                android:textSize="@dimen/_14sdp"
-
-                                android:id="@+id/imageView1_order_history" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_gravity="right"
-                            android:gravity="right|center_vertical"
-
-                            android:paddingRight="@dimen/_10sdp"
-                            android:layout_height="match_parent"
-                            android:weightSum="1">
-
-                            <ImageView
-                                android:layout_width="@dimen/_8sdp"
-                                android:layout_height="@dimen/_8sdp"
-                                android:src="@drawable/arow"
-                                android:layout_gravity="center|right"
-
-
-
-
-
-                                android:layout_weight="0.31" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-                </RelativeLayout>
-
 
                 <RelativeLayout
                     android:layout_width="match_parent"

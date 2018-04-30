@@ -175,6 +175,7 @@
              android:layout_width="@dimen/_18sdp"
              android:layout_height="@dimen/_18sdp"
              android:layout_margin="@dimen/_5sdp"
+             android:visibility="gone"
              android:background="@drawable/google_plus"
              android:id="@+id/cntctt_google"/>
          </LinearLayout>

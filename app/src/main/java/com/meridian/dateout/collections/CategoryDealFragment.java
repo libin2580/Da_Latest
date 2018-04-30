@@ -46,6 +46,7 @@ import com.meridian.dateout.explore.Spinner_model1;
 import com.meridian.dateout.explore.category_booking_detailspage.CategoryDealDetail;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
+import com.meridian.dateout.login.TermsOfUse;
 import com.meridian.dateout.model.CategoryDealModel;
 import com.squareup.timessquare.CalendarPickerView;
 
@@ -69,6 +70,7 @@ import static com.meridian.dateout.Constants.URL;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.CollectionsAdapter1.jsonlist;
 import static com.meridian.dateout.explore.CollectionsAdapter2.str_sorted_by;
+import static com.meridian.dateout.login.FrameLayoutActivity.flFragmentPlaceHolder;
 
 
 /**
@@ -183,6 +185,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
         filter1= (ImageView) v. findViewById(R.id.filter1);
         coordinatorLayout = (LinearLayout) v.findViewById(R.id.activity_category_list);
         filter1.setVisibility(View.VISIBLE);
+        flFragmentPlaceHolder.setVisibility(View.VISIBLE);
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
         FrameLayoutActivity.img_collections.setBackgroundResource(R.drawable.collections);
         FrameLayoutActivity.txt_collctnz_nam.setTextColor(getResources().getColor(R.color.txtcolor_icons));
@@ -198,8 +201,9 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               getActivity().onBackPressed();
-            }
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                startActivity(i);
+                getActivity().finish();            }
         });
         analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
