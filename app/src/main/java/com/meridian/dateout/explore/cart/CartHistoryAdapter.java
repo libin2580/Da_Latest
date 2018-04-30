@@ -76,6 +76,7 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
             public void onClick(View view) {
                 Intent i = new Intent(context, CategoryDealDetail.class);
                 i.putExtra("deal_id", Integer.parseInt(orderHistoryArraylist.get(position).getDeal_id()));
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }
         });

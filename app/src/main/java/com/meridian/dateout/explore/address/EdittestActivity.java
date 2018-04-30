@@ -46,7 +46,7 @@ public class EdittestActivity extends AppCompatActivity {
     LinearLayout save_data;
     String name,phone,city,street,flat_no,state,pin,type;
     String vv,ss;
-    String ids;
+    String ids,edit;
     String android_id,android_ids;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class EdittestActivity extends AppCompatActivity {
         android_id = Settings.Secure.getString(EdittestActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID);
 
         id = getIntent().getStringExtra("id");
+        edit = getIntent().getStringExtra("edit");
         name = getIntent().getStringExtra("name");
 
         coordinatorLayout = (LinearLayout) findViewById(R.id.coordinatorLayout);
@@ -79,16 +80,20 @@ public class EdittestActivity extends AppCompatActivity {
             flat_no= getIntent().getStringExtra("flat_no");
             state= getIntent().getStringExtra("state");
             pin= getIntent().getStringExtra("pin");
-            type= getIntent().getStringExtra("type");
+          type= getIntent().getStringExtra("type");
             System.out.println("<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>"+type);
             ss="id";
 
             if(type.equalsIgnoreCase("work")){
 //    addr_work_edit.setChecked(true);
+                ad_type="work";
+
                 // addr_home_edit.setChecked(false);
                 addr_work_edit.setButtonDrawable(R.drawable.blue_tick);
                 addr_home_edit.setButtonDrawable(R.drawable.gray_tick);
             }else{
+                ad_type="home";
+
                 // addr_home_edit.setChecked(true);
                 // addr_work_edit.setChecked(false);
                 addr_work_edit.setButtonDrawable(R.drawable.gray_tick);
@@ -168,10 +173,11 @@ public class EdittestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //.dismiss();
-                if(name!=null){
+                if(edit!=null){
                     Intent u=new Intent(EdittestActivity.this, Adddetails.class);
 
                     startActivity(u);
+                    finish();
                 }else {
                    finish();
                 }

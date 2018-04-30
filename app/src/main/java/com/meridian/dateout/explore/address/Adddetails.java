@@ -36,6 +36,7 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.collections.HttpHandler;
 import com.meridian.dateout.explore.StripeCheck;
+import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.login.NetworkCheckingClass;
 import com.meridian.dateout.login.TermsOfUse;
 
@@ -210,7 +211,11 @@ public class Adddetails extends AppCompatActivity {
         _close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(Adddetails.this, Cart_details.class);
+
+                startActivity(i);
                 finish();
+
             }
         });
         add_address.setOnClickListener(new View.OnClickListener() {
@@ -220,7 +225,10 @@ public class Adddetails extends AppCompatActivity {
                // display_add_address();
                 Intent i = new Intent(Adddetails.this, EdittestActivity.class);
                 i.putExtra("id",user_id);
+                i.putExtra("edit","edit");
+
                 startActivity(i);
+                finish();
 
             }
         });

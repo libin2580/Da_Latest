@@ -99,6 +99,8 @@ public class RecyclerAdapterCategory1 extends RecyclerView.Adapter<RecyclerAdapt
                     Intent i = new Intent(context, CategoryDealDetail.class);
                     i.putExtra("deal_id", ids);
                     i.putExtra("deal_slug",  deal_slug);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                     context.startActivity(i);
 
                 }

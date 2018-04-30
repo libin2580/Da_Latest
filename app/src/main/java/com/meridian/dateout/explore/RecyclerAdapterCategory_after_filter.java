@@ -153,6 +153,8 @@ public class RecyclerAdapterCategory_after_filter extends RecyclerView.Adapter<R
                     String deal_slug = dealsModelArrayList.get(i).getDeal_slug();
                     System.out.println("xxdetailxiddd" + ids);
                     Intent i = new Intent(context, CategoryDealDetail.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                     i.putExtra("deal_slug", deal_slug);
                     i.putExtra("deal_id", ids);
                     context.startActivity(i);
