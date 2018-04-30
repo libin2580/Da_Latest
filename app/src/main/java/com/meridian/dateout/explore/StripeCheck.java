@@ -414,7 +414,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                     add(new Pair<String, String>("stripe_api", SECRET_KEY));
                     add(new Pair<String, String>("stripe_token", stoken));
                     add(new Pair<String, String>("user_id", userid));
-                    add(new Pair<String, String>("guest_device_token",""));
+                    add(new Pair<String, String>("guest_device_token","0"));
                     add(new Pair<String, String>("address_id",address_id));
                     add(new Pair<String, String>("coupon_code",coupon_code));
 
@@ -425,7 +425,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                 params = new ArrayList<Pair<String, String>>() {{
                     add(new Pair<String, String>("stripe_api", SECRET_KEY));
                     add(new Pair<String, String>("stripe_token", stoken));
-                    add(new Pair<String, String>("user_id",""));
+                    add(new Pair<String, String>("user_id","0"));
                     add(new Pair<String, String>("guest_device_token",android_id));
                     add(new Pair<String, String>("address_id",address_id));
                     add(new Pair<String, String>("coupon_code",coupon_code));
@@ -434,70 +434,88 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                 }};
 
             }
-            Fuel.post(URL1 + "cart-checkout.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            Fuel.post(URL1+"cart-checkout_test.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
                 @Override
                 public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
 
                     System.out.println("s**********" + s);
                     if(s != null && !s.isEmpty() && !response.equals("null")) {
-
+                        progressBar.setVisibility(ProgressBar.GONE);
                         System.out.println("responseeeee" + response);
 
                         try {
                             JSONObject jsonObj = new JSONObject(s);
                             statusd = jsonObj.getString("status");
-                            txn_id = jsonObj.getString("txn_id");
-                            date = jsonObj.getString("date");
-                            time = jsonObj.getString("time");
-                            booking_id = jsonObj.getString("booking_code");
-                            System.out.println("transaction json......" +txn_id);
 
+            if(statusd.equalsIgnoreCase("failed")){
+                final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this,SweetAlertDialog.NORMAL_TYPE);
+                dialog.setTitleText("Failed!")
+                        .setContentText("Payment failed")
+
+                        .setConfirmText("OK")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+                dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                }else {
+                txn_id = jsonObj.getString("txn_id");
+                date = jsonObj.getString("date");
+                time = jsonObj.getString("time");
+                booking_id = jsonObj.getString("booking_code");
+                System.out.println("transaction json......" +txn_id);
+                final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this,SweetAlertDialog.SUCCESS_TYPE);
+                dialog.setTitleText("Success")
+                        .setContentText("Payment Done successfully")
+
+                        .setConfirmText("OK")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                displayPopup();
+                                System.out.println("transaction pop uppp......" +txn_id);
+                                txt_amount.setText(String.valueOf("$ "+price));
+
+                                txt_transaction.setText(txn_id);
+                                //  txt_pop_descriptn.setText(check_title);
+                                txt_pop_time.setText(date+"/"+time);
+                                txt_booking_code.setText(booking_id);
+                                ok_pop.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        mPopupWindow.dismiss();
+                                        progressBar.setVisibility(ProgressBar.GONE);
+                                        Intent is = new Intent(getApplicationContext(),FrameLayoutActivity.class);
+                                        startActivity(is);
+                                        finish();
+
+                                    }
+                                });
+
+
+
+
+
+
+                                dialog.dismiss();
+
+
+                            }
+                        })
+                        .show();
+                dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+            }
                         }
                         catch (JSONException e)
                         {
                             e.printStackTrace();
                         }
 
-                        final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this,SweetAlertDialog.SUCCESS_TYPE);
-                        dialog.setTitleText("Success")
-                                .setContentText("Payment Done successfully")
-
-                                .setConfirmText("OK")
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        displayPopup();
-                                        System.out.println("transaction pop uppp......" +txn_id);
-                                        txt_amount.setText(String.valueOf("$ "+price));
-                                        txt_transaction.setText(txn_id);
-                                      //  txt_pop_descriptn.setText(check_title);
-                                        txt_pop_time.setText(date+"/"+time);
-                                        txt_booking_code.setText(booking_id);
-                                        ok_pop.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-
-                                                mPopupWindow.dismiss();
-                                                progressBar.setVisibility(ProgressBar.GONE);
-                                                Intent is = new Intent(getApplicationContext(),FrameLayoutActivity.class);
-                                                startActivity(is);
-                                                finish();
-
-                                            }
-                                        });
-
-
-
-
-
-
-                                        dialog.dismiss();
-
-
-                                    }
-                                })
-                                .show();
-                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
 
                     }

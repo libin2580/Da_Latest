@@ -1364,6 +1364,25 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                            }else {
+                                {
+                                    final SweetAlertDialog dialog = new SweetAlertDialog(CategoryDealDetail.this,SweetAlertDialog.NORMAL_TYPE);
+                                    dialog.setTitleText("")
+                                            .setContentText("No data to diplay")
+
+                                            .setConfirmText("OK")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    dialog.dismiss();
+                                                    Intent i  =new Intent(CategoryDealDetail.this, FrameLayoutActivity.class);
+                                                    startActivity(i);
+
+                                                }
+                                            })
+                                            .show();
+                                    dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                                }
                             }
 
 
@@ -1426,9 +1445,29 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                         @Override
                         public void onResponse(String response) {
 
-                            System.out.println("++++++++++++++RESPONSE+++++++++++++++   dealdetail :" + response);
+                            System.out.println("++++++++++++++RESPONSE111111111111+++++++++++++++   dealdetail :" + response);
                             String need_toknow = null;
-                            if(response!=null&&!response.isEmpty()) {
+                            if(response.equalsIgnoreCase("")){{
+                                {
+                                    final SweetAlertDialog dialog = new SweetAlertDialog(CategoryDealDetail.this,SweetAlertDialog.NORMAL_TYPE);
+                                    dialog.setTitleText("")
+                                            .setContentText("No data to diplay")
+
+                                            .setConfirmText("OK")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    dialog.dismiss();
+                                                    Intent i  =new Intent(CategoryDealDetail.this, FrameLayoutActivity.class);
+                                                    startActivity(i);
+
+                                                }
+                                            })
+                                            .show();
+                                    dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                                }
+                            }}
+                           else if(response!=null&&!response.isEmpty()) {
 
                                 try {
                                     JSONArray jsonarray = new JSONArray(response);
@@ -1468,7 +1507,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                         }
                                         else
                                         {
-                                            System.out.println("imagessss2......."+image);
+                                                                                     System.out.println("imagessss2......."+image);
                                             layout_image.setVisibility(View.GONE);
                                         }
                                         if (jsonobject.has("description"))
@@ -1821,7 +1860,6 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                     e.printStackTrace();
                                 }
                             }
-
 
                         }
                     },

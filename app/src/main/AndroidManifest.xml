@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.meridian.dateout">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -24,7 +23,6 @@
 
     <application
 
-        android:permission="android.permission.WRITE_EXTERNAL_STORAGE"
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:alwaysRetainTaskState="true"
@@ -50,13 +48,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.SplashScreen"
-            android:screenOrientation="portrait">
-
-            <intent-filter >
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+            android:screenOrientation="portrait"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
             <intent-filter >
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -98,7 +97,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".explore.category_booking_detailspage.CategoryDealDetail"
-            android:label=" "
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -162,9 +160,12 @@
             android:name=".sidebar.MapsActivity5"
             android:label="@string/title_activity_maps5"
             android:screenOrientation="portrait" />
-        <activity android:name=".collections.CollectionsActivity" />
-        <activity android:name=".account.AccountsActivity" />
-        <activity android:name=".chat.Chat_Activity" />
+        <activity android:name=".collections.CollectionsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".account.AccountsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".chat.Chat_Activity"
+            android:screenOrientation="portrait"/>
 
         <receiver android:name=".MySMSBroadCastReceiver">
             <intent-filter android:priority="999">

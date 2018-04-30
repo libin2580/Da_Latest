@@ -127,6 +127,7 @@
                         android:id="@+id/address_email"
                         android:hint="Email"
                         android:textSize="@dimen/_12sdp"
+                        android:visibility="gone"
                         android:inputType="textAutoComplete"
                         android:backgroundTint="@android:color/darker_gray"
                         android:textColor="@android:color/black"
@@ -146,6 +147,7 @@
                         android:textColor="@android:color/black"
                         android:scrollHorizontally="false"
                         android:inputType="number"
+                        android:maxLength="11"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_height="@dimen/_40sdp"/>
                     <EditText

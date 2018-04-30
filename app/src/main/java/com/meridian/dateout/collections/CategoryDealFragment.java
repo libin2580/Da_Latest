@@ -65,6 +65,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.URL;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.CollectionsAdapter1.jsonlist;
 import static com.meridian.dateout.explore.CollectionsAdapter2.str_sorted_by;
@@ -770,7 +771,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
             NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
             boolean i = networkCheckingClass.ckeckinternet();
             if (i) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/category-deals-byfilter.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"category-deals-byfilter.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -944,7 +945,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
         NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
         boolean i = networkCheckingClass.ckeckinternet();
         if (i) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/category-deals-byfilter.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"category-deals-byfilter.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -1118,7 +1119,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
         NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
         boolean i = networkCheckingClass.ckeckinternet();
         if (i) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/category-deals-byfilter.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"category-deals-byfilter.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -1285,13 +1286,18 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
 
     }
     private void get_filter_list_by_location(final ArrayList<String> jsonlist) {
+        String json_list= String.valueOf(jsonlist);
+        json_list=json_list.replaceAll("[]]","");
+        json_list = json_list.substring(1);
+
+        final String finalJson_list = json_list;
         progress.setVisibility(View.VISIBLE);
         categoryDealModelArrayList = new ArrayList<>();
         categoryDealModelArrayList.clear();
         NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
         boolean i = networkCheckingClass.ckeckinternet();
         if (i) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/category-deals-byfilter.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"category-deals-byfilter.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -1421,7 +1427,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("category", String.valueOf(category_id));
-                    params.put("Location", String.valueOf(jsonlist));
+                    params.put("Location",finalJson_list);
                     return params;
                 }
 

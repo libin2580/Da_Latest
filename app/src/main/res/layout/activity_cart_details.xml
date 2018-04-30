@@ -213,7 +213,8 @@
                     android:id="@+id/txt_chatname"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_15sdp"
-                    android:text="PROCESS CHECKOUT"/>
+                    android:textAllCaps="true"
+                    android:text="Proceed to checkout"/>
 
             </LinearLayout>
         </LinearLayout>

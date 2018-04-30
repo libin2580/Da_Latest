@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
                 android:orientation="horizontal"
-
+android:visibility="gone"
                 android:layout_marginTop="@dimen/_5sdp"
                 >
 
@@ -162,6 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/_5sdp">
                 <TextView
                     android:layout_width="0dp"
@@ -202,6 +203,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:layout_gravity="center"
+                    android:textSize="@dimen/_9sdp"
                     android:id="@+id/txt_pop_date_time"
                     android:layout_height="wrap_content" />
 

@@ -158,11 +158,21 @@ public class Adddetails extends AppCompatActivity {
         if (user_id != null) {
             userid = user_id;
             System.out.println("userid" + userid);
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("user_id", user_id));
+                add(new Pair<String, String>("guest_device_token", "0"));
+
+            }};
         }
         else {
             android_id = Settings.Secure.getString(Adddetails.this.getContentResolver(),Settings.Secure.ANDROID_ID);
-            userid = android_id;
-            System.out.println("userid" + userid);
+
+            System.out.println("userid" + android_id);
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("user_id", "0"));
+                add(new Pair<String, String>("guest_device_token", android_id));
+
+            }};
 
         }
         SharedPreferences preferences_fb_id = getSharedPreferences("myfbid", MODE_PRIVATE);
@@ -211,13 +221,10 @@ public class Adddetails extends AppCompatActivity {
                 Intent i = new Intent(Adddetails.this, EdittestActivity.class);
                 i.putExtra("id",user_id);
                 startActivity(i);
-                finish();
+
             }
         });
-        params = new ArrayList<Pair<String, String>>() {{
-            add(new Pair<String, String>("user_id", user_id));
 
-        }};
         Fuel.post(URL1+"list_address.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
             @Override
             public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
@@ -232,73 +239,80 @@ public class Adddetails extends AppCompatActivity {
 
                         String status = jsonObj.getString("status");
                         System.out.println("_________status_____________" + status);
-                        if (jsonObj.has("message")) {
-                            message = jsonObj.getString("message");
-                            if (message.equalsIgnoreCase("No data")) {
-                               // display_add_address();
-                                Intent i = new Intent(Adddetails.this, EdittestActivity.class);
-                                i.putExtra("id",user_id);
-                                startActivity(i);
-                                finish();
-                            }
-                        }
-                        final String data = jsonObj.getString("data");
-                        System.out.println("___________data___________" + data);
 
-                        array = new JSONArray(data);
-                        System.out.println("___________length___________" + array.length());
-
-                        if(array.length()<=0){
-                             // display_add_address();
+                        if (status.equalsIgnoreCase("false")) {
                             Intent i = new Intent(Adddetails.this, EdittestActivity.class);
-                            i.putExtra("id",user_id);
+                            i.putExtra("id", user_id);
                             startActivity(i);
                             finish();
-                              plus_btn.setVisibility(View.GONE);
-                        }else {
-                            plus_btn.setVisibility(View.VISIBLE);
+                        } else {
+                            if (jsonObj.has("message")) {
+                                message = jsonObj.getString("message");
+                                if (message.equalsIgnoreCase("No data")) {
+                                    // display_add_address();
+                                    Intent i = new Intent(Adddetails.this, EdittestActivity.class);
+                                    i.putExtra("id", user_id);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            }
+                            final String data = jsonObj.getString("data");
+                            System.out.println("___________data___________" + data);
 
-                            for (int i = 0; i < array.length(); i++) {
-                            addressModel = new AddressModel();
-                            JSONObject jsonobject = array.getJSONObject(i);
+                            array = new JSONArray(data);
+                            System.out.println("___________length___________" + array.length());
+
+                            if (array.length() <= 0) {
+                                // display_add_address();
+                                Intent i = new Intent(Adddetails.this, EdittestActivity.class);
+                                i.putExtra("id", user_id);
+                                startActivity(i);
+                                finish();
+                                plus_btn.setVisibility(View.GONE);
+                            } else {
+                                plus_btn.setVisibility(View.VISIBLE);
+
+                                for (int i = 0; i < array.length(); i++) {
+                                    addressModel = new AddressModel();
+                                    JSONObject jsonobject = array.getJSONObject(i);
 
 
-                            String id = jsonobject.getString("id");
-                            String name = jsonobject.getString("name");
-                            String phone = jsonobject.getString("phone");
-                            String city = jsonobject.getString("city");
-                            String area = jsonobject.getString("street");
-                            String flat_address = jsonobject.getString("building");
-                            String state = jsonobject.getString("state");
-                            String pin = jsonobject.getString("pin");
-                            String work_home = jsonobject.getString("type");
+                                    String id = jsonobject.getString("id");
+                                    String name = jsonobject.getString("name");
+                                    String phone = jsonobject.getString("phone");
+                                    String city = jsonobject.getString("city");
+                                    String area = jsonobject.getString("street");
+                                    String flat_address = jsonobject.getString("building");
+                                    String state = jsonobject.getString("state");
+                                    String pin = jsonobject.getString("pin");
+                                    String work_home = jsonobject.getString("type");
 
 
-                            addressModel.setId(id);
-                            addressModel.setName(name);
-                            addressModel.setPhone(phone);
-                            addressModel.setCity(city);
-                            addressModel.setArea(area);
-                            addressModel.setFlat_address(flat_address);
-                            addressModel.setState(state);
-                            addressModel.setPin(pin);
-                            addressModel.setWork_home(work_home);
+                                    addressModel.setId(id);
+                                    addressModel.setName(name);
+                                    addressModel.setPhone(phone);
+                                    addressModel.setCity(city);
+                                    addressModel.setArea(area);
+                                    addressModel.setFlat_address(flat_address);
+                                    addressModel.setState(state);
+                                    addressModel.setPin(pin);
+                                    addressModel.setWork_home(work_home);
 
-                            addresslist.add(addressModel);
+                                    addresslist.add(addressModel);
 
 
+                                }
+                            }
+                            LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+                            recyclerVieaddress.setLayoutManager(llm);
+                            addreesAdapter = new AddreesAdapter(getApplicationContext(), addresslist);
+
+                            recyclerVieaddress.scheduleLayoutAnimation();
+                            recyclerVieaddress.setAdapter(addreesAdapter);
                         }
-                    }
-                    LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-                    recyclerVieaddress.setLayoutManager(llm);
-                    addreesAdapter = new AddreesAdapter(getApplicationContext(), addresslist);
-
-                    recyclerVieaddress.scheduleLayoutAnimation();
-                    recyclerVieaddress.setAdapter(addreesAdapter);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                        } catch(JSONException e){
+                            e.printStackTrace();
+                        }
 
             }
 

@@ -72,6 +72,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.URL;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.CollectionsAdapter1.jsonlist;
 import static com.meridian.dateout.explore.CollectionsAdapter2.str_sorted_by;
@@ -340,7 +341,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
     private void get_filter() {
         progress.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/filter_values.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"filter_values.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
@@ -433,7 +434,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
     private void get_filter_list_sort_by(final String str_sorted_by) {
         progress1.setVisibility(View.VISIBLE);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/explore.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"explore.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
@@ -650,7 +651,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
     private void get_filter_list_by_catagories(final ArrayList<String> jsonlist) {
         progress1.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/explore.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"explore.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
@@ -849,7 +850,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("categories", String.valueOf(jsonlist));
+                params.put("categories[]", String.valueOf(jsonlist));
                 System.out.println("----------- params : " + params);
                 return params;
             }
@@ -863,8 +864,13 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
     }
 
     private void get_filter_list_by_location(final ArrayList<String> jsonlist) {
+
+        String json_list= String.valueOf(jsonlist);
+        json_list=json_list.replaceAll("[]]","");
+        json_list = json_list.substring(1);
         progress1.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/explore.php",
+        final String finalJson_list = json_list;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"explore.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
@@ -1062,7 +1068,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("location", String.valueOf(jsonlist));
+                params.put("location", finalJson_list);
                 System.out.println("----------- params : " + params);
                 return params;
             }
@@ -1077,7 +1083,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
     private void get_filter_list_by_price(final String range_from, final String range_to) {
         progress1.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/explore.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"explore.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
@@ -1290,7 +1296,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
     private void get_filter_list_by_schedule(final String strt_date, final String end_dat) {
         progress1.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/explore.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"explore.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
@@ -1686,7 +1692,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
     private void get_explore() {
         progress1.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL + "all-deals-categories-banners.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL +"all-deals-categories-banners.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {

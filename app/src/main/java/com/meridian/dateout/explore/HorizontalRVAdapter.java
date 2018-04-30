@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.meridian.dateout.R;
 import com.meridian.dateout.collections.CategoryDealFragment;
-import com.meridian.dateout.collections.CategoryDealFragment1;
 import com.meridian.dateout.model.CategoryModel;
 
 import java.util.ArrayList;
