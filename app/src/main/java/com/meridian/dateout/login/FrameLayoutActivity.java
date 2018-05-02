@@ -35,6 +35,7 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -138,7 +139,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
     TextView logout,title_txt;
     String login,user_id;
     LinearLayout back_btn;
-    String tabid;
+    int tabid;
     int t_id;
     public static Bitmap bmp;
     String selectedFilePath;
@@ -196,12 +197,13 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
     LinearLayout linear_popup_ok;
     TextView txt_popup_date,txt_popup_time,txt_popup_type,txt_popup_title;
     public static FrameLayout flFragmentPlaceHolder;
+   boolean swipeEnabled=true;
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
-       // tabid=getIntent().getStringExtra("tabid");
+        tabid=getIntent().getIntExtra("tab_id",0);
       //  System.out.println("________tbbbt___________" + tabid);
 //        t_id=Integer.parseInt(tabid);
        // System.out.println("________t_id__________" + t_id);
@@ -406,6 +408,8 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                 public void onReceive(Context context, Intent intent) {
                     if (mReceiver != null) {
                         if (extras != null) {
+                            flFragmentPlaceHolder.setVisibility(View.VISIBLE);
+
                             FragmentManager fragmentManager = getSupportFragmentManager();
                             android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
                             //  transaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
@@ -439,6 +443,8 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
 
         if(mReceiver!=null) {
             if (extras != null) {
+                flFragmentPlaceHolder.setVisibility(View.VISIBLE);
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
 
@@ -460,6 +466,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
             System.out.println("broad....mreceiever outsidee..notnull" );
         }
         else {
+            flFragmentPlaceHolder.setVisibility(View.VISIBLE);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -861,55 +868,210 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         });
 
 
-
-
-
-
-
-        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
-            @Override
-            public void transformPage(View page, float position) {
-                // do transformation here
-                final float normalizedposition = Math.abs(Math.abs(position) - 1);
-                page.setScaleX(normalizedposition / 2 + 0.5f);
-                page.setScaleY(normalizedposition / 2 + 0.5f);
-            }
-        });
-       // tabLayout.setupWithViewPager(viewPager);
-      /*  View root = tabLayout.getChildAt(0);
-        if (root instanceof LinearLayout) {
-            ((LinearLayout) root).setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-            GradientDrawable drawable = new GradientDrawable();
-            drawable.setColor(getResources().getColor(R.color.gray_btn_bg_color));
-            drawable.setSize(2, 1);
-            ((LinearLayout) root).setDividerPadding(10);
-            ((LinearLayout) root).setDividerDrawable(drawable);
-        }
-        setupViewPager1(viewPager);
-*/
-
-/*
-
-        switch (0){
+        switch (tabid) {
             case 0:
-                viewPager.setCurrentItem(0);
+                try {
+                    flFragmentPlaceHolder.setVisibility(View.GONE);
+                    viewPager.setCurrentItem(0);
+                    toolbar.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.img_toolbar_crcname.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
+                    FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
+                    FrameLayoutActivity.my_location.setVisibility(View.GONE);
+                    FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.filter1.setVisibility(View.GONE);
+
+                    FrameLayoutActivity.img_toolbar_crcname.setText("SINGAPORE");
+
+                    img_explore.setBackgroundResource(R.drawable.explore);
+                    txt_explorenam.setTextColor(getResources().getColor(R.color.txtcolor_icons));
+                    img_collections.setBackgroundResource(R.drawable.collections_click);
+                    txt_collctnz_nam.setTextColor(getResources().getColor(R.color.black));
+                    img_account.setBackgroundResource(R.drawable.account_click);
+                    txt_accnt_name.setTextColor(getResources().getColor(R.color.black));
+                    img_chat.setBackgroundResource(R.drawable.email_blue);
+                    txt_chat_name.setTextColor(getResources().getColor(R.color.black));
+                    img_nearme.setBackgroundResource(R.drawable.near_by);
+                    txt_nearme.setTextColor(getResources().getColor(R.color.black));
+                    img_rewrd_name.setBackgroundResource(R.drawable.reward_blue);
+                    txt_rewrdname.setTextColor(getResources().getColor(R.color.black));
+                    img_top_faq.setVisibility(View.GONE);
+                    System.out.println("framelayout_shared_clickimage" + str_fulname_fb);
+                  /*  FragmentManager fragmentManager = getSupportFragmentManager();
+                    System.out.println("fragment by id : " + fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder));
+                    String current_fragment = fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().substring(0, fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().indexOf("{"));
+                    System.out.println("current_fragment : " + current_fragment);
+
+                    if (!current_fragment.trim().equalsIgnoreCase("ExploreFragment")) {
+
+                    }*/
+                }
+                catch (Exception e)
+
+                {
+
+                }
 
                 break;
             case 1:
-                viewPager.setCurrentItem(1);
+                try {
+                    flFragmentPlaceHolder.setVisibility(View.GONE);
+
+                    viewPager.setCurrentItem(1);
+                    FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.img_toolbar_crcname.setText("NEAR ME");
+                    FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
+
+                    FrameLayoutActivity.search_nearby.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.my_location.setVisibility(View.GONE);
+                    FrameLayoutActivity.filter.setVisibility(View.GONE);
+                    FrameLayoutActivity.filter1.setVisibility(View.VISIBLE);
+
+                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+
+                    img_nearme.setBackgroundResource(R.drawable.near_by_blue);
+                    txt_nearme.setTextColor(getResources().getColor(R.color.txtcolor_icons));
+                    img_explore.setBackgroundResource(R.drawable.explore_click);
+                    txt_explorenam.setTextColor(getResources().getColor(R.color.black));
+                    img_collections.setBackgroundResource(R.drawable.collections_click);
+                    txt_collctnz_nam.setTextColor(getResources().getColor(R.color.black));
+                    img_account.setBackgroundResource(R.drawable.account_click);
+                    txt_accnt_name.setTextColor(getResources().getColor(R.color.black));
+                    img_chat.setBackgroundResource(R.drawable.email_blue);
+                    img_rewrd_name.setBackgroundResource(R.drawable.reward_blue);
+                    txt_rewrdname.setTextColor(getResources().getColor(R.color.black));
+                    txt_chat_name.setTextColor(getResources().getColor(R.color.black));
+                    img_top_faq.setVisibility(View.GONE);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    getSupportActionBar().setDisplayShowHomeEnabled(true);
+                   /* FragmentManager fragmentManager = getSupportFragmentManager();
+                    System.out.println("fragment by id : " + fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder));
+                    String current_fragment = fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().substring(0, fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().indexOf("{"));
+                    System.out.println("current_fragment : " + current_fragment);
+
+                    if (!current_fragment.trim().equalsIgnoreCase("NearMeFragment")) {
+
+                    }*/
+                }
+                catch (Exception e)
+                {
+
+                }
                 break;
             case 2:
-                viewPager.setCurrentItem(2);
-                break;
+                try {
+
+
+                    viewPager.setCurrentItem(2);
+                    FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
+                    FrameLayoutActivity.my_location.setVisibility(View.GONE);
+                    FrameLayoutActivity.img_collections.setBackgroundResource(R.drawable.collections);
+                    FrameLayoutActivity.txt_collctnz_nam.setTextColor(getResources().getColor(R.color.txtcolor_icons));
+                    FrameLayoutActivity.img_account.setBackgroundResource(R.drawable.account_click);
+                    FrameLayoutActivity.txt_accnt_name.setTextColor(getResources().getColor(R.color.black));
+                    FrameLayoutActivity.img_chat.setBackgroundResource(R.drawable.email_blue);
+                    FrameLayoutActivity.txt_chat_name.setTextColor(getResources().getColor(R.color.txtcolor_icons));
+                    FrameLayoutActivity.img_explore.setBackgroundResource(R.drawable.explore_click);
+                    FrameLayoutActivity.txt_explorenam.setTextColor(getResources().getColor(R.color.black));
+                    FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
+                    FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.filter1.setVisibility(View.GONE);
+
+                    FrameLayoutActivity.img_toolbar_crcname.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.img_toolbar_crcname.setText("Categories");
+                    FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
+                    flFragmentPlaceHolder.setVisibility(View.GONE);
+
+                    img_collections.setBackgroundResource(R.drawable.collections);
+                    txt_collctnz_nam.setTextColor(getResources().getColor(R.color.txtcolor_icons));
+                    img_account.setBackgroundResource(R.drawable.account_click);
+                    txt_accnt_name.setTextColor(getResources().getColor(R.color.black));
+                    img_chat.setBackgroundResource(R.drawable.email_blue);
+                    txt_chat_name.setTextColor(getResources().getColor(R.color.black));
+                    img_explore.setBackgroundResource(R.drawable.explore_click);
+                    txt_explorenam.setTextColor(getResources().getColor(R.color.black));
+                    img_nearme.setBackgroundResource(R.drawable.near_by);
+                    txt_nearme.setTextColor(getResources().getColor(R.color.black));
+                    img_rewrd_name.setBackgroundResource(R.drawable.reward_blue);
+                    txt_rewrdname.setTextColor(getResources().getColor(R.color.black));
+                    img_top_faq.setVisibility(View.GONE);
+                  /*  FragmentManager fragmentManager = getSupportFragmentManager();
+                    System.out.println("fragment by id : " + fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder));
+                    String current_fragment = fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().substring(0, fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().indexOf("{"));
+                    System.out.println("current_fragment : " + current_fragment);
+
+                    if (!current_fragment.trim().equalsIgnoreCase("CollectionsFragment")) {
+
+                    }*/
+                }
+                catch ( Exception e)
+                {
+
+                }                break;
             case 3:
-                viewPager.setCurrentItem(3);
-                break;
+                try {
+                    viewPager.setCurrentItem(3);
+                    FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
+                    FrameLayoutActivity.img_toolbar_crcname.setText("My Account");
+                    FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
+                    FrameLayoutActivity.my_location.setVisibility(View.GONE);
+                    FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
+                    FrameLayoutActivity.filter.setVisibility(View.GONE);
+                    FrameLayoutActivity.filter1.setVisibility(View.GONE);
+
+                    // FrameLayoutActivity.img_top_cal.setVisibility(View.INVISIBLE);
+                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+
+                    img_account.setBackgroundResource(R.drawable.account);
+                    txt_accnt_name.setTextColor(getResources().getColor(R.color.txtcolor_icons));
+                    img_chat.setBackgroundResource(R.drawable.email_blue);
+                    txt_chat_name.setTextColor(getResources().getColor(R.color.black));
+                    img_explore.setBackgroundResource(R.drawable.explore_click);
+                    txt_explorenam.setTextColor(getResources().getColor(R.color.black));
+                    img_collections.setBackgroundResource(R.drawable.collections_click);
+                    txt_collctnz_nam.setTextColor(getResources().getColor(R.color.black));
+                    img_nearme.setBackgroundResource(R.drawable.near_by);
+                    img_rewrd_name.setBackgroundResource(R.drawable.reward_blue);
+                    txt_rewrdname.setTextColor(getResources().getColor(R.color.black));
+                    txt_nearme.setTextColor(getResources().getColor(R.color.black));
+                    // replacefragment(AccountFragment.newInstance(), "ac");
+
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                img_account.animate().rotationBy(360).withEndAction(this).setDuration(1000).setInterpolator(new LinearInterpolator()).start();
+                            }
+                        }
+                    };
+
+                    img_account.animate().rotationBy(360).withEndAction(runnable).setDuration(1000).setInterpolator(new LinearInterpolator()).cancel();
+                       /* FragmentManager fragmentManager = getSupportFragmentManager();
+                        System.out.println("fragment by id : " + fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder));
+                        String current_fragment = fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().substring(0, fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().indexOf("{"));
+                        System.out.println("current_fragment : " + current_fragment);
+
+                        if (!current_fragment.trim().equalsIgnoreCase("AccountFragment")) {
+
+
+                        }*/
+
+                }
+                catch (Exception e)
+                {
+
+                }                break;
             default:
                 viewPager.setCurrentItem(0);
                 break;
-*/
 
-       // }
+        }
+
 
 
 
@@ -1082,6 +1244,7 @@ finish();
         }
 
         else if (id == R.id.nav_CHAT) {
+            flFragmentPlaceHolder.setVisibility(View.VISIBLE);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -1090,7 +1253,8 @@ finish();
             transaction.commit();
         }
         else if (id == R.id.nav_FAQ) {
-            img_toolbar_crcname.setText("FAQ");
+          img_toolbar_crcname.setText("FAQ");
+            flFragmentPlaceHolder.setVisibility(View.VISIBLE);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -1528,8 +1692,6 @@ finish();
             intent.putExtra("EXIT", true);
             startActivity(intent);
             finish();
-// dialog.dismiss();
-            ;
             return;
         }
 
@@ -1537,7 +1699,6 @@ finish();
         com.nispok.snackbar.Snackbar.with(FrameLayoutActivity.this) // context
                 .text("Press again to EXIT")  // text to display
                 .color(Color.parseColor("#4797c4"))// text to display
-
                 .show(FrameLayoutActivity.this);
 
         new Handler().postDelayed(new Runnable() {

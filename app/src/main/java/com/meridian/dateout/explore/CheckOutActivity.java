@@ -31,20 +31,17 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
-import com.meridian.dateout.explore.address.Adddetails;
-import com.meridian.dateout.explore.cart.Cart_details;
+import com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import kotlin.Pair;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.analytics;
@@ -376,7 +373,7 @@ public class CheckOutActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Adddetails.toolbar_CRCNAM.setText("EDIT DETAILS");
+                AdddetailsDelivery.toolbar_CRCNAM.setText("EDIT DETAILS");
                 onBackPressed();
             }
         });

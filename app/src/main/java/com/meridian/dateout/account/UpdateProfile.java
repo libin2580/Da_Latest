@@ -163,6 +163,8 @@ LinearLayout menu;
             public void onClick(View v) {
 
                 Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                i.putExtra("tab_id",3);
+
                 startActivity(i);
                 getActivity().finish();
 

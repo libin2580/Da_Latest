@@ -1,4 +1,4 @@
-package com.meridian.dateout.explore.address;
+package com.meridian.dateout.explore.deliveryaddress;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +33,7 @@ import static com.meridian.dateout.Constants.analytics;
  * Created by libin on 3/26/2018.
  */
 
-public class EdittestActivity extends AppCompatActivity {
+public class EdittestActivityDelivery extends AppCompatActivity {
 
     String adname, adphone, adcity, adarea, adflatads, adstate, adpin, ad_type,id;
    // private String android_id;
@@ -51,9 +51,9 @@ public class EdittestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_address_edit);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        analytics = FirebaseAnalytics.getInstance(EdittestActivity.this);
+        analytics = FirebaseAnalytics.getInstance(EdittestActivityDelivery.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
-        android_id = Settings.Secure.getString(EdittestActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID);
+        android_id = Settings.Secure.getString(EdittestActivityDelivery.this.getContentResolver(),Settings.Secure.ANDROID_ID);
 
         id = getIntent().getStringExtra("id");
         edit = getIntent().getStringExtra("edit");
@@ -172,7 +172,7 @@ public class EdittestActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //.dismiss();
                 if(edit!=null){
-                    Intent u=new Intent(EdittestActivity.this, Adddetails.class);
+                    Intent u=new Intent(EdittestActivityDelivery.this, AdddetailsDelivery.class);
 
                     startActivity(u);
                     finish();
@@ -183,7 +183,7 @@ public class EdittestActivity extends AppCompatActivity {
         });
 
 
-        Adddetails.place_order.setOnClickListener(new View.OnClickListener() {
+        AdddetailsDelivery.place_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -196,7 +196,7 @@ public class EdittestActivity extends AppCompatActivity {
 
 
 
-                NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(EdittestActivity.this);
+                NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(EdittestActivityDelivery.this);
 
                 boolean i = networkCheckingClass.ckeckinternet();
                 if (i) {
@@ -251,7 +251,7 @@ public class EdittestActivity extends AppCompatActivity {
                               //      final String data = jsonObj.getString("message");
                                    // System.out.println("___________data___________" + data);
                                     if(status.equalsIgnoreCase("true")){
-                                        Intent i = new Intent(EdittestActivity.this, Adddetails.class);
+                                        Intent i = new Intent(EdittestActivityDelivery.this, AdddetailsDelivery.class);
 
 
                                         startActivity(i);
@@ -278,7 +278,7 @@ public class EdittestActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    final SweetAlertDialog dialog = new SweetAlertDialog(EdittestActivity.this, SweetAlertDialog.NORMAL_TYPE);
+                    final SweetAlertDialog dialog = new SweetAlertDialog(EdittestActivityDelivery.this, SweetAlertDialog.NORMAL_TYPE);
                     dialog.setTitleText("")
                             .setContentText("Oops Your Connection Seems Off..s")
 

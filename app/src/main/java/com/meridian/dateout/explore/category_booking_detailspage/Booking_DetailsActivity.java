@@ -50,7 +50,7 @@ import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
-import com.meridian.dateout.explore.address.Adddetails;
+import com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery;
 import com.meridian.dateout.explore.calendar.CaldroidSampleCustomFragment;
 import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -138,7 +138,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
     String mnth_remov_zero_min;
     String mnth_remov_zero_max;
     Calendar cal;
-    String checkout_info, calendar_instruction;
+    String checkout_info, calendar_instruction,delivery_adrs_required;
     String currency;
     String ad, cd, timing;
     String userid,str_comnt;
@@ -173,6 +173,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         android_id = Settings.Secure.getString(Booking_DetailsActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID);
         analytics = FirebaseAnalytics.getInstance(this);
         analytics.setCurrentScreen(this,this.getLocalClassName(), null /* class override */);
+        delivery_adrs_required = getIntent().getStringExtra("delivery_adrs_required");
 
         //displayPopup_comment();
 
@@ -281,7 +282,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         linear_booking_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Adddetails.class);
+                Intent i = new Intent(getApplicationContext(), AdddetailsDelivery.class);
                 i.putExtra("adult_price", ad_price);
                 i.putExtra("child_price", ch_price);
                 i.putExtra("adult_number", ad_number);
@@ -804,6 +805,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent u=new Intent(Booking_DetailsActivity.this, Cart_details.class);
+               u.putExtra("address_id","0");
                 startActivity(u);
 
             }
@@ -1103,105 +1105,116 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                 System.out.println("Booking..... datee..." + booking_date);
                 System.out.println("Booking........calendar_show" + calendar_show);
                 System.out.println("Booking........People" + people);
+if(delivery_adrs_required.equalsIgnoreCase("yes")) {
 
-
-                if (booking_date == "" && calendar_show.contentEquals("yes"))
-                {
-                    final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this,SweetAlertDialog.NORMAL_TYPE);
-                    dialog.setTitleText("")
-                            .setContentText("Please select an Available date")
-                            .setConfirmText("OK")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sDialog) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
-                    dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-
-
-
-                } else if (people == 0)
-                {
-
-                    if (deal_type.contentEquals("gifts") || deal_type.contentEquals("food_and_beverages")) {
-                        final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this,SweetAlertDialog.NORMAL_TYPE);
-                        dialog.setTitleText("")
-                                .setContentText("Please select the quantity of deal you would like to purchase")
-
-                                .setConfirmText("OK")
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .show();
-                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-
-                    } else {
-                        final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this,SweetAlertDialog.NORMAL_TYPE);
-                        dialog.setTitleText("")
-                                .setContentText("Please select adult number or child number")
-                                .setConfirmText("OK")
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .show();
-                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-
+    Intent u=new Intent(Booking_DetailsActivity.this, AdddetailsDelivery.class);
+    u.putExtra("deal_id", checkout_deal_id);
+    u.putExtra("user_id", userid);
+    u.putExtra("device_token", "0");
+    u.putExtra("cust_selected_date", booking_date);
+    u.putExtra("cust_selected_time", booking_time);
+    u.putExtra("adult_number", String.valueOf(ad_number));
+    u.putExtra("child_number", String.valueOf(ch_number));
+    u.putExtra("quantity", String.valueOf(people));
+    u.putExtra("comment", str_comnt);
+    u.putExtra("amount", String.valueOf(total / people));
+    u.putExtra("deal_optionsJSON ", somejson);
+    startActivity(u);
+}
+else {
+    if (booking_date == "" && calendar_show.contentEquals("yes")) {
+        final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this, SweetAlertDialog.NORMAL_TYPE);
+        dialog.setTitleText("")
+                .setContentText("Please select an Available date")
+                .setConfirmText("OK")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        dialog.dismiss();
                     }
-
-                }
-                else {
-
-                    if(userid!=null)
-                    {
-                        // displayPopup();
-                        params = new ArrayList<Pair<String, String>>() {{
-                            add(new Pair<String, String>("deal_id", checkout_deal_id));
-                            add(new Pair<String, String>("user_id",userid));
-                            add(new Pair<String, String>("device_token","0"));
-                            add(new Pair<String, String>("cust_selected_date", booking_date));
-                            add(new Pair<String, String>("cust_selected_time", booking_time));
-                            add(new Pair<String, String>("adult_number", String.valueOf(ad_number)));
-                            add(new Pair<String, String>("child_number",String.valueOf(ch_number)));
-                            add(new Pair<String, String>("quantity", String.valueOf(people)));
-                            add(new Pair<String, String>("comment", str_comnt));
-                            add(new Pair<String, String>("amount", String.valueOf(total/people)));
-                            add(new Pair<String, String>("deal_optionsJSON ",somejson));
-                        }};
-
-                        System.out.println("params********"+params);
-                        addto_cart();
-
-                    }
-                    else {
-                        params = new ArrayList<Pair<String, String>>() {{
-                            add(new Pair<String, String>("deal_id", checkout_deal_id));
-                            add(new Pair<String, String>("user_id","0"));
-                            add(new Pair<String, String>("device_token",android_id));
-                            add(new Pair<String, String>("cust_selected_date", booking_date));
-                            add(new Pair<String, String>("cust_selected_time", booking_time));
-                            add(new Pair<String, String>("adult_number", String.valueOf(ad_number)));
-                            add(new Pair<String, String>("child_number",String.valueOf(ch_number)));
-                            add(new Pair<String, String>("quantity", String.valueOf(people)));
-                            add(new Pair<String, String>("comment", str_comnt));
-                            add(new Pair<String, String>("amount", String.valueOf(total/people)));
-                            add(new Pair<String, String>("deal_optionsJSON ",somejson));
-
-                        }};
-                        System.out.println("params********"+params);
-                        addto_cart1();
-                    }
+                })
+                .show();
+        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
 
+    } else if (people == 0) {
 
-                }
+        if (deal_type.contentEquals("gifts") || deal_type.contentEquals("food_and_beverages")) {
+            final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this, SweetAlertDialog.NORMAL_TYPE);
+            dialog.setTitleText("")
+                    .setContentText("Please select the quantity of deal you would like to purchase")
+
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+        } else {
+            final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this, SweetAlertDialog.NORMAL_TYPE);
+            dialog.setTitleText("")
+                    .setContentText("Please select adult number or child number")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+        }
+
+    } else {
+
+        if (userid != null) {
+            // displayPopup();
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("deal_id", checkout_deal_id));
+                add(new Pair<String, String>("user_id", userid));
+                add(new Pair<String, String>("device_token", "0"));
+                add(new Pair<String, String>("address_id", "0"));
+                add(new Pair<String, String>("cust_selected_date", booking_date));
+                add(new Pair<String, String>("cust_selected_time", booking_time));
+                add(new Pair<String, String>("adult_number", String.valueOf(ad_number)));
+                add(new Pair<String, String>("child_number", String.valueOf(ch_number)));
+                add(new Pair<String, String>("quantity", String.valueOf(people)));
+                add(new Pair<String, String>("comment", str_comnt));
+                add(new Pair<String, String>("amount", String.valueOf(total / people)));
+                add(new Pair<String, String>("deal_optionsJSON ", somejson));
+            }};
+
+            System.out.println("params********" + params);
+            addto_cart();
+
+        } else {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("deal_id", checkout_deal_id));
+                add(new Pair<String, String>("user_id", "0"));
+                add(new Pair<String, String>("address_id", "0"));
+                add(new Pair<String, String>("device_token", android_id));
+                add(new Pair<String, String>("cust_selected_date", booking_date));
+                add(new Pair<String, String>("cust_selected_time", booking_time));
+                add(new Pair<String, String>("adult_number", String.valueOf(ad_number)));
+                add(new Pair<String, String>("child_number", String.valueOf(ch_number)));
+                add(new Pair<String, String>("quantity", String.valueOf(people)));
+                add(new Pair<String, String>("comment", str_comnt));
+                add(new Pair<String, String>("amount", String.valueOf(total / people)));
+                add(new Pair<String, String>("deal_optionsJSON ", somejson));
+
+            }};
+            System.out.println("params********" + params);
+            addto_cart1();
+        }
+
+
+    }
+}
 
             }
         });

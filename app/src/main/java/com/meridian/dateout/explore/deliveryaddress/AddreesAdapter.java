@@ -1,4 +1,4 @@
-package com.meridian.dateout.explore.address;
+package com.meridian.dateout.explore.deliveryaddress;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.meridian.dateout.R;
-import com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery;
 
 import java.util.List;
 
@@ -99,7 +98,7 @@ String ad_type;
             public void onClick(View v) {
 
 
-                Intent i = new Intent(context, EdittestActivity.class);
+                Intent i = new Intent(context, EdittestActivityDelivery.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("id",addressModels.get(position).getId());
                 i.putExtra("name",addressModels.get(position).getName());
@@ -126,7 +125,7 @@ String ad_type;
             @Override
             public void onClick(View v) {
                 holder1.itemView.performClick();
-                Adddetails.address_id=addressModels.get(position).getId();
+                AdddetailsDelivery.address_id=addressModels.get(position).getId();
             }
         });
         if (selectedPosition == position) {
@@ -134,7 +133,6 @@ String ad_type;
 
         } else {
             holder1.address_check.setChecked(false);
-
         }
 
     }

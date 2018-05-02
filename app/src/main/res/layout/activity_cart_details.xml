@@ -94,8 +94,9 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_60sdp"
-            android:background="@drawable/outline_box"
+            android:layout_height="@dimen/_45sdp"
+          android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/white"
             >
             <LinearLayout
                 android:layout_width="0dp"
@@ -106,8 +107,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_marginBottom="@dimen/_1sdp"
                     android:background="@drawable/promo_code"/>
 

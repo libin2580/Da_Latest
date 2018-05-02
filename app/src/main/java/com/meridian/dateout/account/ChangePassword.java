@@ -98,6 +98,8 @@ public class ChangePassword extends Fragment {
                 //Intent i = new Intent(getApplicationContext(), FrameLayoutActivity.class);
                 //startActivity(i);
                 Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                i.putExtra("tab_id",3);
+
                 startActivity(i);
                 getActivity().finish();
 

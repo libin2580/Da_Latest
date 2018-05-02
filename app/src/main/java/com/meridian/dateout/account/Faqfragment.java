@@ -1,6 +1,7 @@
 package com.meridian.dateout.account;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
@@ -136,8 +137,11 @@ public class Faqfragment extends Fragment {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              getActivity().onBackPressed();
+                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                i.putExtra("tab_id",0);
 
+                startActivity(i);
+                getActivity().finish();
             }
         });
 

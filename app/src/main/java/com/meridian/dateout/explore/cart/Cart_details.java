@@ -22,6 +22,7 @@ import com.github.kittinunf.fuel.core.FuelError;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.address.Adddetails;
+import com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +56,7 @@ public class Cart_details extends AppCompatActivity {
     public static int totalprize_for_order=0;
 
     EditText promocode;
-    String coupon_code;
+    String coupon_code,address_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,7 @@ public class Cart_details extends AppCompatActivity {
         Checkout = (LinearLayout)findViewById(R.id.checkout);
         analytics = FirebaseAnalytics.getInstance(Cart_details.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
+        address_id = getIntent().getStringExtra("address_id");
 
         promocode=findViewById(R.id.promocode);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_categorydeal);
@@ -121,12 +123,16 @@ public class Cart_details extends AppCompatActivity {
             params = new ArrayList<Pair<String, String>>() {{
                 add(new Pair<String, String>("user_id",userid));
                 add(new Pair<String, String>("device_token","0"));
+
+
             }};
         }
         else {
             params = new ArrayList<Pair<String, String>>() {{
                 add(new Pair<String, String>("device_token",android_id));
                 add(new Pair<String, String>("user_id","0"));
+                ;
+
             }};
         }
 
@@ -153,6 +159,7 @@ public class Cart_details extends AppCompatActivity {
                     JSONObject jsonObj = new JSONObject(s);
                     System.out.println("s**********" + s);
                     String status = jsonObj.getString("status");
+
                     if (status.equalsIgnoreCase("true")) {
                        if(jsonObj.has("data")){
                            JSONArray dataArray = jsonObj.getJSONArray("data");

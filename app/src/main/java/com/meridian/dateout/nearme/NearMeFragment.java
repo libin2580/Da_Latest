@@ -1042,7 +1042,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
                 }
                 try {
                         if (marker_found_flag == 1) {
-                            Toast.makeText(getContext(), "You have deals near you", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getContext(), "You have deals near you", Toast.LENGTH_SHORT).show();
                         } else {
                           //  Toast.makeText(getContext(), "No any Deals near by please search a location", Toast.LENGTH_SHORT).show();
                         }

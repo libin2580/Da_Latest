@@ -89,7 +89,7 @@ import static com.meridian.dateout.Constants.analytics;
 public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyCallback {
     int deal_id;
     String id;
-    String title;
+    String title,delivery_adrs_required;
     String description;
     String discount;
     String timing;
@@ -487,6 +487,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               // delivery_adrs_required = jsonobject.getString("delivery");
 
                 Intent i = new Intent(getApplicationContext(), Booking_DetailsActivity.class);
                 i.putExtra("deal_id", deal_id);
@@ -494,6 +495,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                 i.putExtra("time", timing);
                 i.putExtra("title", title);
                 i.putExtra("deal_type",deal_type);
+                i.putExtra("delivery_adrs_required",delivery_adrs_required);
                 i.putExtra("timing",timing);
                 i.putExtra("deal_point",deal_points);
                 i.putExtra("available_point",available_point);
@@ -1027,6 +1029,10 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                         {
                                             description = jsonobject.getString("description");
                                         }
+                                        if (jsonobject.has("delivery"))
+                                        {
+                                            delivery_adrs_required = jsonobject.getString("delivery");
+                                        }
                                         if (jsonobject.has("points_to_next_level"))
                                         {
                                             points_to_next_level = jsonobject.getString("points_to_next_level");
@@ -1515,9 +1521,14 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                         }
                                         else
                                         {
-                                                                                     System.out.println("imagessss2......."+image);
+                                          System.out.println("imagessss2......."+image);
                                             layout_image.setVisibility(View.GONE);
                                         }
+                                        if (jsonobject.has("delivery"))
+                                        {
+                                            delivery_adrs_required = jsonobject.getString("delivery");
+                                        }
+
                                         if (jsonobject.has("description"))
                                         {
                                             description = jsonobject.getString("description");

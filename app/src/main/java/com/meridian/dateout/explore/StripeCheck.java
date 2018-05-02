@@ -56,7 +56,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
-import static com.meridian.dateout.explore.address.Adddetails.address_id;
+import static com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery.address_id;
 
 public class StripeCheck extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     public static final String PUBLISHABLE_KEY = "pk_test_loGbDLQBWWNK6OZyes300duF";

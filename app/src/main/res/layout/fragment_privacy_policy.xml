@@ -84,10 +84,10 @@
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="@dimen/_140sdp"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_gravity="center"
                 android:layout_marginTop="42dp"
-                app:srcCompat="@drawable/logo_new" />
+                android:background="@drawable/logo_new" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -118,12 +118,11 @@
             >
             <ImageView
                 android:id="@+id/insta"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
 
-                app:srcCompat="@drawable/instgram" />
-            <ImageView
+                android:background="@drawable/instgram" />
+            <!--<ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -146,13 +145,13 @@ android:visibility="gone"
                 android:layout_weight="1"
 android:visibility="gone"
                 app:srcCompat="@drawable/twitter" />
-
+-->
             <ImageView
                 android:id="@+id/fb"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/facebook" />
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:background="@drawable/facebook" />
         </LinearLayout>
     </LinearLayout>
 

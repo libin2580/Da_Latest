@@ -202,6 +202,7 @@ public class CategoryDealFragment extends Fragment implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                i.putExtra("tab_id",2);
                 startActivity(i);
                 getActivity().finish();            }
         });

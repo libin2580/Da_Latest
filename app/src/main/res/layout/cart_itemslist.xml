@@ -231,17 +231,17 @@ android:layout_marginRight="@dimen/_10sdp"
 
 <LinearLayout
     android:layout_width="0dp"
-    android:layout_height="@dimen/_40sdp"
+    android:layout_height="@dimen/_35sdp"
     android:layout_weight="1"
     android:gravity="center"
     android:layout_marginLeft="@dimen/_10sdp"
-    android:background="@drawable/border_box"
+    android:background="@drawable/white"
     android:id="@+id/layout_wish"
     android:layout_marginRight="@dimen/_5sdp"
     >
         <ImageView
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_18sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:background="@drawable/moveto_wishlist"/>
         <TextView
@@ -256,15 +256,15 @@ android:layout_marginRight="@dimen/_10sdp"
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_weight="1"
             android:gravity="center"
             android:id="@+id/delete_cart"
-            android:background="@drawable/border_box"
+            android:background="@drawable/white"
             android:layout_marginLeft="@dimen/_25sdp">
             <ImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:background="@drawable/remove"/>
             <TextView
