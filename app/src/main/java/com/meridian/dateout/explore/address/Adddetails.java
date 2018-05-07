@@ -2,6 +2,7 @@ package com.meridian.dateout.explore.address;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -37,6 +38,7 @@ import com.meridian.dateout.R;
 import com.meridian.dateout.collections.HttpHandler;
 import com.meridian.dateout.explore.StripeCheck;
 import com.meridian.dateout.explore.cart.Cart_details;
+import com.meridian.dateout.login.LoginActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
 import com.meridian.dateout.login.TermsOfUse;
 
@@ -360,9 +362,41 @@ public class Adddetails extends AppCompatActivity {
                     dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
                     return;
                 }else {
+
                     if (terms.isChecked()) {
-                        Intent u = new Intent(Adddetails.this, StripeCheck.class);
-                        startActivity(u);
+                        if(user_id==null){
+                            final SweetAlertDialog dialog = new SweetAlertDialog(Adddetails.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE);
+                            dialog.setTitleText("Rewards")
+                                    .setContentText("Please register to avail reward points")
+                                    .setConfirmText("Later")
+                                    .setCancelText("Ok")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            dialog.dismiss();
+                                            Intent u = new Intent(Adddetails.this, StripeCheck.class);
+                                            startActivity(u);
+                                        }
+                                    })
+                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            dialog.dismiss();
+                                            Intent i=new Intent(Adddetails.this, LoginActivity.class);
+                                            startActivity(i);
+                                        }
+                                    })
+                                    .show();
+
+                            dialog.findViewById(R.id.confirm_button).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#368aba")));
+                            dialog.findViewById(R.id.cancel_button).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#368aba")));
+
+                        }
+                        else {
+                            Intent u = new Intent(Adddetails.this, StripeCheck.class);
+                            startActivity(u);
+                        }
+
                     } else {
                         final SweetAlertDialog dialog = new SweetAlertDialog(Adddetails.this, SweetAlertDialog.NORMAL_TYPE);
                         dialog.setTitleText("")

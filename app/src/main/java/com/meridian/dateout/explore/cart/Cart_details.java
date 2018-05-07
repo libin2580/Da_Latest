@@ -23,8 +23,6 @@ import com.github.kittinunf.fuel.core.FuelError;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.address.Adddetails;
-import com.meridian.dateout.explore.category_booking_detailspage.Booking_DetailsActivity;
-import com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery;
 import com.meridian.dateout.login.FrameLayoutActivity;
 
 import org.json.JSONArray;
@@ -52,12 +50,12 @@ public class Cart_details extends AppCompatActivity {
     private CartHistoryAdapter ohad;
     String userid,android_id;
     public static TextView Total_txt;
-    LinearLayout Checkout,_close;
+    LinearLayout Checkout,_close,continue_shopping;
     List<Pair<String, String>> params;
     public static ProgressBar progress_bar_explore;
     int valuu=0;
     public static int totalprize_for_order=0;
-ImageView Home;
+    ImageView Home;
     EditText promocode;
     String coupon_code,address_id;
     @Override
@@ -67,6 +65,7 @@ ImageView Home;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         progress_bar_explore = (ProgressBar)findViewById(R.id.progress_bar_explore);
         Checkout = (LinearLayout)findViewById(R.id.checkout);
+        continue_shopping = (LinearLayout)findViewById(R.id.continue_shopping);
         analytics = FirebaseAnalytics.getInstance(Cart_details.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         address_id = getIntent().getStringExtra("address_id");
@@ -156,6 +155,14 @@ ImageView Home;
                 Intent u=new Intent(Cart_details.this, Adddetails.class);
 
                 startActivity(u);
+            }
+        });
+        continue_shopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i  =new Intent(Cart_details.this, FrameLayoutActivity.class);
+                i.putExtra("tab_id",0);
+                startActivity(i);
             }
         });
         view_cart();

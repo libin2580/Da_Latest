@@ -87,7 +87,6 @@ android:layout_gravity="center"
 
         <LinearLayout
             android:layout_width="match_parent"
-
             android:layout_height="0dp"
             android:layout_weight="6"
             android:orientation="vertical">
@@ -111,7 +110,7 @@ android:layout_gravity="center"
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
-          android:layout_margin="@dimen/_12sdp"
+            android:layout_margin="@dimen/_12sdp"
             android:background="@drawable/white"
             >
             <LinearLayout
@@ -171,53 +170,90 @@ android:layout_gravity="center"
             </LinearLayout>
         </LinearLayout>
 
-
-
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginRight="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:background="@drawable/white"
+            >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/_20sdp"
+                android:gravity="center|left"
+                android:orientation="horizontal">
 
-            android:id="@+id/tabbar"
-            android:visibility="visible"
-            android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Total Price"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/img_explore" />
 
 
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingRight="@dimen/_10sdp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:id="@+id/txt_explorename"
+                        android:gravity="center"
+                        android:textSize="@dimen/_12sdp"
+                        android:text="$0.00"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/line" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:id="@+id/tabbar"
+            android:visibility="visible"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:id="@+id/lay_explore"
+                android:id="@+id/continue_shopping"
                 android:layout_height="fill_parent"
                 android:gravity="center|left"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/_12sdp"
                 android:background="@drawable/shadow_box"
-                android:layout_marginRight="@dimen/_1sdp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="Total Price"
-                    android:textSize="@dimen/_8sdp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/img_explore" />
+                android:layout_marginRight="@dimen/_1sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="#000000"
-                    android:id="@+id/txt_explorename"
                     android:textSize="@dimen/_12sdp"
-                    android:text="$0.00"/>
+                    android:textAllCaps="true"
+                    android:text="Continue shopping"/>
+
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:id="@+id/checkout"
-                android:layout_marginRight="@dimen/_1sdp"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
                 android:background="#4797c4"
@@ -229,7 +265,7 @@ android:layout_gravity="center"
                     android:textColor="#ffffff"
                     android:id="@+id/txt_chatname"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textAllCaps="true"
                     android:text="Proceed to checkout"/>
 
