@@ -46,16 +46,42 @@
                         android:id="@+id/toolbar_CRCNAM"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true" />
-                    <ImageView
-                        android:id="@+id/cart"
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginRight="@dimen/_35sdp"
+                        android:layout_marginRight="@dimen/_25sdp"
                         android:layout_centerVertical="true"
-                        android:tint="@color/white"
-                        app:srcCompat="@drawable/cart" />
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:src="@drawable/cart"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:id="@+id/cart" />
+                        <LinearLayout
+                            android:layout_width="@dimen/_11sdp"
+                            android:layout_height="@dimen/_11sdp"
+                            android:background="@drawable/cart_background"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/_7sdp"
+                                android:textColor="#ffffff"
+                                android:id="@+id/txt_cart_number"
+                                android:layout_centerHorizontal="true"
+                                />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
 
                     <ImageView
                         android:id="@+id/home"

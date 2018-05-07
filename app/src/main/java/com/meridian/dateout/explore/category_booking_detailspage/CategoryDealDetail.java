@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -47,6 +48,8 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.github.kittinunf.fuel.Fuel;
+import com.github.kittinunf.fuel.core.FuelError;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -78,13 +81,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import kotlin.Pair;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.URL;
+import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.login.FrameLayoutActivity.txt_cart_number;
 
 public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyCallback {
     int deal_id;
@@ -127,11 +135,12 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
     LinearLayout lin_wish,lin_wish_selected;
     String schedule_status,deeplink;
     ArrayList<CategoryDealModel> categoryDealModelArrayList;
-    String price;
+    String price,android_id;
     WebView pager_text;
     ImageView imag_new;
     TabLayout tabLayout;
     String userid, deal_slug;
+    List<Pair<String, String>> params;
     WebView txt_inclusion, txt_exclusion;
     CoordinatorLayout layout_visible;
     LinearLayout layout_loader;
@@ -143,10 +152,10 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
     private GoogleMap mMap;
     NestedScrollView nestedScrollView;
 
-    LinearLayout linear_navigate_me,Cart;
-    ImageView Home;
+    LinearLayout linear_navigate_me;
+    ImageView Home,Cart;
     ProgressBar progress;
-
+    TextView txt_cart_number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,7 +182,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
         lin_wish = (LinearLayout) findViewById(R.id.lin_wish);
         lin_wish_selected = (LinearLayout) findViewById(R.id.lin_wish_selected);
         layout_visible= (CoordinatorLayout) findViewById(R.id.main_content_category_detail);
-        Cart= (LinearLayout) findViewById(R.id.cart);
+        Cart=findViewById(R.id.cart);
         Cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -234,7 +243,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
 
             }
         });
-
+        txt_cart_number=findViewById(R.id.txt_cart_number);
         Home= (ImageView) findViewById(R.id.home);
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,7 +253,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
             }
         });
         linear_navigate_me=(LinearLayout)findViewById(R.id.linear_navigate_me);
-
+        android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),Settings.Secure.ANDROID_ID);
 
         nestedScrollView.scrollTo(0, 0);
 
@@ -275,14 +284,26 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
         }
         System.out.println("logged userid........" + userid);
 
+
         if (userid != null) {
             lin_wish.setVisibility(View.VISIBLE);
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("user_id",userid));
+                add(new Pair<String, String>("guest_device_token","0"));
 
+
+            }};
         } else
         {
             lin_wish.setVisibility(View.VISIBLE);
-        }
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("guest_device_token",android_id));
+                add(new Pair<String, String>("user_id","0"));
+                ;
 
+            }};
+        }
+        cart_number();
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -613,6 +634,37 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                             .show();
                     dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
                 }
+            }
+        });
+
+    }
+
+    private void cart_number() {
+        Fuel.post(URL1+"cart-totals.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            @Override
+            public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+
+                try {
+                    JSONObject jsonObj = new JSONObject(s);
+                    String status = jsonObj.getString("status");
+                    System.out.println("cart-totals**********" + s);
+                    if(Objects.equals(status, "true")){
+                        String data = jsonObj.getString("data");
+                        JSONObject jsonObj1 = new JSONObject(data);
+                        String total_items = jsonObj1.getString("total_items");
+                        txt_cart_number.setText(total_items);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
             }
         });
 

@@ -73,6 +73,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import kotlin.Pair;
@@ -80,6 +81,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.login.FrameLayoutActivity.txt_cart_number;
 
 
 public class Booking_DetailsActivity extends AppCompatActivity {
@@ -143,6 +145,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
     String ad, cd, timing;
     String userid,str_comnt;
     List<Pair<String, String>> params;
+    List<Pair<String, String>> params1;
     List<Pair<String, String>> params_item;
     EditText edt_comment;
     Button but_comnt;
@@ -164,6 +167,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
     EditText Comment;
     ProgressBar progress_bar_explore;
     public  static  String somejson="";
+    TextView txt_cart_number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,7 +188,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.recyclerView);
         GridLayoutManager llm = new GridLayoutManager(getApplicationContext(),1);
         recyclerView.setLayoutManager(llm);
-
+        txt_cart_number=findViewById(R.id.txt_cart_number);
         Bundle args = new Bundle();
         args.putBoolean(CaldroidFragment.ENABLE_SWIPE,false);
         args.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
@@ -233,7 +237,24 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         Home= (ImageView) findViewById(R.id.home);
         cart= (ImageView) findViewById(R.id.cart);
         Comment= (EditText) findViewById(R.id.comment);
+        if(userid!=null)
+        {
+            params1 = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("user_id",userid));
+                add(new Pair<String, String>("guest_device_token","0"));
 
+
+            }};
+        }
+        else {
+            params1 = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("guest_device_token",android_id));
+                add(new Pair<String, String>("user_id","0"));
+                ;
+
+            }};
+        }
+        cart_number();
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1349,6 +1370,38 @@ else {
 
 
     }
+
+    private void cart_number() {
+        Fuel.post(URL1+"cart-totals.php",params1).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            @Override
+            public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+
+                try {
+                    JSONObject jsonObj = new JSONObject(s);
+                    String status = jsonObj.getString("status");
+                    System.out.println("cart-totals**********" + s);
+                    if(Objects.equals(status, "true")){
+                        String data = jsonObj.getString("data");
+                        JSONObject jsonObj1 = new JSONObject(data);
+                        String total_items = jsonObj1.getString("total_items");
+                        txt_cart_number.setText(total_items);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+            }
+        });
+
+    }
+
     private void addto_cart() {
 
         progress_bar_explore.setVisibility(View.VISIBLE);
@@ -1368,6 +1421,7 @@ else {
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
+                                        cart_number();
                                         dialog.dismissWithAnimation();
                                         View v = findViewById(R.id.add_to_cart);
                                         ObjectAnimator animation = ObjectAnimator.ofFloat(v, "rotationX", 0.0f, 360f);

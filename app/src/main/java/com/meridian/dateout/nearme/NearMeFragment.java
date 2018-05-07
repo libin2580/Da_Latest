@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
@@ -80,13 +81,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
-import com.meridian.dateout.collections.CollectionsAdapter3;
 import com.meridian.dateout.collections.HttpHandler;
 import com.meridian.dateout.explore.PreCachingLayoutManager;
 import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.explore.category_booking_detailspage.CategoryDealDetail;
 import com.meridian.dateout.login.FrameLayoutActivity;
-import com.meridian.dateout.login.RegisterActivity;
 import com.meridian.dateout.model.CategoryModel;
 import com.meridian.dateout.model.DealsModel;
 import com.meridian.dateout.nearme.map.DetectConnection;
@@ -114,17 +113,19 @@ import java.util.Objects;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
+import kotlin.Pair;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.login.FrameLayoutActivity.close_srch;
 import static com.meridian.dateout.login.FrameLayoutActivity.edit_srch;
 import static com.meridian.dateout.login.FrameLayoutActivity.explore_toolbar_lay;
 import static com.meridian.dateout.login.FrameLayoutActivity.linr_srch;
-import static com.meridian.dateout.login.FrameLayoutActivity.places;
+import static com.meridian.dateout.login.FrameLayoutActivity.txt_cart_number;
 
 /**
  * Created by Anvin on 10/4/2017.
@@ -227,8 +228,8 @@ CollectionsAdapter4 collectionsAdapter4;
         }
         //
     }
-    String id, category, background, icon, _18plusOnly;
-
+    String android_id,userid, category, background, icon, _18plusOnly;
+    List<Pair<String, String>> params;
     ArrayList<CategoryModel> categoryModelArrayList1;
     ArrayList<DealsModel> dealsModelArrayList1;
     ArrayList<DealsModel> alldeals_categryModelArrayList;
@@ -243,7 +244,7 @@ CollectionsAdapter4 collectionsAdapter4;
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_nearme, container, false);
         //    FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
-        final String user_id, str_fullname, str_email, photo, str_emails, str_names, str_fullname1, str_email1;
+        final String  str_fullname, str_email, photo, str_emails, str_names, str_fullname1, str_email1;
 
         Re_center = (ImageView) v.findViewById(R.id.recenter);
         analytics = FirebaseAnalytics.getInstance(getActivity());
@@ -535,8 +536,56 @@ CollectionsAdapter4 collectionsAdapter4;
 
         main_progressbar = (ProgressBar) v.findViewById(R.id.main_progressbar);
         hashMapMarker = new HashMap<>();
-        SharedPreferences preferences_user = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
-        user_id = preferences_user.getString("user_id", null);
+        android_id = Settings.Secure.getString(getActivity().getContentResolver(),Settings.Secure.ANDROID_ID);
+        try {
+
+            SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            String  user_id = preferences.getString("user_id", null);
+
+            if (user_id != null) {
+                userid = user_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences1 = getApplicationContext().getSharedPreferences("myfbid", MODE_PRIVATE);
+            String  profile_id = preferences1.getString("user_idfb", null);
+            if (profile_id != null) {
+                userid = profile_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences2 = getApplicationContext().getSharedPreferences("value_gmail", MODE_PRIVATE);
+            String profileid_gmail = preferences2.getString("user_id", null);
+            if (profileid_gmail != null) {
+                userid = profileid_gmail;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences_user_id =getApplicationContext().getSharedPreferences("user_idnew", MODE_PRIVATE);
+            SharedPreferences.Editor editor =preferences_user_id.edit();
+            editor.putString("new_userid",  userid);
+            editor.apply();
+
+        }
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+        if(userid!=null)
+        {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("user_id",userid));
+                add(new Pair<String, String>("guest_device_token","0"));
+
+
+            }};
+        }
+        else {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("guest_device_token",android_id));
+                add(new Pair<String, String>("user_id","0"));
+                ;
+
+            }};
+        }
+        cart_number();
         SharedPreferences preferences = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
         str_fullname = preferences.getString("fullname", null);
         str_email = preferences.getString("email", null);
@@ -781,6 +830,38 @@ CollectionsAdapter4 collectionsAdapter4;
 
         return v;
     }
+
+    private void cart_number() {
+        Fuel.post(URL1+"cart-totals.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            @Override
+            public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+
+                try {
+                    JSONObject jsonObj = new JSONObject(s);
+                    String status = jsonObj.getString("status");
+                    System.out.println("cart-totals**********" + s);
+                    if(Objects.equals(status, "true")){
+                        String data = jsonObj.getString("data");
+                        JSONObject jsonObj1 = new JSONObject(data);
+                        String total_items = jsonObj1.getString("total_items");
+                        txt_cart_number.setText(total_items);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+            }
+        });
+
+    }
+
 
     private void get_explore() {
         {

@@ -63,21 +63,40 @@
                             android:id="@+id/toolbar_CRCNAM" />
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight=".1"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/_10sdp"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:gravity="center"
-                        android:id="@+id/cart"
-                        android:layout_height="match_parent">
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content">
                         <ImageView
-
                             android:layout_width="@dimen/_18sdp"
                             android:layout_height="@dimen/_18sdp"
-                            android:tint="@color/white"
-                            app:srcCompat="@drawable/cart" />
-                    </LinearLayout>
+                            android:src="@drawable/cart"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:id="@+id/cart" />
+                        <LinearLayout
+                            android:layout_width="@dimen/_11sdp"
+                            android:layout_height="@dimen/_11sdp"
+                            android:background="@drawable/cart_background"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/_7sdp"
+                                android:textColor="#ffffff"
+                                android:id="@+id/txt_cart_number"
+                                android:layout_centerHorizontal="true"
+                                />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_width="0dp"

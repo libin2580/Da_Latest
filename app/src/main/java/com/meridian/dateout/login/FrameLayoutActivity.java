@@ -35,7 +35,6 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -49,7 +48,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -181,6 +179,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
     LinearLayout lin_recycler;
     public static LinearLayout tabbar;
     public static Toolbar toolbar;
+    public  static TextView txt_cart_number;
     SharedPreferences sharedfb;
     String str_fulname_fb,personName,email,profileid,personPhoto,go,fb,personName_fb,email_fb,profileid_fb,personPhoto_fb;
     public static BitmapDrawable bitmapdraw_home;
@@ -221,6 +220,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         System.out.println("tokennnnn"+token);
         activity_frame_layout=(LinearLayout)findViewById(R.id.activity_frame_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
+        txt_cart_number=findViewById(R.id.txt_cart_number);
         img_toolbar_crcname = (TextView) findViewById(R.id.toolbar_CRCNAM);
         img_top_faq = (ImageView) findViewById(R.id.img_top_faq);
         txt_accnt_name = (TextView) findViewById(R.id.txt_accntname);
