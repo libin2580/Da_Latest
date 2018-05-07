@@ -76,6 +76,8 @@ import static com.meridian.dateout.Constants.URL;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.CollectionsAdapter1.jsonlist;
 import static com.meridian.dateout.explore.CollectionsAdapter2.str_sorted_by;
+import static com.meridian.dateout.nearme.NearMeFragment.linear;
+import static com.meridian.dateout.nearme.NearMeFragment.relative;
 
 public class ExploreFragment extends Fragment implements View.OnClickListener {
     static RecyclerView recyclerView, recyclerView1;

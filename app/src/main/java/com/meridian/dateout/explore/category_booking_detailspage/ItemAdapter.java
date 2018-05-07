@@ -29,10 +29,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     private ArrayList<ItemModel> orderHistoryArraylist;
     ItemAdapter1 adapter;
     StringBuffer strBuf=new StringBuffer();
+    StringBuffer strBuf_json=new StringBuffer();
     StringBuffer strBuf1=new StringBuffer();
     StringBuffer strBuf2=new StringBuffer();
     final String[] test = new String[1];
-    String  kk;
+    String  kk,some;
 
 
     public ItemAdapter(ArrayList<ItemModel> arrList, Context context) {
@@ -53,6 +54,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         final ArrayList<String> list = new ArrayList<String>();
         final ArrayList<String> list_nw = new ArrayList<>();
         final ArrayList<String> list_nw1 = new ArrayList<>();
+        final ArrayList<String> list_n= new ArrayList<>();
         try {
             String data =orderHistoryArraylist.get(position).gettype();
             final JSONArray jsonArray = new JSONArray(data);
@@ -124,18 +126,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                                                 list_nw1.addAll(Arrays.asList(b));
                                                 System.out.println("-----------list_nw1" +list_nw1.size());
                                             }
+                                            list_n.clear();
+                                            for (int k=orderHistoryArraylist.size();k>0;k--){
 
-                                            if(list_nw1.size()==1){
-                                                somejson=somejson.replace("#",",");
-                                                somejson = String.valueOf("[" +somejson + "]");
-                                                System.out.println("-----------list_test" +somejson);
-                                            }
-                                            else {
-                                                somejson=list_nw1.get(list_nw1.size()-2)+","+list_nw1.get(list_nw1.size()-1);
-                                                somejson = String.valueOf("[" +somejson + "]");
-                                                System.out.println("-----------list_test" +somejson);
-                                            }
+                                                 some=list_nw1.get(list_nw1.size()-k);
+                                                 list_n.add(some);
 
+                                            }
+                                            somejson= String.valueOf(list_n);
+                                            somejson=somejson.replace("#",",");
+                                            System.out.println("-----------for_list_test" +somejson);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }

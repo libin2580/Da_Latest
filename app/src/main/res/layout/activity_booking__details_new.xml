@@ -28,8 +28,8 @@
 
                     <ImageView
 
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
                         android:background="@drawable/back_icon_new"
                         android:id="@+id/img_crcdtlnam"
                         android:layout_centerVertical="true"
@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:text="BOOKING DETAILS"
                         android:textColor="@android:color/white"
-                        android:textSize="@dimen/_14sdp"
+                        android:textSize="@dimen/_12sdp"
                         android:textAllCaps="true"
                         android:id="@+id/toolbar_CRCNAM"
                         android:layout_centerVertical="true"
@@ -60,7 +60,7 @@
                     <ImageView
                         android:id="@+id/home"
                         android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_height="@dimen/_16sdp"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginRight="@dimen/_8sdp"
@@ -224,6 +224,7 @@
                     </LinearLayout>
                     <FrameLayout
                         android:layout_width="match_parent"
+                        android:visibility="gone"
                         android:layout_height="@dimen/_120sdp">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -693,15 +694,22 @@
                         android:layout_height="@dimen/_100sdp"
                         android:layout_margin="@dimen/_5sdp"
                         android:background="@drawable/bg_box">
-                        <EditText
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@null"
-                            android:gravity="left|top"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:id="@+id/comment"
-                            android:hint="Comment"/>
+                            android:layout_margin="@dimen/_10sdp"
+                            android:background="@drawable/white">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:gravity="left|top"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:id="@+id/comment"
+                                android:hint="Comment"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>

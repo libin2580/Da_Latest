@@ -40,8 +40,8 @@
                         android:layout_height="match_parent">
                         <ImageView
 
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
                             android:background="@drawable/back_icon_new"
                             android:id="@+id/img_crcdtlnam"
                             />
@@ -89,7 +89,7 @@
                         <ImageView
                             android:id="@+id/home"
                             android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
+                            android:layout_height="@dimen/_16sdp"
                             android:background="@drawable/home" />
                     </LinearLayout>
                 </LinearLayout>
@@ -161,14 +161,15 @@
 
         android:paddingTop="@dimen/_10sdp"
         android:layout_height="match_parent">
+
         <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
 
             android:background="@drawable/layer_ten"
 
 
-   />
+            />
 
     </LinearLayout>
     <LinearLayout
@@ -194,8 +195,8 @@ android:textSize="@dimen/_12sdp"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/wish_list1"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:background="@drawable/heart_two_" />
 

@@ -39,6 +39,7 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.collections.HttpHandler;
 import com.meridian.dateout.explore.StripeCheck;
+import com.meridian.dateout.explore.address.Adddetails;
 import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.explore.category_booking_detailspage.Booking_DetailsActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
@@ -100,9 +101,11 @@ public class AdddetailsDelivery extends AppCompatActivity {
     List<Pair<String, String>> params;
     List<Pair<String, String>> params1;
     public static String address_id;
+    CheckBox terms;
     String message,device_token,bookingdate,bookingtime,ad_number,ch_number,people,str_comnt,amount,somejson;
-    TextView condtiion_txt,txt_cart;
+    TextView condtiion_txt,txt_cart,add_address_txt;
     String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +118,8 @@ public class AdddetailsDelivery extends AppCompatActivity {
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         progress=(ProgressBar)findViewById(R.id.progress);
         txt_cart=(TextView)findViewById(R.id.txt_cart);
+        add_address_txt=(TextView)findViewById(R.id.add_address_txt);
+        terms=(CheckBox)findViewById(R.id.checkBox1);
         txt_cart.setText("Add To Cart");
         address = getIntent().getStringExtra("address");
         adult_tkt_price = getIntent().getIntExtra("adult_discnt_price", 0);
@@ -168,6 +173,8 @@ public class AdddetailsDelivery extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        toolbar_CRCNAM=(TextView)findViewById(R.id.toolbar_CRCNAM);
+        toolbar_CRCNAM.setText("Delivery address");
         condtiion_txt.setLinkTextColor(Color.BLACK);
         SharedPreferences preferencesuser_id = getSharedPreferences("MyPref", MODE_PRIVATE);
         user_id = preferencesuser_id.getString("user_id", null);
@@ -180,6 +187,7 @@ public class AdddetailsDelivery extends AppCompatActivity {
                 add(new Pair<String, String>("guest_device_token", "0"));
 
             }};
+
             Fuel.post(URL1+"list_address.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
                 @Override
                 public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
@@ -196,19 +204,14 @@ public class AdddetailsDelivery extends AppCompatActivity {
                         System.out.println("_________status_____________" + status);
 
                         if (status.equalsIgnoreCase("false")) {
-                            Intent i = new Intent(AdddetailsDelivery.this, EdittestActivityDelivery.class);
-                            i.putExtra("id", user_id);
-                            startActivity(i);
-                            finish();
+                            recyclerVieaddress.setVisibility(View.GONE);
+                            add_address_txt.setVisibility(View.VISIBLE);
                         } else {
                             if (jsonObj.has("message")) {
                                 message = jsonObj.getString("message");
                                 if (message.equalsIgnoreCase("No data")) {
-                                    // display_add_address();
-                                    Intent i = new Intent(AdddetailsDelivery.this, EdittestActivityDelivery.class);
-                                    i.putExtra("id", user_id);
-                                    startActivity(i);
-                                    finish();
+                                    recyclerVieaddress.setVisibility(View.GONE);
+                                    add_address_txt.setVisibility(View.VISIBLE);
                                 }
                             }
                             final String data = jsonObj.getString("data");
@@ -218,37 +221,20 @@ public class AdddetailsDelivery extends AppCompatActivity {
                             System.out.println("___________length___________" + array.length());
 
                             if (array.length() <= 0) {
-                                // display_add_address();
-                                Intent i = new Intent(AdddetailsDelivery.this, EdittestActivityDelivery.class);
-                                i.putExtra("id", user_id);
-                                startActivity(i);
-                                finish();
-                                plus_btn.setVisibility(View.GONE);
+                                recyclerVieaddress.setVisibility(View.GONE);
+                                add_address_txt.setVisibility(View.VISIBLE);
                             } else {
                                 plus_btn.setVisibility(View.VISIBLE);
-
+                                recyclerVieaddress.setVisibility(View.VISIBLE);
+                                add_address_txt.setVisibility(View.GONE);
                                 for (int i = 0; i < array.length(); i++) {
                                     addressModel = new AddressModel();
                                     JSONObject jsonobject = array.getJSONObject(i);
 
 
-                                    id = jsonobject.getString("id");
-                                    params1 = new ArrayList<Pair<String, String>>() {{
-                                        add(new Pair<String, String>("deal_id", checkout_deal_id));
-                                        add(new Pair<String, String>("user_id", userid));
-                                        add(new Pair<String, String>("device_token", "0"));
-                                        add(new Pair<String, String>("address_id",id));
-                                        add(new Pair<String, String>("cust_selected_date", bookingdate));
-                                        add(new Pair<String, String>("cust_selected_time", bookingtime));
-                                        add(new Pair<String, String>("adult_number",ad_number));
-                                        add(new Pair<String, String>("child_number",ch_number));
-                                        add(new Pair<String, String>("quantity",people));
-                                        add(new Pair<String, String>("comment", str_comnt));
-                                        add(new Pair<String, String>("amount",amount));
-                                        add(new Pair<String, String>("deal_optionsJSON ", somejson));
-                                    }};
-                                    System.out.println("******params1" + params1);
+                                    String id = jsonobject.getString("id");
                                     String name = jsonobject.getString("name");
+                                    String email = jsonobject.getString("email");
                                     String phone = jsonobject.getString("phone");
                                     String city = jsonobject.getString("city");
                                     String area = jsonobject.getString("street");
@@ -261,6 +247,7 @@ public class AdddetailsDelivery extends AppCompatActivity {
                                     addressModel.setId(id);
                                     addressModel.setName(name);
                                     addressModel.setPhone(phone);
+                                    addressModel.setEmail(email);
                                     addressModel.setCity(city);
                                     addressModel.setArea(area);
                                     addressModel.setFlat_address(flat_address);
@@ -303,6 +290,7 @@ public class AdddetailsDelivery extends AppCompatActivity {
                 add(new Pair<String, String>("guest_device_token", android_id));
 
             }};
+
             Fuel.post(URL1+"list_address.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
                 @Override
                 public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
@@ -319,19 +307,14 @@ public class AdddetailsDelivery extends AppCompatActivity {
                         System.out.println("_________status_____________" + status);
 
                         if (status.equalsIgnoreCase("false")) {
-                            Intent i = new Intent(AdddetailsDelivery.this, EdittestActivityDelivery.class);
-                            i.putExtra("id", user_id);
-                            startActivity(i);
-                            finish();
+                            recyclerVieaddress.setVisibility(View.GONE);
+                            add_address_txt.setVisibility(View.VISIBLE);
                         } else {
                             if (jsonObj.has("message")) {
                                 message = jsonObj.getString("message");
                                 if (message.equalsIgnoreCase("No data")) {
-                                    // display_add_address();
-                                    Intent i = new Intent(AdddetailsDelivery.this, EdittestActivityDelivery.class);
-                                    i.putExtra("id", user_id);
-                                    startActivity(i);
-                                    finish();
+                                    recyclerVieaddress.setVisibility(View.GONE);
+                                    add_address_txt.setVisibility(View.VISIBLE);
                                 }
                             }
                             final String data = jsonObj.getString("data");
@@ -341,36 +324,18 @@ public class AdddetailsDelivery extends AppCompatActivity {
                             System.out.println("___________length___________" + array.length());
 
                             if (array.length() <= 0) {
-                                // display_add_address();
-                                Intent i = new Intent(AdddetailsDelivery.this, EdittestActivityDelivery.class);
-                                i.putExtra("id", user_id);
-                                startActivity(i);
-                                finish();
-                                plus_btn.setVisibility(View.GONE);
+                                recyclerVieaddress.setVisibility(View.GONE);
+                                add_address_txt.setVisibility(View.VISIBLE);
                             } else {
                                 plus_btn.setVisibility(View.VISIBLE);
-
+                                recyclerVieaddress.setVisibility(View.VISIBLE);
+                                add_address_txt.setVisibility(View.GONE);
                                 for (int i = 0; i < array.length(); i++) {
                                     addressModel = new AddressModel();
                                     JSONObject jsonobject = array.getJSONObject(i);
 
 
-                                    id = jsonobject.getString("id");
-                                    params1 = new ArrayList<Pair<String, String>>() {{
-                                        add(new Pair<String, String>("deal_id", checkout_deal_id));
-                                        add(new Pair<String, String>("user_id", "0"));
-                                        add(new Pair<String, String>("device_token",android_id));
-                                        add(new Pair<String, String>("address_id",id));
-                                        add(new Pair<String, String>("cust_selected_date", bookingdate));
-                                        add(new Pair<String, String>("cust_selected_time", bookingtime));
-                                        add(new Pair<String, String>("adult_number",ad_number));
-                                        add(new Pair<String, String>("child_number",ch_number));
-                                        add(new Pair<String, String>("quantity",people));
-                                        add(new Pair<String, String>("comment", str_comnt));
-                                        add(new Pair<String, String>("amount",amount));
-                                        add(new Pair<String, String>("deal_optionsJSON ", somejson));
-                                    }};
-                                    System.out.println("******params1" + params1);
+                                    String id = jsonobject.getString("id");
                                     String name = jsonobject.getString("name");
                                     String phone = jsonobject.getString("phone");
                                     String city = jsonobject.getString("city");
@@ -415,7 +380,7 @@ public class AdddetailsDelivery extends AppCompatActivity {
                 }
             });
 
-            System.out.println("******params1" + params1);
+
 
         }
 
@@ -501,8 +466,59 @@ public class AdddetailsDelivery extends AppCompatActivity {
                     dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
                     return;
                 }
+                if(user_id!=null){
+                    params1 = new ArrayList<Pair<String, String>>() {{
+                        add(new Pair<String, String>("deal_id", checkout_deal_id));
+                        add(new Pair<String, String>("user_id", userid));
+                        add(new Pair<String, String>("device_token", "0"));
+                        add(new Pair<String, String>("address_id",address_id));
+                        add(new Pair<String, String>("cust_selected_date", bookingdate));
+                        add(new Pair<String, String>("cust_selected_time", bookingtime));
+                        add(new Pair<String, String>("adult_number", "1"));
+                        add(new Pair<String, String>("child_number", "0"));
+                        add(new Pair<String, String>("quantity", "1"));
+                        add(new Pair<String, String>("comment", str_comnt));
+                        add(new Pair<String, String>("amount",amount));
+                        add(new Pair<String, String>("deal_optionsJSON ", somejson));
+                    }};
 
-                addto_cart();
+                }
+                else {
+                    params1 = new ArrayList<Pair<String, String>>() {{
+                        add(new Pair<String, String>("deal_id", checkout_deal_id));
+                        add(new Pair<String, String>("user_id", "0"));
+                        add(new Pair<String, String>("device_token",android_id));
+                        add(new Pair<String, String>("address_id",address_id));
+                        add(new Pair<String, String>("cust_selected_date", bookingdate));
+                        add(new Pair<String, String>("cust_selected_time", bookingtime));
+                        add(new Pair<String, String>("adult_number", "1"));
+                        add(new Pair<String, String>("child_number", "0"));
+                        add(new Pair<String, String>("quantity", "1"));
+                        add(new Pair<String, String>("comment", str_comnt));
+                        add(new Pair<String, String>("amount",amount));
+                        add(new Pair<String, String>("deal_optionsJSON ", somejson));
+                    }};
+
+                }
+                System.out.println("******params1" + params1);
+
+                if (terms.isChecked()) {
+                    addto_cart();
+                } else {
+                    final SweetAlertDialog dialog = new SweetAlertDialog(AdddetailsDelivery.this, SweetAlertDialog.NORMAL_TYPE);
+                    dialog.setTitleText("")
+                            .setContentText("Please accept our terms and conditions")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                    dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+                }
             }
         });
 

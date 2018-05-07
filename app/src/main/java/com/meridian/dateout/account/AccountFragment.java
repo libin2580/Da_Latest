@@ -62,6 +62,8 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.login.FrameLayoutActivity.flFragmentPlaceHolder;
+import static com.meridian.dateout.nearme.NearMeFragment.linear;
+import static com.meridian.dateout.nearme.NearMeFragment.relative;
 
 
 /**

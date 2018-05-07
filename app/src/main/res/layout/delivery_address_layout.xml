@@ -87,13 +87,28 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_height="0dp">
-            <include
-                android:id="@+id/headerView"
-                layout="@layout/categories"
+            <android.support.v7.widget.RecyclerView
+
+                android:windowSoftInputMode="adjustNothing"
+                android:id="@+id/recycler_vertical1"
                 android:layout_width="match_parent"
+                style="@style/scrollbar_style"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true" />
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_address_txt"
+                android:text="Press + button to add address"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_15sdp" />
+
         </LinearLayout>
         <LinearLayout
 
@@ -105,11 +120,19 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+              />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/condtiion_txt"
                 android:text=""
+                android:layout_marginLeft="@dimen/_3sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp" />
 

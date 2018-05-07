@@ -42,7 +42,7 @@ public class EdittestActivityDelivery extends AppCompatActivity {
     CheckBox addr_work_edit, addr_home_edit;
     LinearLayout coordinatorLayout;
     LinearLayout save_data;
-    String name,phone,city,street,flat_no,state,pin,type;
+    String name,phone,city,street,flat_no,state,pin,type,email;
     String vv,ss;
     String ids,edit;
     String android_id,android_ids;
@@ -78,7 +78,8 @@ public class EdittestActivityDelivery extends AppCompatActivity {
             flat_no= getIntent().getStringExtra("flat_no");
             state= getIntent().getStringExtra("state");
             pin= getIntent().getStringExtra("pin");
-          type= getIntent().getStringExtra("type");
+            email= getIntent().getStringExtra("email");
+            type= getIntent().getStringExtra("type");
             System.out.println("<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>"+type);
             ss="id";
 
@@ -115,6 +116,7 @@ public class EdittestActivityDelivery extends AppCompatActivity {
 
         addr_name.setText(name);
         addr_phone.setText(phone);
+        addr_email.setText(email);
         addr_city.setText(city);
         addr_area.setText(street);
         addrs_flat.setText(flat_no);
@@ -200,21 +202,39 @@ public class EdittestActivityDelivery extends AppCompatActivity {
 
                 boolean i = networkCheckingClass.ckeckinternet();
                 if (i) {
-                    if (addr_name.getText().toString() == null) {
+                    if (addr_name.getText().toString().isEmpty()) {
                         addr_name.setError("Enter Name");
-                    } else if (addr_phone.getText().toString() == null) {
+                        return;
+                    }
+                    if (addr_phone.getText().toString().isEmpty()) {
                         addr_phone.setError("Enter Phone");
-                    } else if (addr_city.getText().toString().length() == 0) {
+                        return;
+                    }
+
+                    if (addr_email.getText().toString().isEmpty()) {
+                        addr_email.setError("Enter Email");
+                        return;
+                    }
+                    if (addr_city.getText().toString().length() == 0) {
                         addr_city.setError("Enter City");
-                    } else if (addr_area.getText().toString().length() == 0) {
+                        return;
+                    }
+                    if (addr_area.getText().toString().length() == 0) {
                         addr_area.setError("Enter Area");
-                    } else if (addrs_flat.getText().toString().length() == 0) {
+                        return;
+                    }
+                    if (addrs_flat.getText().toString().length() == 0) {
                         addrs_flat.setError("Enter Flat Number");
-                    } else if (addr_state.getText().toString().length() == 0) {
+                        return;
+                    }
+                    if (addr_state.getText().toString().length() == 0) {
                         addr_state.setError("Enter State");
-                    } else if (addr_pin.getText().toString().length() == 0) {
+                        return;
+                    }
+                    if (addr_pin.getText().toString().length() == 0) {
                         addr_pin.setError("Enter Pin");
-                    } else {
+                        return;
+                    }
                         System.out.println("_________sssssssssss_____________1111111111111111" + addr_name.getText().toString()
                                 +addr_phone.getText().toString()+addr_city.getText().toString()+addr_area.getText().toString()+addrs_flat.getText().toString()+
                                 addr_state.getText().toString()+addr_pin.getText().toString());
@@ -227,6 +247,7 @@ public class EdittestActivityDelivery extends AppCompatActivity {
                             add(new Pair<String, String>(ss,ids));
                             add(new Pair<String, String>("name", addr_name.getText().toString()));
                             add(new Pair<String, String>("phone", addr_phone.getText().toString()));
+                            add(new Pair<String, String>("email_id", addr_email.getText().toString()));
                             add(new Pair<String, String>("city",addr_city.getText().toString()));
                             add(new Pair<String, String>("street", addr_area.getText().toString()));
                             add(new Pair<String, String>("building", addrs_flat.getText().toString()));
@@ -275,7 +296,7 @@ public class EdittestActivityDelivery extends AppCompatActivity {
                             }
                         });
 
-                    }
+
 
                 } else {
                     final SweetAlertDialog dialog = new SweetAlertDialog(EdittestActivityDelivery.this, SweetAlertDialog.NORMAL_TYPE);

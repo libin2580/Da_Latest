@@ -59,7 +59,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.title.setText(orderHistoryArraylist.get(position).getTitle());
         Picasso.with(context).load(orderHistoryArraylist.get(position).getImage()).into(holder.imag_ordr);
         String string = orderHistoryArraylist.get(position).getBooking_time();
-
+        holder.booking_date.setText(orderHistoryArraylist.get(position).getBooking_date());
 
 
         String[] parts = string.split(" ");
@@ -94,8 +94,6 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-        holder.booking_date.setText(part1);
         holder.booking_time.setText(newtime);
 
 

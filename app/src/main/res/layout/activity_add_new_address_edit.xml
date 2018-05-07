@@ -122,19 +122,6 @@
                         android:singleLine="true"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_height="@dimen/_40sdp"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:id="@+id/address_email"
-                        android:hint="Email"
-                        android:textSize="@dimen/_12sdp"
-                        android:visibility="gone"
-                        android:inputType="textAutoComplete"
-                        android:backgroundTint="@android:color/darker_gray"
-                        android:textColor="@android:color/black"
-                        android:scrollHorizontally="false"
-                        android:singleLine="true"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_height="@dimen/_40sdp"/>
 
                     <EditText
                         android:layout_width="match_parent"
@@ -150,6 +137,19 @@
                         android:maxLength="11"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_height="@dimen/_40sdp"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/address_email"
+                        android:hint="Email"
+                        android:textSize="@dimen/_12sdp"
+                        android:inputType="textAutoComplete"
+                        android:backgroundTint="@android:color/darker_gray"
+                        android:textColor="@android:color/black"
+                        android:scrollHorizontally="false"
+                        android:singleLine="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_height="@dimen/_40sdp"/>
+
                     <EditText
                         android:layout_width="match_parent"
                         android:id="@+id/address_city"

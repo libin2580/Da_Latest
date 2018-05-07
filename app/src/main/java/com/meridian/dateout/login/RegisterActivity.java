@@ -457,8 +457,11 @@ public class RegisterActivity extends AppCompatActivity {
                                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
                                                 public void onClick(SweetAlertDialog sDialog) {
-                                        Intent is = new Intent(getApplicationContext(), FrameLayoutActivity.class);
-                                        startActivity(is);
+                                                    Intent in=new Intent(getApplicationContext(),LoginActivity.class);
+                                                    startActivity(in);
+                                                    finish();
+                                      /*  Intent is = new Intent(getApplicationContext(), FrameLayoutActivity.class);
+                                        startActivity(is);*/
                                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RegisterActivity.this);
                                         boolean Islogin = Boolean.parseBoolean("true");
                                         prefs.edit().putBoolean("Islogin", Islogin).commit();

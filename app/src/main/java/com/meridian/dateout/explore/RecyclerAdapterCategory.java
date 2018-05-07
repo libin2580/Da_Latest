@@ -286,7 +286,7 @@ public class RecyclerAdapterCategory extends RecyclerView.Adapter<RecyclerAdapte
 
             }
 
-            List<CategoryModel> newList = new ArrayList<>(categoryModelArrayList.subList(0, 5));
+            List<CategoryModel> newList = new ArrayList<>(categoryModelArrayList.subList(0,(categoryModelArrayList.size()/2+1)));
 
             horizontalAdapter.setData(newList);
 
@@ -302,7 +302,7 @@ public class RecyclerAdapterCategory extends RecyclerView.Adapter<RecyclerAdapte
 
 
         }
-        if (i == 7) {
+        if (i ==7) {
             int k = categoryModelArrayList.size();
             viewHolder.layblnk.setVisibility(View.VISIBLE);
             final StrikethroughSpan STRIKE_THROUGH_SPAN1 = new StrikethroughSpan();
@@ -351,7 +351,7 @@ public class RecyclerAdapterCategory extends RecyclerView.Adapter<RecyclerAdapte
 
             }
 
-            List<CategoryModel> newList = new ArrayList<>(categoryModelArrayList.subList(5, k));
+            List<CategoryModel> newList = new ArrayList<>(categoryModelArrayList.subList((categoryModelArrayList.size()/2+1), k));
             horizontalAdapter.setData(newList);
             viewHolder.recyclerView.setAdapter(horizontalAdapter);
             horizontalAdapter.setRowIndex(7);

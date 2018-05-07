@@ -157,16 +157,29 @@ public class RewardsMainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 pop_up_rewrd_info.setVisibility(View.GONE);
+
             }
         });
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
-                i.putExtra("tab_id",3);
+                SharedPreferences preferencesuser_id = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
+                String   user_id = preferencesuser_id.getString("new_userid", null);
 
-                startActivity(i);
-                getActivity().finish();
+                if (user_id != null) {
+                    Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                    i.putExtra("tab_id",3);
+
+                    startActivity(i);
+                    getActivity().finish();
+                }
+                else {
+                    Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                    i.putExtra("tab_id",0);
+
+                    startActivity(i);
+                    getActivity().finish();
+                }
             }
         });
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);

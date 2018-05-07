@@ -21,6 +21,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,7 +87,7 @@ public class Pasthistory extends Fragment {
     TextView txt_empty;
     TextView  popup_txt_ordr_status,popup_txt_title,popup_txt_amount,popup_txt_booking_time,popup_txt_payment_status,popup_txt_points_earned,popup_txt_booking_date;
     WebView popup_txt_description;
-
+    RelativeLayout relative_layout;
     Date date1,date2;
 
     public Pasthistory() {
@@ -119,7 +120,7 @@ public class Pasthistory extends Fragment {
         FrameLayoutActivity.toolbar.setVisibility(View.GONE);
         analytics = FirebaseAnalytics.getInstance(getActivity());
         analytics.setCurrentScreen(getActivity(), getActivity().getLocalClassName(), null /* class override */);
-
+        relative_layout=view.findViewById(R.id.relative_layout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview1);
         txt_empty=(TextView)view.findViewById(R.id.txt_empty);
         try {
@@ -211,35 +212,6 @@ public class Pasthistory extends Fragment {
             dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
         }
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, final int position) {
-                        System.out.println("URI in kkkkkkkkkkkkkkkkkk ADAPTER : " + OrderHistoryArraylist.get(position).getTitle());
-                        Glide.with(getActivity())
-                                .load(OrderHistoryArraylist.get(position).getImage())
-                                .into(popup_imageview);
-                        popup_txt_title.setText(OrderHistoryArraylist.get(position).getTitle());
-                        String text = "<html><body style='text-align:justify'> %s </body></Html>";
-                        popup_txt_description.setBackgroundColor(Color.TRANSPARENT);
-                        popup_txt_description.loadData(String.format(text,OrderHistoryArraylist.get(position).getDescription()), "text/html", "utf-8");
-                        WebSettings webSettings = popup_txt_description.getSettings();
-                        webSettings.setDefaultFontSize(15);
-                        popup_txt_amount.setText("amount : "+OrderHistoryArraylist.get(position).getAmount());
-                        popup_txt_booking_date.setText("booking date : "+OrderHistoryArraylist.get(position).getBooking_date());
-                        popup_txt_booking_time.setText("booking time : "+OrderHistoryArraylist.get(position).getBooking_time());
-                        popup_txt_payment_status.setText("payment status : "+OrderHistoryArraylist.get(position).getPayment_status());
-                        popup_txt_points_earned.setText("points earned : "+OrderHistoryArraylist.get(position).getPoints_earned());
-                        popup_txt_ordr_status.setText("Order Status : "+OrderHistoryArraylist.get(position).getOrder_status());
-
-
-
-                        displayPopup();
-
-
-                    }
-                })
-        );
 
 
 
@@ -400,6 +372,7 @@ public class Pasthistory extends Fragment {
 
 
                         }
+
                     }else{
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -434,6 +407,35 @@ public class Pasthistory extends Fragment {
                 progressbar.setVisibility(View.GONE);
             }*/
             progressbar.setVisibility(View.GONE);
+            recyclerView.addOnItemTouchListener(
+                    new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, final int position) {
+                            System.out.println("URI in kkkkkkkkkkkkkkkkkk ADAPTER : " + OrderHistoryArraylist.get(position).getTitle());
+                            Glide.with(getActivity())
+                                    .load(OrderHistoryArraylist.get(position).getImage())
+                                    .into(popup_imageview);
+                            popup_txt_title.setText(OrderHistoryArraylist.get(position).getTitle());
+                            String text = "<html><body style='text-align:justify'> %s </body></Html>";
+                            popup_txt_description.setBackgroundColor(Color.TRANSPARENT);
+                            popup_txt_description.loadData(String.format(text,OrderHistoryArraylist.get(position).getDescription()), "text/html", "utf-8");
+                            WebSettings webSettings = popup_txt_description.getSettings();
+                            webSettings.setDefaultFontSize(15);
+                            popup_txt_amount.setText("amount : "+OrderHistoryArraylist.get(position).getAmount());
+                            popup_txt_booking_date.setText("booking date : "+OrderHistoryArraylist.get(position).getBooking_date());
+                            popup_txt_booking_time.setText("booking time : "+OrderHistoryArraylist.get(position).getBooking_time());
+                            popup_txt_payment_status.setText("payment status : "+OrderHistoryArraylist.get(position).getPayment_status());
+                            popup_txt_points_earned.setText("points earned : "+OrderHistoryArraylist.get(position).getPoints_earned());
+                            popup_txt_ordr_status.setText("Order Status : "+OrderHistoryArraylist.get(position).getOrder_status());
+
+
+
+                            displayPopup();
+
+
+                        }
+                    })
+            );
 
         }
 
@@ -451,7 +453,7 @@ public class Pasthistory extends Fragment {
             mPopupWindow.setAnimationStyle(R.style.popupAnimation);
 
 
-            mPopupWindow.showAtLocation(FrameLayoutActivity.activity_frame_layout, Gravity.CENTER, 0, 0);
+            mPopupWindow.showAtLocation(relative_layout, Gravity.CENTER, 0, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }

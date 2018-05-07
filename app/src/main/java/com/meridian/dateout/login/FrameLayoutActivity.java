@@ -42,6 +42,7 @@ import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -118,6 +119,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.nearme.NearMeFragment.linear;
+import static com.meridian.dateout.nearme.NearMeFragment.relative;
 
 /**
  * Created by user on 04/11/2017.
@@ -191,7 +194,9 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
     ImageView  popup_close_details;
     TextView  popup_txt_title,popup_txt_description;
     public static LinearLayout activity_frame_layout;
-    public static LinearLayout explore_toolbar_lay,nearby_toolbar_lay;
+    public static LinearLayout explore_toolbar_lay,linr_srch;
+    public static EditText edit_srch;
+    public static ImageView close_srch;
     public static ImageView search_nearby,my_location,filter,filter1,cart;
     public static PlaceAutocompleteFragment places;
     LinearLayout linear_popup_ok;
@@ -243,7 +248,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         flFragmentPlaceHolder= (FrameLayout) findViewById(R.id.flFragmentPlaceHolder);
         viewPager=(ViewPager)findViewById(R.id.viewpager);
         setupViewPager1(viewPager);
-
+viewPager.beginFakeDrag();
         personName=getIntent().getStringExtra("name");
         email=getIntent().getStringExtra("email");
         profileid=getIntent().getStringExtra("profileid");
@@ -252,7 +257,9 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         email_fb=getIntent().getStringExtra("email_fb");
         profileid_fb=getIntent().getStringExtra("profileid_fb");
         personPhoto_fb=getIntent().getStringExtra("personPhoto_fb");
-
+        close_srch=findViewById(R.id.close_srch);
+        edit_srch=findViewById(R.id.edit_srch);
+        linr_srch=findViewById(R.id.linr_srch);
         LayoutInflater inflater2 = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         customView = inflater2.inflate(R.layout.layout_details_reminder, null);
         popup_close_details=(ImageView)customView.findViewById(R.id.close_point_converter);
@@ -573,6 +580,8 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                 if ((str_fulname_fb!= null && str_emails != null)||(str_fullname != null && str_email != null)||(str_fullname1 != null && str_email1 != null )) {
                     try {
                         viewPager.setCurrentItem(3);
+                        explore_toolbar_lay.setVisibility(View.VISIBLE);
+                        linr_srch.setVisibility(View.GONE);
                         FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
                         FrameLayoutActivity.img_toolbar_crcname.setText("My Account");
                         FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
@@ -676,6 +685,8 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
             public void onClick(View v) {
 
                 try {
+                    explore_toolbar_lay.setVisibility(View.VISIBLE);
+                    linr_srch.setVisibility(View.GONE);
                     flFragmentPlaceHolder.setVisibility(View.GONE);
                     viewPager.setCurrentItem(0);
                     toolbar.setVisibility(View.VISIBLE);
@@ -733,6 +744,8 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
 
 
                     viewPager.setCurrentItem(2);
+                    explore_toolbar_lay.setVisibility(View.VISIBLE);
+                    linr_srch.setVisibility(View.GONE);
                     FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
                     FrameLayoutActivity.my_location.setVisibility(View.GONE);
                     FrameLayoutActivity.img_collections.setBackgroundResource(R.drawable.collections);
@@ -794,6 +807,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                     flFragmentPlaceHolder.setVisibility(View.GONE);
 
                     viewPager.setCurrentItem(1);
+
                     FrameLayoutActivity.toolbar.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.img_toolbar_crcname.setText("NEAR ME");
                     FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
@@ -808,6 +822,8 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                     anim.setDuration(500); // Duration in milliseconds
                     anim.setInterpolator(new LinearInterpolator()); // E.g. Linear, Accelerate, Decelerate
                     anim.start();
+                    relative.setVisibility(View.VISIBLE);
+                    linear.setVisibility(View.GONE);
                     img_nearme.setBackgroundResource(R.drawable.near_by_blue);
                     txt_nearme.setTextColor(getResources().getColor(R.color.txtcolor_icons));
                     img_explore.setBackgroundResource(R.drawable.explore_click);
@@ -1106,7 +1122,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
             finish();
         } else if (id == R.id.nav_terms) {
             Intent i=new Intent(FrameLayoutActivity.this, TermsOfUse.class);
-            // i.putExtra("url","https://www.facebook.com/Date-Out-552484931628419/");
+          i.putExtra("term_id","frame");
 
             startActivity(i);
 finish();
@@ -1229,6 +1245,7 @@ finish();
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     dialog.dismiss();
+                                    flFragmentPlaceHolder.setVisibility(View.GONE);
                                 }
                             })
                             .show();

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,7 +23,9 @@ import com.github.kittinunf.fuel.core.FuelError;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.address.Adddetails;
+import com.meridian.dateout.explore.category_booking_detailspage.Booking_DetailsActivity;
 import com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery;
+import com.meridian.dateout.login.FrameLayoutActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +57,7 @@ public class Cart_details extends AppCompatActivity {
     public static ProgressBar progress_bar_explore;
     int valuu=0;
     public static int totalprize_for_order=0;
-
+ImageView Home;
     EditText promocode;
     String coupon_code,address_id;
     @Override
@@ -136,7 +139,17 @@ public class Cart_details extends AppCompatActivity {
             }};
         }
 
+        Home= (ImageView) findViewById(R.id.home);
 
+
+        Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i  =new Intent(Cart_details.this, FrameLayoutActivity.class);
+                i.putExtra("tab_id",0);
+                startActivity(i);
+            }
+        });
         Checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

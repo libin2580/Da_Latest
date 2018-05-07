@@ -79,6 +79,7 @@ public class Adddetails extends AppCompatActivity {
     String res_name,res_email,res_phone,res_image,res_location;
     String str_userid,str_fullname,str_username,str_email,str_photo,str_phone,str_location;
     RecyclerView recyclerVieaddress;
+    TextView add_address_txt;
     AddreesAdapter addreesAdapter;
     ArrayList<AddressModel> addresslist;
     AddressModel addressModel;
@@ -94,9 +95,11 @@ public class Adddetails extends AppCompatActivity {
     String adname,adphone,adcity,adarea,adflatads,adstate,adpin,ad_type;
     private String android_id;
     List<Pair<String, String>> params;
-    public static String address_id;
+    public static String address_id1;
     String message;
     TextView condtiion_txt;
+    CheckBox terms;
+    public static String terms_txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +110,7 @@ public class Adddetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
         analytics = FirebaseAnalytics.getInstance(Adddetails.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
-
+        add_address_txt=findViewById(R.id.add_address_txt);
         address = getIntent().getStringExtra("address");
         adult_tkt_price = getIntent().getIntExtra("adult_discnt_price", 0);
         booking_date = getIntent().getStringExtra("booking_date");
@@ -123,6 +126,7 @@ public class Adddetails extends AppCompatActivity {
         total_price = getIntent().getIntExtra("total_price", 0);
         total_number = getIntent().getIntExtra("total_number", 0);
         String pop = getIntent().getStringExtra("poupup");
+        terms=(CheckBox)findViewById(R.id.checkBox1);
 
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         str_fullname = preferences.getString("fullname", null);
@@ -138,7 +142,7 @@ public class Adddetails extends AppCompatActivity {
 
         String str_fullname1 = preferences1.getString("name", null);
         String str_email1 = preferences1.getString("email", null);
-        String p= "By clicking on place holder you agree to our";
+        String p= "I AGREE";
         System.out.println("textttt"+p);
         condtiion_txt = (TextView)findViewById(R.id.condtiion_txt);
         condtiion_txt.setText(Html.fromHtml(p +" "+
@@ -152,6 +156,7 @@ public class Adddetails extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         condtiion_txt.setLinkTextColor(Color.BLACK);
         SharedPreferences preferencesuser_id = getSharedPreferences("MyPref", MODE_PRIVATE);
         user_id = preferencesuser_id.getString("user_id", null);
@@ -218,6 +223,8 @@ public class Adddetails extends AppCompatActivity {
 
             }
         });
+        toolbar_CRCNAM=(TextView)findViewById(R.id.toolbar_CRCNAM);
+        toolbar_CRCNAM.setText("Billing address");
         add_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,19 +256,14 @@ public class Adddetails extends AppCompatActivity {
                         System.out.println("_________status_____________" + status);
 
                         if (status.equalsIgnoreCase("false")) {
-                            Intent i = new Intent(Adddetails.this, EdittestActivity.class);
-                            i.putExtra("id", user_id);
-                            startActivity(i);
-                            finish();
+                            recyclerVieaddress.setVisibility(View.GONE);
+                            add_address_txt.setVisibility(View.VISIBLE);
                         } else {
                             if (jsonObj.has("message")) {
                                 message = jsonObj.getString("message");
                                 if (message.equalsIgnoreCase("No data")) {
-                                    // display_add_address();
-                                    Intent i = new Intent(Adddetails.this, EdittestActivity.class);
-                                    i.putExtra("id", user_id);
-                                    startActivity(i);
-                                    finish();
+                                    recyclerVieaddress.setVisibility(View.GONE);
+                                    add_address_txt.setVisibility(View.VISIBLE);
                                 }
                             }
                             final String data = jsonObj.getString("data");
@@ -271,15 +273,12 @@ public class Adddetails extends AppCompatActivity {
                             System.out.println("___________length___________" + array.length());
 
                             if (array.length() <= 0) {
-                                // display_add_address();
-                                Intent i = new Intent(Adddetails.this, EdittestActivity.class);
-                                i.putExtra("id", user_id);
-                                startActivity(i);
-                                finish();
-                                plus_btn.setVisibility(View.GONE);
+                                recyclerVieaddress.setVisibility(View.GONE);
+                                add_address_txt.setVisibility(View.VISIBLE);
                             } else {
                                 plus_btn.setVisibility(View.VISIBLE);
-
+                                recyclerVieaddress.setVisibility(View.VISIBLE);
+                                add_address_txt.setVisibility(View.GONE);
                                 for (int i = 0; i < array.length(); i++) {
                                     addressModel = new AddressModel();
                                     JSONObject jsonobject = array.getJSONObject(i);
@@ -287,6 +286,7 @@ public class Adddetails extends AppCompatActivity {
 
                                     String id = jsonobject.getString("id");
                                     String name = jsonobject.getString("name");
+                                    String email = jsonobject.getString("email");
                                     String phone = jsonobject.getString("phone");
                                     String city = jsonobject.getString("city");
                                     String area = jsonobject.getString("street");
@@ -298,6 +298,7 @@ public class Adddetails extends AppCompatActivity {
 
                                     addressModel.setId(id);
                                     addressModel.setName(name);
+                                    addressModel.setEmail(email);
                                     addressModel.setPhone(phone);
                                     addressModel.setCity(city);
                                     addressModel.setArea(area);
@@ -341,7 +342,10 @@ public class Adddetails extends AppCompatActivity {
         place_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(address_id==null){
+                System.out.println("address_id" + address_id1);
+
+                if(address_id1==null){
+
                     final SweetAlertDialog dialog = new SweetAlertDialog(Adddetails.this, SweetAlertDialog.NORMAL_TYPE);
                     dialog.setTitleText("Empty fields!")
                             .setContentText("Please select a Delivered address")
@@ -355,10 +359,26 @@ public class Adddetails extends AppCompatActivity {
                             .show();
                     dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
                     return;
-                }
+                }else {
+                    if (terms.isChecked()) {
+                        Intent u = new Intent(Adddetails.this, StripeCheck.class);
+                        startActivity(u);
+                    } else {
+                        final SweetAlertDialog dialog = new SweetAlertDialog(Adddetails.this, SweetAlertDialog.NORMAL_TYPE);
+                        dialog.setTitleText("")
+                                .setContentText("Please accept our terms and conditions")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
-                Intent u=new Intent(Adddetails.this, StripeCheck.class);
-                startActivity(u);
+                    }
+                }
             }
         });
 

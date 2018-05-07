@@ -103,6 +103,7 @@ String ad_type;
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("id",addressModels.get(position).getId());
                 i.putExtra("name",addressModels.get(position).getName());
+                i.putExtra("email",addressModels.get(position).getEmail());
                 i.putExtra("phone",addressModels.get(position).getPhone());
                 i.putExtra("city",addressModels.get(position).getCity());
                 i.putExtra("street",addressModels.get(position).getArea());
@@ -118,7 +119,7 @@ String ad_type;
             @Override
             public void onClick(View v) {
                 selectedPosition = position;
-                AdddetailsDelivery.address_id=addressModels.get(position).getId();
+                /*AdddetailsDelivery.address_id=addressModels.get(position).getId();*/
                 notifyDataSetChanged();
             }
         });
@@ -126,7 +127,7 @@ String ad_type;
             @Override
             public void onClick(View v) {
                 holder1.itemView.performClick();
-                Adddetails.address_id=addressModels.get(position).getId();
+                Adddetails.address_id1=addressModels.get(position).getId();
             }
         });
         if (selectedPosition == position) {
@@ -135,6 +136,9 @@ String ad_type;
         } else {
             holder1.address_check.setChecked(false);
 
+        }
+        if (holder1.address_check.isChecked()){
+            Adddetails.address_id1=addressModels.get(position).getId();
         }
 
     }

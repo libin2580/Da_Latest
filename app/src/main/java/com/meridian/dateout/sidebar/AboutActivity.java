@@ -4,6 +4,7 @@ package com.meridian.dateout.sidebar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -51,7 +52,7 @@ public class AboutActivity  extends Activity {
     String id,title,description1;
     TextView description;
    LinearLayout back;
-   ImageView fb;
+   ImageView fb,insta;
     Toolbar toolbar;
     ProgressBar progressBar;
    /* public static AboutActivity newInstance() {
@@ -86,9 +87,22 @@ public class AboutActivity  extends Activity {
             }
         });
         fb= (ImageView) findViewById(R.id.fb);
+
         description= (TextView)findViewById(R.id.description);
         about_us();
+        insta= (ImageView) findViewById(R.id.imageView6);
 
+        insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/dateout_official/?hl=en"));
+                startActivity(browserIntent);
+                /*Intent i=new Intent(AboutActivity.this, WebviewActivity.class);
+                i.putExtra("url","https://www.instagram.com/dateout_official/?hl=en");
+
+                startActivity(i);*/
+            }
+        });
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -83,8 +83,8 @@
             android:orientation="vertical"
             android:layout_weight="4">
         <ImageView
-            android:layout_width="@dimen/_140sdp"
-            android:layout_height="@dimen/_60sdp"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_40sdp"
             android:background="@drawable/logo_new"
             android:layout_marginTop="42dp"
             android:id="@+id/imageView5"

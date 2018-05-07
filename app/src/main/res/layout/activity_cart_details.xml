@@ -18,6 +18,7 @@
             android:background="@drawable/navigationbarbg"
             android:navigationIcon="@android:color/white"
             app:theme="@style/ToolbarStyle"
+            app:contentInsetStart="0dp"
             >
             <LinearLayout
                 android:id="@+id/relativeLayout"
@@ -28,7 +29,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:id="@+id/img_crcdtlnam"
                     android:gravity="center">
 
@@ -61,10 +62,25 @@
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/_14sdp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
 
+                    <ImageView
+                        android:id="@+id/home"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/home" />
+                </LinearLayout>
 
             </LinearLayout>
-
 
         </android.support.v7.widget.Toolbar>
 

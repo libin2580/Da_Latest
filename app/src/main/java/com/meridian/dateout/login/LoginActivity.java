@@ -8,8 +8,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.MotionEvent;
@@ -47,6 +49,8 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.github.kittinunf.fuel.Fuel;
+import com.github.kittinunf.fuel.core.FuelError;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -59,10 +63,15 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
+import com.meridian.dateout.explore.address.Adddetails;
+import com.meridian.dateout.explore.address.AddreesAdapter;
+import com.meridian.dateout.explore.address.AddressModel;
+import com.meridian.dateout.explore.address.EdittestActivity;
 import com.meridian.dateout.fcm.Config;
 import com.meridian.dateout.model.FacebookModel;
 import com.meridian.dateout.model.Login_Model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,11 +79,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import kotlin.Pair;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -113,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     /*facebook login components --start*/
     ArrayList<FacebookModel> facebookModelArrayList;
-    String user_id;
+    String user_id,android_id;
     public static LoginButton loginButton;
     ProfileTracker profileTracker;
     CallbackManager callbackManager;
@@ -121,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     /*facebook login components --end*/
 
-
+    List<Pair<String, String>> params;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -319,11 +331,48 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onClick(View v) {
                 //   setupWindowAnimations();
+                android_id = Settings.Secure.getString(LoginActivity.this.getContentResolver(),Settings.Secure.ANDROID_ID);
+
+                params = new ArrayList<Pair<String, String>>() {{
+                    add(new Pair<String, String>("device_token", token));
+                    add(new Pair<String, String>("device_type", "android"));
+                    add(new Pair<String, String>("device_id", android_id));
+
+                }};
+                Fuel.post(URL1+"add_devicetoken.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+                    @Override
+                    public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+               /* try {
+                    JSONArray jsonarray = new JSONArray(s);
+
+*/
+                        try {
+                            JSONObject jsonObj = new JSONObject(s);
+                            System.out.println("_________sssssssssssssssssss_____________" + s);
+
+                            String status = jsonObj.getString("status");
+                            System.out.println("_________status_____________" + status);
+                        /*    "status": "true",
+                                    "message": "Token added."*/
+
+                            Intent i = new Intent(getApplicationContext(), FrameLayoutActivity.class);
+                            startActivity(i);
+                            finish();
 
 
-                Intent i = new Intent(getApplicationContext(), FrameLayoutActivity.class);
-                startActivity(i);
-                finish();
+                        } catch(JSONException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+                    }
+                });
+
+
 
 
 
@@ -419,7 +468,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 System.out.println("login....i" + i);
 
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL+"login_new.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -430,76 +479,77 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 try {
                                     // String user_id,fullname,username,photo,,,log_status;
                                     login_model = new Login_Model();
+                                      jsonObj = new JSONObject(response);
+                                       String status=jsonObj.getString("status");
+                                       if(status.equalsIgnoreCase("true")){
+                                           String data=jsonObj.getString("data");
+                                           JSONObject datajsonObj = new JSONObject(data);
 
-                                    if (response.contentEquals("\"failed\""))
-
-                                    {
-                                        progress.setVisibility(View.GONE);
-                                        final SweetAlertDialog dialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.NORMAL_TYPE);
-
-                                        dialog.setTitleText("")
-                                                .setContentText("Invalid Username or Password")
-
-                                                .setConfirmText("OK")
-                                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                    @Override
-                                                    public void onClick(SweetAlertDialog sDialog) {
-                                                        dialog.dismiss();
-                                                    }
-                                                })
-                                                .show();
-                                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                                           user_id = datajsonObj.getString("user_id");
+                                           fullname = datajsonObj.getString("fullname");
+                                           username = datajsonObj.getString("username");
+                                           photo = datajsonObj.getString("photo");
+                                           email = datajsonObj.getString("email");
+                                           phone = datajsonObj.getString("phone");
+                                           log_status = datajsonObj.getString("log_status");
+                                           // photo = jsonObj.getString("photo");
 
 
-                                    } else {
-                                        progress.setVisibility(View.GONE);
+                                           login_model.setUser_id(user_id);
+                                           login_model.setFullname(fullname);
+                                           login_model.setUsername(username);
+                                           login_model.setPhoto(photo);
+                                           login_model.setPhone(phone);
+                                           login_model.setEmail(email);
+                                           login_model.setLog_status(log_status);
 
-                                        jsonObj = new JSONObject(response);
-                                        user_id = jsonObj.getString("user_id");
-                                        fullname = jsonObj.getString("fullname");
-                                        username = jsonObj.getString("username");
-                                        photo = jsonObj.getString("photo");
-                                        email = jsonObj.getString("email");
-                                        phone = jsonObj.getString("phone");
-                                        log_status = jsonObj.getString("log_status");
-                                        // photo = jsonObj.getString("photo");
+                                           loginModelArrayList.add(login_model);
+                                           System.out.println("result" + response);
 
-
-                                        login_model.setUser_id(user_id);
-                                        login_model.setFullname(fullname);
-                                        login_model.setUsername(username);
-                                        login_model.setPhoto(photo);
-                                        login_model.setPhone(phone);
-                                        login_model.setEmail(email);
-                                        login_model.setLog_status(log_status);
-
-                                        loginModelArrayList.add(login_model);
-                                        System.out.println("result" + response);
-
-                                        SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = preferences.edit();
+                                           SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                           SharedPreferences.Editor editor = preferences.edit();
 //
-                                        editor.putString("user_id", user_id);
-                                        editor.putString("fullname", usernam);
-                                        editor.putString("email", email);
-                                        editor.putString("username", username);
-                                        editor.putString("photo", photo);
-                                        editor.commit();
+                                           editor.putString("user_id", user_id);
+                                           editor.putString("fullname", usernam);
+                                           editor.putString("email", email);
+                                           editor.putString("username", username);
+                                           editor.putString("photo", photo);
+                                           editor.commit();
 
 
 
-                                        SharedPreferences prefs =getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
-                                        boolean Islogin = Boolean.parseBoolean("true");
-                                        prefs.edit().putBoolean("Islogin", Islogin).commit();
-                                        Intent is = new Intent(getApplicationContext(), FrameLayoutActivity.class);
-                                        startActivity(is);
+                                           SharedPreferences prefs =getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+                                           boolean Islogin = Boolean.parseBoolean("true");
+                                           prefs.edit().putBoolean("Islogin", Islogin).commit();
+                                           Intent is = new Intent(getApplicationContext(), FrameLayoutActivity.class);
+                                           startActivity(is);
 
-                                        //   pd.dismiss();
-                                        finish();
+                                           //   pd.dismiss();
+                                           finish();
 
 //                                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
 
-                                    }
+
+                                       }
+                                       else {
+                                           String message = jsonObj.getString("message");
+                                           progress.setVisibility(View.GONE);
+                                           final SweetAlertDialog dialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.NORMAL_TYPE);
+
+                                           dialog.setTitleText("")
+                                                   .setContentText(message)
+
+                                                   .setConfirmText("OK")
+                                                   .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                       @Override
+                                                       public void onClick(SweetAlertDialog sDialog) {
+                                                           dialog.dismiss();
+                                                       }
+                                                   })
+                                                   .show();
+                                           dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+                                       }
 
 
                                 } catch (JSONException e) {

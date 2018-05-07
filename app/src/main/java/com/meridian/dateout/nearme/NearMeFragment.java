@@ -26,6 +26,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.InflateException;
@@ -45,6 +48,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.RequestQueue;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.github.kittinunf.fuel.core.Request;
@@ -70,11 +80,14 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
+import com.meridian.dateout.collections.CollectionsAdapter3;
 import com.meridian.dateout.collections.HttpHandler;
+import com.meridian.dateout.explore.PreCachingLayoutManager;
 import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.explore.category_booking_detailspage.CategoryDealDetail;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.RegisterActivity;
+import com.meridian.dateout.model.CategoryModel;
 import com.meridian.dateout.model.DealsModel;
 import com.meridian.dateout.nearme.map.DetectConnection;
 import com.meridian.dateout.nearme.map.GPSTracker1;
@@ -95,6 +108,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -106,6 +120,10 @@ import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.login.FrameLayoutActivity.close_srch;
+import static com.meridian.dateout.login.FrameLayoutActivity.edit_srch;
+import static com.meridian.dateout.login.FrameLayoutActivity.explore_toolbar_lay;
+import static com.meridian.dateout.login.FrameLayoutActivity.linr_srch;
 import static com.meridian.dateout.login.FrameLayoutActivity.places;
 
 /**
@@ -187,13 +205,13 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
     SpinnerDialog doctor_spinner;
     ProgressBar progress;
     DealsModel dealsModel;
-
+RecyclerView recyclerView_search;
     public NearMeFragment() {
         // Required empty public constructor
     }
+CollectionsAdapter4 collectionsAdapter4;
 
-
-    // TODO: Rename and change types and number of parameters
+    // TODO: Rename and c;hange types and number of parameters
     public static NearMeFragment newInstance() {
         NearMeFragment fragment = new NearMeFragment();
 
@@ -209,7 +227,15 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
         }
         //
     }
+    String id, category, background, icon, _18plusOnly;
 
+    ArrayList<CategoryModel> categoryModelArrayList1;
+    ArrayList<DealsModel> dealsModelArrayList1;
+    ArrayList<DealsModel> alldeals_categryModelArrayList;
+    String title1,image,description1,timing,delivery,id_deal,category1, currency,tags, category_id, categorys,seller_id, tkt_discounted_price, price;
+    ArrayList<String> all_background;
+   public static LinearLayout linear;
+   public static RelativeLayout relative;
     @SuppressLint("CutPasteId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -241,7 +267,14 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
                 startActivity(i);
             }
         });
+        recyclerView_search = (RecyclerView) v.findViewById(R.id.recy);
+        linear = (LinearLayout) v.findViewById(R.id.linear);
 
+        relative=v.findViewById(R.id.relative);
+
+        get_explore();
+        relative.setVisibility(View.VISIBLE);
+        linear.setVisibility(View.GONE);
         selected_location_layout = (LinearLayout) v.findViewById(R.id.selected_location_layout);
         selected_location_name = (TextView) v.findViewById(R.id.selected_location_name);
         selected_location_close = (ImageView) v.findViewById(R.id.selected_location_close);
@@ -568,25 +601,58 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
 
         }
 
-         /*mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(map);
-        mapFragment.getMapAsync(this);*/
         FrameLayoutActivity.search_nearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("inside fragment click");
-                final View root = places.getView();
+   /*     System.out.println("inside fragment click");
+        final View root = places.getView();
+        main_layout.setVisibility(View.GONE);
 
-                root.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        root.findViewById(R.id.place_autocomplete_search_input)
-                                .performClick();
-                    }
-                });
-
+        root.post(new Runnable() {
+            @Override
+            public void run() {
+                root.findViewById(R.id.place_autocomplete_search_input).performClick();
+            }
+        });*/
+                explore_toolbar_lay.setVisibility(View.GONE);
+                linr_srch.setVisibility(View.VISIBLE);
+                relative.setVisibility(View.GONE);
+                linear.setVisibility(View.VISIBLE);
             }
         });
+        close_srch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                get_explore();
+                explore_toolbar_lay.setVisibility(View.VISIBLE);
+                linr_srch.setVisibility(View.GONE);
+                relative.setVisibility(View.VISIBLE);
+                linear.setVisibility(View.GONE);
+            }
+        });
+
+        edit_srch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                collectionsAdapter4.filter(String.valueOf(charSequence));
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                //collectionsAdapter4.filter(String.valueOf(charSequence));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                collectionsAdapter4.filter(String.valueOf(editable));
+            }
+        });
+
+
         selected_location_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -714,6 +780,181 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
         });
 
         return v;
+    }
+
+    private void get_explore() {
+        {
+            //progress1.setVisibility(View.VISIBLE);
+            all_background = new ArrayList<>();
+            alldeals_categryModelArrayList = new ArrayList<>();
+            categoryModelArrayList1 = new ArrayList<>();
+            StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, Constants.URL+"all-deals-categories-banners.php",
+                    new com.android.volley.Response.Listener<String>() {
+                        @Override
+                        public void onResponse(final String response) {
+                            //  progress1.setVisibility(View.GONE);
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if (jsonObject.has("categories")) {
+                                    try {
+                                        JSONArray jsonarray = jsonObject.getJSONArray("categories");
+                                        for (int i = 0; i < jsonarray.length(); i++) {
+                                            CategoryModel categoryModel = new CategoryModel();
+                                            DealsModel dealsModel = new DealsModel();
+
+                                            JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                            if (jsonobject.has("id")) {
+                                                category_id = jsonobject.getString("id");
+                                            }
+                                            if (jsonobject.has("category")) {
+                                                categorys = jsonobject.getString("category");
+                                            }
+                                            if (jsonobject.has("background")) {
+                                                background = jsonobject.getString("background");
+                                            }
+                                            if (jsonobject.has("_18plusOnly")) {
+                                                _18plusOnly = jsonobject.getString("_18plusOnly");
+                                            }
+                                            if (jsonobject.has("icon")) {
+                                                icon = jsonobject.getString("icon");
+                                            }
+                                            dealsModel.setCategory_background(background);
+                                            dealsModel.setTitle(categorys);
+                                            dealsModel.setCategory_name(categorys);
+                                            dealsModel.setCategory_icon(icon);
+                                            dealsModel.setCategory_id(category_id);
+                                            dealsModel.setCategory_type("category");
+                                            dealsModel.setType("category");
+                                            dealsModel.setDelivery("");
+                                            dealsModel.setDescription("");
+                                            dealsModel.setDiscount("");
+                                            dealsModel.setImage(background);
+                                            dealsModel.setTags("");
+                                            dealsModel.setSeller_id("");
+                                            dealsModel.setTiming("");
+                                            dealsModel.setCurrency("");
+                                            dealsModel.setPrice("");
+                                            categoryModel.setBackground(background);
+                                            categoryModel.setCategory(categorys);
+                                            categoryModel.setIcon(icon);
+                                            categoryModel.setId(category_id);
+                                            categoryModel.set_18plusOnly(_18plusOnly);
+                                            categoryModel.setType("category");
+                                            categoryModelArrayList1.add(categoryModel);
+                                            all_background.add(background);
+                                            alldeals_categryModelArrayList.add(dealsModel);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                if (jsonObject.has("deals")) {
+                                    dealsModelArrayList1 = new ArrayList<>();
+                                    try {
+                                        JSONArray jsonarray = jsonObject.getJSONArray("deals");
+                                        for (int i = 0; i < jsonarray.length(); i++) {
+                                            DealsModel dealsModel = new DealsModel();
+
+                                            JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                            if (jsonobject.has("id")) {
+                                                id_deal = jsonobject.getString("id");
+                                            }
+                                            if (jsonobject.has("title")) {
+                                                title1 = jsonobject.getString("title");
+                                            }
+                                            if (jsonobject.has("image")) {
+                                                image = jsonobject.getString("image");
+                                            }
+                                            if (jsonobject.has("description")) {
+                                                description1 = jsonobject.getString("description");
+                                            }
+                                            if (jsonobject.has("timing")) {
+                                                timing = jsonobject.getString("timing");
+                                            }
+                                            if (jsonobject.has("delivery")) {
+                                                delivery = jsonobject.getString("delivery");
+                                            }
+                                            if (jsonobject.has("category")) {
+                                                category1 = jsonobject.getString("category");
+                                            }
+                                            if (jsonobject.has("tags")) {
+                                                tags = jsonobject.getString("tags");
+                                            }
+                                            if (jsonobject.has("price")) {
+                                                price = jsonobject.getString("price");
+                                            }
+                                            if (jsonobject.has("tkt_discounted_price")) {
+                                                tkt_discounted_price = jsonobject.getString("tkt_discounted_price");
+                                            }
+                                            if (jsonobject.has("seller_id")) {
+                                                seller_id = jsonobject.getString("seller_id");
+                                            }
+                                            if (jsonobject.has("currency")) {
+                                                currency = jsonobject.getString("currency");
+                                            }
+                                            dealsModel.setId(id_deal);
+                                            dealsModel.setCategory_id(category);
+                                            dealsModel.setTitle(title1);
+                                            dealsModel.setType("deal");
+                                            dealsModel.setDelivery(delivery);
+                                            dealsModel.setDescription(description1);
+                                            dealsModel.setDiscount(tkt_discounted_price);
+                                            dealsModel.setImage(image);
+                                            dealsModel.setTags(tags);
+                                            dealsModel.setSeller_id(seller_id);
+                                            dealsModel.setTiming(timing);
+                                            dealsModel.setCurrency(currency);
+                                            if (price == null || price.equals(0)) {
+                                                dealsModel.setPrice("0");
+                                            } else {
+                                                dealsModel.setPrice(price);
+                                            }
+                                            alldeals_categryModelArrayList.add(dealsModel);
+                                            dealsModel.setType("deal");
+                                            dealsModelArrayList1.add(dealsModel);
+                                        }
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            PreCachingLayoutManager layoutManager1 = new PreCachingLayoutManager(getActivity());
+                            recyclerView_search.setLayoutManager(layoutManager1);
+                            recyclerView_search.setNestedScrollingEnabled(false);
+                            recyclerView_search.setHasFixedSize(true);
+                            recyclerView_search.setItemViewCacheSize(20);
+                            recyclerView_search.setDrawingCacheEnabled(true);
+                            recyclerView_search.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                            if (alldeals_categryModelArrayList != null) {
+                                collectionsAdapter4 = new CollectionsAdapter4(alldeals_categryModelArrayList, getActivity());
+                                recyclerView_search.setAdapter(collectionsAdapter4);
+                            }
+                        }
+                    },
+                    new com.android.volley.Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            int socketTimeout = 30000;//30 seconds - change to what you want
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            stringRequest.setRetryPolicy(policy);
+            requestQueue.add(stringRequest);
+            requestQueue.getCache().clear();
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -1337,6 +1578,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
 //            recyclerAdapterCategory = new RecyclerAdapterCategory(categoryModelArrayList, dealsModelArrayList, Main2Activity.this);
 //            recyclerView.scheduleLayoutAnimation();
 //            recyclerView.setAdapter(recyclerAdapterCategory);
+            try{
             System.out.println("dealsModelArrayList.size() : "+dealsModelArrayList.size());
             if(dealsModelArrayList.size()!=0){
                 /*final Handler handler = new Handler();
@@ -1364,6 +1606,8 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
                         .show();
                 main_progressbar.setVisibility(View.GONE);
                 dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+            }}catch (NullPointerException ne){
+
             }
 
 

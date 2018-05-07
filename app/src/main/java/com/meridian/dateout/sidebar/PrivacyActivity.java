@@ -3,6 +3,7 @@ package com.meridian.dateout.sidebar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +52,7 @@ LinearLayout back;
     TextView title,description;
     Toolbar toolbar;
 
-
+ImageView insta,fb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,16 @@ LinearLayout back;
        // title= (TextView) view.findViewById(R.id.title);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         back = (LinearLayout)findViewById(R.id.img_crcdtlnam);
-      //  fb= (ImageView)view. findViewById(R.id.fb);
+      fb= (ImageView)findViewById(R.id.fb);
+      fb.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent i=new Intent(PrivacyActivity.this, WebviewActivity.class);
+              i.putExtra("url","https://www.facebook.com/Date-Out-552484931628419/");
+
+              startActivity(i);
+          }
+      });
         description= (TextView) findViewById(R.id.description);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +86,15 @@ LinearLayout back;
         toolbar = (Toolbar)findViewById(R.id.toolbar_tops);
         toolbar.setVisibility(View.VISIBLE);
         analytics.setCurrentScreen(PrivacyActivity.this, PrivacyActivity.this.getLocalClassName(), null /* class override */);
+        insta= (ImageView) findViewById(R.id.insta);
 
+        insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/dateout_official/?hl=en"));
+                startActivity(browserIntent);
+            }
+        });
         privacy();
     }
 

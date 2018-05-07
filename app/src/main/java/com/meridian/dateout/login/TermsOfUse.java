@@ -2,11 +2,13 @@ package com.meridian.dateout.login;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.model.Sidebar_Model;
+import com.meridian.dateout.sidebar.PrivacyActivity;
+import com.meridian.dateout.sidebar.WebviewActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +46,8 @@ LinearLayout back;
     ArrayList<Sidebar_Model> sidebarlist;
     String id,title1,description1;
     TextView title,description;
+    String frame;
+    ImageView insta,fb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +58,41 @@ LinearLayout back;
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         back = (LinearLayout) findViewById(R.id.img_crcdtlnam);
+        frame=getIntent().getStringExtra("term_id");
      // title= (TextView) findViewById(R.id.title);
         description= (TextView) findViewById(R.id.description);
+        insta= (ImageView) findViewById(R.id.insta);
+
+        insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/dateout_official/?hl=en"));
+                startActivity(browserIntent);
+            }
+        });
+        fb= (ImageView)findViewById(R.id.fb);
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(TermsOfUse.this, WebviewActivity.class);
+                i.putExtra("url","https://www.facebook.com/Date-Out-552484931628419/");
+
+                startActivity(i);
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(TermsOfUse.this, FrameLayoutActivity.class);
+
+               if(frame!=null){
+                 Intent i=new Intent(TermsOfUse.this, FrameLayoutActivity.class);
                 startActivity(i);
-                finish();
+                   finish();
+
+               }else {
+                   finish();
+
+               }
             }
         });
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
@@ -157,6 +190,7 @@ LinearLayout back;
                             dialog.dismiss();
                         }
                     })
+                    
                     .show();
             dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 

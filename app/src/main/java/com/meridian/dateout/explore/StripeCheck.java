@@ -56,6 +56,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.explore.address.Adddetails.address_id1;
 import static com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery.address_id;
 
 public class StripeCheck extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -66,7 +67,6 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
     Button save;
     String comment;
     double check_price;
-    String check_currency,booking_date="",booking_time="";
     double check_total;
     String price,total,stoken;
 
@@ -415,7 +415,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                     add(new Pair<String, String>("stripe_token", stoken));
                     add(new Pair<String, String>("user_id", userid));
                     add(new Pair<String, String>("guest_device_token","0"));
-                    add(new Pair<String, String>("address_id",address_id));
+                    add(new Pair<String, String>("address_id",address_id1));
                     add(new Pair<String, String>("coupon_code",coupon_code));
 
 
@@ -427,13 +427,15 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                     add(new Pair<String, String>("stripe_token", stoken));
                     add(new Pair<String, String>("user_id","0"));
                     add(new Pair<String, String>("guest_device_token",android_id));
-                    add(new Pair<String, String>("address_id",address_id));
+                    add(new Pair<String, String>("address_id",address_id1));
                     add(new Pair<String, String>("coupon_code",coupon_code));
 
 
                 }};
 
             }
+            System.out.println("s**********1111111111111111" + params);
+
             Fuel.post(URL1+"cart-checkout_test.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
                 @Override
                 public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
@@ -446,11 +448,29 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                         try {
                             JSONObject jsonObj = new JSONObject(s);
                             statusd = jsonObj.getString("status");
+                            if(statusd.equalsIgnoreCase("false")){
+                                String message=jsonObj.getString("message");
+                                final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this,SweetAlertDialog.NORMAL_TYPE);
+                                dialog.setTitleText("Failed!")
+                                        .setContentText(message)
+
+                                        .setConfirmText("OK")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .show();
+                                dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                            }
 
             if(statusd.equalsIgnoreCase("failed")){
+                String message=jsonObj.getString("message");
+
                 final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this,SweetAlertDialog.NORMAL_TYPE);
                 dialog.setTitleText("Failed!")
-                        .setContentText("Payment failed")
+                        .setContentText(message)
 
                         .setConfirmText("OK")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -462,10 +482,25 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                         .show();
                 dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
                 }else {
-                txn_id = jsonObj.getString("txn_id");
-                date = jsonObj.getString("date");
-                time = jsonObj.getString("time");
-                booking_id = jsonObj.getString("booking_code");
+                if(jsonObj.has("txn_id")) {
+                    txn_id = jsonObj.getString("txn_id");
+                }
+                if(jsonObj.has("amount")) {
+
+                    total = jsonObj.getString("amount");
+                }
+                if(jsonObj.has("date")) {
+
+                    date = jsonObj.getString("date");
+                }
+                if(jsonObj.has("time")) {
+
+                    time = jsonObj.getString("time");
+                }
+                if(jsonObj.has("booking_code")) {
+
+                    booking_id = jsonObj.getString("booking_code");
+                }
                 System.out.println("transaction json......" +txn_id);
                 final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this,SweetAlertDialog.SUCCESS_TYPE);
                 dialog.setTitleText("Success")
@@ -477,12 +512,11 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                             public void onClick(SweetAlertDialog sDialog) {
                                 displayPopup();
                                 System.out.println("transaction pop uppp......" +txn_id);
-                                txt_amount.setText(String.valueOf("$ "+price));
-
-                                txt_transaction.setText(txn_id);
-                                //  txt_pop_descriptn.setText(check_title);
-                                txt_pop_time.setText(date+"/"+time);
-                                txt_booking_code.setText(booking_id);
+                                txt_amount.setText(":"+total);
+                                txt_transaction.setText(":"+txn_id);
+                                txt_pop_descriptn.setText(":"+time);
+                                txt_pop_time.setText(":"+date);
+                                txt_booking_code.setText(":"+booking_id);
                                 ok_pop.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -495,11 +529,6 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
 
                                     }
                                 });
-
-
-
-
-
 
                                 dialog.dismiss();
 

@@ -81,6 +81,8 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.meridian.dateout.Constants.URL;
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.nearme.NearMeFragment.linear;
+import static com.meridian.dateout.nearme.NearMeFragment.relative;
 
 
 public class CollectionsFragment extends Fragment implements View.OnClickListener{

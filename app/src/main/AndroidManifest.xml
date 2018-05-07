@@ -155,9 +155,7 @@
                 <data android:scheme="id.web.freelancer.example.TCActivity" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".sidebar.RewardsActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".login.Googlelogin"
             android:screenOrientation="portrait" />

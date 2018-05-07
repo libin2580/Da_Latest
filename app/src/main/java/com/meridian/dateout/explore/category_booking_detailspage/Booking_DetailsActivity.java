@@ -1106,20 +1106,38 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                 System.out.println("Booking........calendar_show" + calendar_show);
                 System.out.println("Booking........People" + people);
 if(delivery_adrs_required.equalsIgnoreCase("yes")) {
+    if (booking_date == "" && calendar_show.contentEquals("yes")) {
+        final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this, SweetAlertDialog.NORMAL_TYPE);
+        dialog.setTitleText("")
+                .setContentText("Please select an Available date")
+                .setConfirmText("OK")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
-    Intent u=new Intent(Booking_DetailsActivity.this, AdddetailsDelivery.class);
-    u.putExtra("deal_id", checkout_deal_id);
-    u.putExtra("user_id", userid);
-    u.putExtra("device_token", "0");
-    u.putExtra("cust_selected_date", booking_date);
-    u.putExtra("cust_selected_time", booking_time);
-    u.putExtra("adult_number", String.valueOf(ad_number));
-    u.putExtra("child_number", String.valueOf(ch_number));
-    u.putExtra("quantity", String.valueOf(people));
-    u.putExtra("comment", str_comnt);
-    u.putExtra("amount", String.valueOf(total / people));
-    u.putExtra("deal_optionsJSON ", somejson);
-    startActivity(u);
+
+    }
+    else {
+        Intent u=new Intent(Booking_DetailsActivity.this, AdddetailsDelivery.class);
+        u.putExtra("deal_id", checkout_deal_id);
+        u.putExtra("user_id", userid);
+        u.putExtra("device_token", "0");
+        u.putExtra("cust_selected_date", booking_date);
+        u.putExtra("cust_selected_time", booking_time);
+        u.putExtra("adult_number","1");
+        u.putExtra("child_number","0");
+        u.putExtra("quantity","1");
+        u.putExtra("comment", str_comnt);
+        u.putExtra("amount", price);
+        u.putExtra("deal_optionsJSON ", somejson);
+        startActivity(u);
+    }
+
 }
 else {
     if (booking_date == "" && calendar_show.contentEquals("yes")) {
@@ -1137,7 +1155,7 @@ else {
         dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
 
-    } else if (people == 0) {
+    } /*else if (people == 0) {
 
         if (deal_type.contentEquals("gifts") || deal_type.contentEquals("food_and_beverages")) {
             final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this, SweetAlertDialog.NORMAL_TYPE);
@@ -1170,7 +1188,7 @@ else {
 
         }
 
-    } else {
+    }*/ else {
 
         if (userid != null) {
             // displayPopup();
@@ -1181,11 +1199,11 @@ else {
                 add(new Pair<String, String>("address_id", "0"));
                 add(new Pair<String, String>("cust_selected_date", booking_date));
                 add(new Pair<String, String>("cust_selected_time", booking_time));
-                add(new Pair<String, String>("adult_number", String.valueOf(ad_number)));
-                add(new Pair<String, String>("child_number", String.valueOf(ch_number)));
-                add(new Pair<String, String>("quantity", String.valueOf(people)));
+                add(new Pair<String, String>("adult_number", "1"));
+                add(new Pair<String, String>("child_number", "0"));
+                add(new Pair<String, String>("quantity", "1"));
                 add(new Pair<String, String>("comment", str_comnt));
-                add(new Pair<String, String>("amount", String.valueOf(total / people)));
+                add(new Pair<String, String>("amount",price));
                 add(new Pair<String, String>("deal_optionsJSON ", somejson));
             }};
 
@@ -1200,11 +1218,11 @@ else {
                 add(new Pair<String, String>("device_token", android_id));
                 add(new Pair<String, String>("cust_selected_date", booking_date));
                 add(new Pair<String, String>("cust_selected_time", booking_time));
-                add(new Pair<String, String>("adult_number", String.valueOf(ad_number)));
-                add(new Pair<String, String>("child_number", String.valueOf(ch_number)));
-                add(new Pair<String, String>("quantity", String.valueOf(people)));
+                add(new Pair<String, String>("adult_number", "1"));
+                add(new Pair<String, String>("child_number", "0"));
+                add(new Pair<String, String>("quantity","1"));
                 add(new Pair<String, String>("comment", str_comnt));
-                add(new Pair<String, String>("amount", String.valueOf(total / people)));
+                add(new Pair<String, String>("amount",price));
                 add(new Pair<String, String>("deal_optionsJSON ", somejson));
 
             }};

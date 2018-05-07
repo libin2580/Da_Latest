@@ -54,7 +54,7 @@ public class ContactUsActivity extends Activity {
     String id1,email1,phone2,address1,name;
     Toolbar toolbar;
     LinearLayout lin_mail,lin_phone;
-    ImageView cntctt_fb,cntctt_google;
+    ImageView cntctt_fb,cntctt_google,insta;
     double latitude=1.3525;
     double longitude=103.82226;
 
@@ -74,7 +74,15 @@ public class ContactUsActivity extends Activity {
         lin_phone=findViewById(R.id.lin_phone);
         cntctt_fb=findViewById(R.id.cntctt_fb);
         cntctt_google=findViewById(R.id.cntctt_google);
+        insta= (ImageView) findViewById(R.id.cntctt_insta);
 
+        insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/dateout_official/?hl=en"));
+                startActivity(browserIntent);
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

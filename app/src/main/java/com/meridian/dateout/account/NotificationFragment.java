@@ -2,6 +2,7 @@ package com.meridian.dateout.account;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -37,7 +38,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import kotlin.Pair;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.meridian.dateout.Constants.analytics;
 
 
@@ -102,6 +105,7 @@ LinearLayout menu;
         FrameLayoutActivity.to_notification="false";
         System.out.println("FrameLayoutActivity.to_notification (in notifi frag): "+FrameLayoutActivity.to_notification);
         txt= (TextView) view.findViewById(R.id.toolbar_txt);
+
         menu= (LinearLayout) view. findViewById(R.id.menu);
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);
         toolbar.setVisibility(View.VISIBLE);
@@ -112,11 +116,24 @@ LinearLayout menu;
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
-                i.putExtra("tab_id",3);
+                SharedPreferences preferencesuser_id = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
+                String   user_id = preferencesuser_id.getString("new_userid", null);
 
-                startActivity(i);
-                getActivity().finish();
+                if (user_id != null) {
+                    Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                    i.putExtra("tab_id",3);
+
+                    startActivity(i);
+                    getActivity().finish();
+                }
+                else {
+                    Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+                    i.putExtra("tab_id",0);
+
+                    startActivity(i);
+                    getActivity().finish();
+                }
+
 
 
             }
