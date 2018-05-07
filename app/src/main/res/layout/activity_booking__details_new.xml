@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:background="@drawable/navigationbarbg"
                 android:navigationIcon="@android:color/white"
+                app:contentInsetStart="0dp"
                 app:theme="@style/ToolbarStyle">
                 <RelativeLayout
                     android:layout_width="match_parent"

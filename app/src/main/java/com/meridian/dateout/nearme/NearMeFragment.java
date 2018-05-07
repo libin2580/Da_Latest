@@ -260,7 +260,7 @@ CollectionsAdapter4 collectionsAdapter4;
 
             }
         });
-        FrameLayoutActivity.cart.setOnClickListener(new View.OnClickListener() {
+        FrameLayoutActivity.rlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(getContext(), Cart_details.class);

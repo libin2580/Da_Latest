@@ -48,6 +48,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -116,6 +117,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import ru.nikartm.support.ImageBadgeView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.analytics;
@@ -203,6 +205,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
     TextView txt_popup_date,txt_popup_time,txt_popup_type,txt_popup_title;
     public static FrameLayout flFragmentPlaceHolder;
    boolean swipeEnabled=true;
+  public static RelativeLayout rlayout;
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -220,6 +223,8 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         token  =pref.getString("regId", null);
         System.out.println("tokennnnn"+token);
         activity_frame_layout=(LinearLayout)findViewById(R.id.activity_frame_layout);
+        rlayout=(RelativeLayout) findViewById(R.id.rlayout);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
         img_toolbar_crcname = (TextView) findViewById(R.id.toolbar_CRCNAM);
         img_top_faq = (ImageView) findViewById(R.id.img_top_faq);
@@ -234,7 +239,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         my_location=(ImageView)findViewById(R.id.my_location);
         filter=(ImageView)findViewById(R.id.filter);
         filter1=(ImageView)findViewById(R.id.filter1);
-        cart=(ImageView)findViewById(R.id.cart);
+       // cart=(ImageView)findViewById(R.id.cart);
         places=(PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         img_account = (ImageView) findViewById(R.id.img_account);
         img_chat = (ImageView) findViewById(R.id.img_chat);
@@ -345,7 +350,7 @@ viewPager.beginFakeDrag();
         FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
         FrameLayoutActivity.my_location.setVisibility(View.GONE);
         FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+        FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
         FrameLayoutActivity.img_toolbar_crcname.setText("SINGAPORE");
         SharedPreferences preferences_user = getSharedPreferences("MyPref", MODE_PRIVATE);
         String  user_id=preferences_user.getString("user_id",null);
@@ -592,7 +597,7 @@ viewPager.beginFakeDrag();
                         FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
                         // FrameLayoutActivity.img_top_cal.setVisibility(View.INVISIBLE);
-                        FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                        FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                         ObjectAnimator anim = ObjectAnimator.ofFloat(v, "rotation", 0f, 360f);
                         anim.setDuration(500); // Duration in milliseconds
                         anim.setInterpolator(new LinearInterpolator()); // E.g. Linear, Accelerate, Decelerate
@@ -696,7 +701,7 @@ viewPager.beginFakeDrag();
                     FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
                     FrameLayoutActivity.my_location.setVisibility(View.GONE);
                     FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
-                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
                     FrameLayoutActivity.img_toolbar_crcname.setText("SINGAPORE");
@@ -759,7 +764,7 @@ viewPager.beginFakeDrag();
                     FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
                     FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
-                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
                     FrameLayoutActivity.img_toolbar_crcname.setVisibility(View.VISIBLE);
@@ -817,7 +822,7 @@ viewPager.beginFakeDrag();
                     FrameLayoutActivity.filter.setVisibility(View.GONE);
                     FrameLayoutActivity.filter1.setVisibility(View.VISIBLE);
 
-                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     ObjectAnimator anim = ObjectAnimator.ofFloat(v, "rotation", 0f, 360f);
                     anim.setDuration(500); // Duration in milliseconds
                     anim.setInterpolator(new LinearInterpolator()); // E.g. Linear, Accelerate, Decelerate
@@ -896,7 +901,7 @@ viewPager.beginFakeDrag();
                     FrameLayoutActivity.search_nearby.setVisibility(View.GONE);
                     FrameLayoutActivity.my_location.setVisibility(View.GONE);
                     FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
-                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
                     FrameLayoutActivity.img_toolbar_crcname.setText("SINGAPORE");
@@ -945,7 +950,7 @@ viewPager.beginFakeDrag();
                     FrameLayoutActivity.filter.setVisibility(View.GONE);
                     FrameLayoutActivity.filter1.setVisibility(View.VISIBLE);
 
-                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
 
                     img_nearme.setBackgroundResource(R.drawable.near_by_blue);
                     txt_nearme.setTextColor(getResources().getColor(R.color.txtcolor_icons));
@@ -994,7 +999,7 @@ viewPager.beginFakeDrag();
                     FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
                     FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
-                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
                     FrameLayoutActivity.img_toolbar_crcname.setVisibility(View.VISIBLE);
@@ -1041,7 +1046,7 @@ viewPager.beginFakeDrag();
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
                     // FrameLayoutActivity.img_top_cal.setVisibility(View.INVISIBLE);
-                    FrameLayoutActivity.cart.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
 
                     img_account.setBackgroundResource(R.drawable.account);
                     txt_accnt_name.setTextColor(getResources().getColor(R.color.txtcolor_icons));

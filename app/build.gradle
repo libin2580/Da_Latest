@@ -73,6 +73,7 @@ dependencies {
     compile 'com.bignerdranch.android:recyclerview-multiselect:+'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.squareup:android-times-square:1.6.5@aar'
+    compile 'com.github.nikartm:image-support:1.0.4'
 
     implementation project(':library')
 }

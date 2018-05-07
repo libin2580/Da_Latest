@@ -176,7 +176,7 @@ public class AccountFragment extends Fragment {
         SharedPreferences preferences_user = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
         user_id=preferences_user.getString("user_id",null);
 
-        FrameLayoutActivity.cart.setOnClickListener(new View.OnClickListener() {
+        FrameLayoutActivity.rlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(getContext(), Cart_details.class);
