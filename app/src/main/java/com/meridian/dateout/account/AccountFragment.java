@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +32,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
+import com.github.kittinunf.fuel.Fuel;
+import com.github.kittinunf.fuel.core.FuelError;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -53,15 +56,20 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
+import kotlin.Pair;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.login.FrameLayoutActivity.flFragmentPlaceHolder;
+import static com.meridian.dateout.login.FrameLayoutActivity.txt_cart_number;
 import static com.meridian.dateout.nearme.NearMeFragment.linear;
 import static com.meridian.dateout.nearme.NearMeFragment.relative;
 
@@ -101,7 +109,8 @@ public class AccountFragment extends Fragment {
     String str_fullname_fb;
     String image;
     TextView name;
-    String selectedFilePath,user_id;
+    String selectedFilePath,userid,android_id;
+    List<Pair<String, String>> params;
     RelativeLayout linearLayout8;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -173,8 +182,56 @@ public class AccountFragment extends Fragment {
         linearLayout8= (RelativeLayout) v.findViewById(R.id.linearLayout8);
         lin_remind= (LinearLayout) v.findViewById(R.id.lin_remind);
 
-        SharedPreferences preferences_user = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
-        user_id=preferences_user.getString("user_id",null);
+        android_id = Settings.Secure.getString(getActivity().getContentResolver(),Settings.Secure.ANDROID_ID);
+        try {
+
+            SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            String  user_id = preferences.getString("user_id", null);
+
+            if (user_id != null) {
+                userid = user_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences1 = getApplicationContext().getSharedPreferences("myfbid", MODE_PRIVATE);
+            String  profile_id = preferences1.getString("user_idfb", null);
+            if (profile_id != null) {
+                userid = profile_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences2 = getApplicationContext().getSharedPreferences("value_gmail", MODE_PRIVATE);
+            String profileid_gmail = preferences2.getString("user_id", null);
+            if (profileid_gmail != null) {
+                userid = profileid_gmail;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences_user_id =getApplicationContext().getSharedPreferences("user_idnew", MODE_PRIVATE);
+            SharedPreferences.Editor editor =preferences_user_id.edit();
+            editor.putString("new_userid",  userid);
+            editor.apply();
+
+        }
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+        if(userid!=null)
+        {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("user_id",userid));
+                add(new Pair<String, String>("guest_device_token","0"));
+
+
+            }};
+        }
+        else {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("guest_device_token",android_id));
+                add(new Pair<String, String>("user_id","0"));
+                ;
+
+            }};
+        }
+        cart_number();
 
         FrameLayoutActivity.rlayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,7 +348,7 @@ public class AccountFragment extends Fragment {
 
 
         }
-        else if(user_id==null)
+        else if(userid==null)
         {
 
             email.setVisibility(View.GONE);
@@ -562,6 +619,38 @@ public class AccountFragment extends Fragment {
         return v;
 
     }
+
+    private void cart_number() {
+        Fuel.post(URL1+"cart-totals.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            @Override
+            public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+
+                try {
+                    JSONObject jsonObj = new JSONObject(s);
+                    String status = jsonObj.getString("status");
+                    System.out.println("cart-totals**********" + s);
+                    if(Objects.equals(status, "true")){
+                        String data = jsonObj.getString("data");
+                        JSONObject jsonObj1 = new JSONObject(data);
+                        String total_items = jsonObj1.getString("total_items");
+                        txt_cart_number.setText(total_items);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+            }
+        });
+
+    }
+
     public void replacefragment(Fragment fragment, String s) {
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -703,13 +792,13 @@ public class AccountFragment extends Fragment {
                     multipart.addHeaderField("User-Agent", "CodeJava");
                     multipart.addHeaderField("Test-Header", "Header-Value");
 
-                    multipart.addFormField("user_id",user_id);
+                    multipart.addFormField("user_id",userid);
                     multipart.addFormField("profile_pic",filename);
 
 
                     multipart.addFilePart("profile_pic",file);
 
-                    System.out.println("update_profileee............"+ user_id+"...."+filename+"......"+file);
+                    System.out.println("update_profileee............"+ userid+"...."+filename+"......"+file);
                     response = multipart.finish();
 
 
@@ -800,7 +889,7 @@ public class AccountFragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             HttpHandler h = new HttpHandler();
-            String s = h.makeServiceCall(Constants.URL+"view-profile.php?user_id="+user_id);
+            String s = h.makeServiceCall(Constants.URL+"view-profile.php?user_id="+userid);
             return s;
         }
 

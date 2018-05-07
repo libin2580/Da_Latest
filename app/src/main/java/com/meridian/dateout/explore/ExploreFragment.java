@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -45,8 +46,9 @@ import com.android.volley.toolbox.Volley;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.github.kittinunf.fuel.Fuel;
+import com.github.kittinunf.fuel.core.FuelError;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -67,17 +69,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import kotlin.Pair;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.meridian.dateout.Constants.URL;
+import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.CollectionsAdapter1.jsonlist;
 import static com.meridian.dateout.explore.CollectionsAdapter2.str_sorted_by;
-import static com.meridian.dateout.nearme.NearMeFragment.linear;
-import static com.meridian.dateout.nearme.NearMeFragment.relative;
+import static com.meridian.dateout.explore.cart.Cart_details.progress_bar_explore;
+import static com.meridian.dateout.explore.cart.Cart_details.totalprize_for_order;
+import static com.meridian.dateout.login.FrameLayoutActivity.txt_cart_number;
 
 public class ExploreFragment extends Fragment implements View.OnClickListener {
     static RecyclerView recyclerView, recyclerView1;
@@ -116,6 +123,8 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
     CalendarPickerView calendar_view;
     String filter_by;
     NetworkCheckingClass networkCheckingClass;
+    String android_id,userid;
+    List<Pair<String, String>> params;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,7 +182,56 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                 startActivity(i);
             }
         });
+        android_id = Settings.Secure.getString(getActivity().getContentResolver(),Settings.Secure.ANDROID_ID);
+        try {
 
+            SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            String  user_id = preferences.getString("user_id", null);
+
+            if (user_id != null) {
+                userid = user_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences1 = getApplicationContext().getSharedPreferences("myfbid", MODE_PRIVATE);
+            String  profile_id = preferences1.getString("user_idfb", null);
+            if (profile_id != null) {
+                userid = profile_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences2 = getApplicationContext().getSharedPreferences("value_gmail", MODE_PRIVATE);
+            String profileid_gmail = preferences2.getString("user_id", null);
+            if (profileid_gmail != null) {
+                userid = profileid_gmail;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences_user_id =getApplicationContext().getSharedPreferences("user_idnew", MODE_PRIVATE);
+            SharedPreferences.Editor editor =preferences_user_id.edit();
+            editor.putString("new_userid",  userid);
+            editor.apply();
+
+        }
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+        if(userid!=null)
+        {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("user_id",userid));
+                add(new Pair<String, String>("guest_device_token","0"));
+
+
+            }};
+        }
+        else {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("guest_device_token",android_id));
+                add(new Pair<String, String>("user_id","0"));
+                ;
+
+            }};
+        }
+        cart_number();
         final LayoutInflater inflator = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         custompopup_view = inflator.inflate(R.layout.filterlayout, null);
         recyclerview_sort_by = (RecyclerView) custompopup_view.findViewById(R.id.recyclerview_sort_by);
@@ -331,6 +389,37 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         });
         get_filter();
         return view;
+    }
+
+    private void cart_number() {
+        Fuel.post(URL1+"cart-totals.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            @Override
+            public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+
+                try {
+                    JSONObject jsonObj = new JSONObject(s);
+                    String status = jsonObj.getString("status");
+                    System.out.println("cart-totals**********" + s);
+                    if(Objects.equals(status, "true")){
+                        String data = jsonObj.getString("data");
+                        JSONObject jsonObj1 = new JSONObject(data);
+                        String total_items = jsonObj1.getString("total_items");
+                        txt_cart_number.setText(total_items);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+            }
+        });
+
     }
 
     private void get_filter() {

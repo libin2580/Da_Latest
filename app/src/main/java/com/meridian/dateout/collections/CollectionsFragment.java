@@ -4,12 +4,14 @@ package com.meridian.dateout.collections;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
@@ -45,6 +47,8 @@ import com.android.volley.toolbox.Volley;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.github.kittinunf.fuel.Fuel;
+import com.github.kittinunf.fuel.core.FuelError;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
@@ -74,13 +78,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import kotlin.Pair;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.meridian.dateout.Constants.URL;
+import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
+import static com.meridian.dateout.login.FrameLayoutActivity.txt_cart_number;
 import static com.meridian.dateout.nearme.NearMeFragment.linear;
 import static com.meridian.dateout.nearme.NearMeFragment.relative;
 
@@ -118,7 +127,8 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
     ArrayList<Spinner_model1> location_list;
     ArrayList<Spinner_model1> sort_by_list;
     Spinner_model1 spinnerModel1;
-
+    String userid,android_id;
+    List<Pair<String, String>> params;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -273,7 +283,56 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
                 }
             }
         });
+        android_id = Settings.Secure.getString(getActivity().getContentResolver(),Settings.Secure.ANDROID_ID);
+        try {
 
+            SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            String  user_id = preferences.getString("user_id", null);
+
+            if (user_id != null) {
+                userid = user_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences1 = getApplicationContext().getSharedPreferences("myfbid", MODE_PRIVATE);
+            String  profile_id = preferences1.getString("user_idfb", null);
+            if (profile_id != null) {
+                userid = profile_id;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences2 = getApplicationContext().getSharedPreferences("value_gmail", MODE_PRIVATE);
+            String profileid_gmail = preferences2.getString("user_id", null);
+            if (profileid_gmail != null) {
+                userid = profileid_gmail;
+                System.out.println("userid" + userid);
+            }
+            SharedPreferences preferences_user_id =getApplicationContext().getSharedPreferences("user_idnew", MODE_PRIVATE);
+            SharedPreferences.Editor editor =preferences_user_id.edit();
+            editor.putString("new_userid",  userid);
+            editor.apply();
+
+        }
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+        if(userid!=null)
+        {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("user_id",userid));
+                add(new Pair<String, String>("guest_device_token","0"));
+
+
+            }};
+        }
+        else {
+            params = new ArrayList<Pair<String, String>>() {{
+                add(new Pair<String, String>("guest_device_token",android_id));
+                add(new Pair<String, String>("user_id","0"));
+                ;
+
+            }};
+        }
+        cart_number();
         NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getActivity());
         final boolean i = networkCheckingClass.ckeckinternet();
         if(i) {
@@ -302,6 +361,38 @@ public class CollectionsFragment extends Fragment implements View.OnClickListene
 
         return view;
     }
+
+    private void cart_number() {
+        Fuel.post(URL1+"cart-totals.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+            @Override
+            public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+
+                try {
+                    JSONObject jsonObj = new JSONObject(s);
+                    String status = jsonObj.getString("status");
+                    System.out.println("cart-totals**********" + s);
+                    if(Objects.equals(status, "true")){
+                        String data = jsonObj.getString("data");
+                        JSONObject jsonObj1 = new JSONObject(data);
+                        String total_items = jsonObj1.getString("total_items");
+                        txt_cart_number.setText(total_items);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+            }
+        });
+
+    }
+
     private void get_filter() {
         progress.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/filter_values.php",
