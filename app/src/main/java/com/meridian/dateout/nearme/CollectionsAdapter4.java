@@ -91,42 +91,6 @@ public class CollectionsAdapter4 extends RecyclerView.Adapter<CollectionsAdapter
         System.out.println("<<<<<<<<<<<<<>>>>>>>>>>>>>>" + i + dealsModelArrayList.get(i).getTitle());
 
         viewHolder.txt_titlergt.setText("" + dealsModelArrayList.get(i).getTitle());
-        viewHolder.txt_titlergt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(dealsModelArrayList.get(i).getType().contentEquals("deal"))
-                {
-                    int ids = Integer.parseInt(dealsModelArrayList.get(i).getId());
-                    System.out.println("xxdetailxiddd" + ids);
-                    String deal_slug =dealsModelArrayList.get(i).getDeal_slug();
-                    Intent i = new Intent(context, CategoryDealDetail.class);
-                    i.putExtra("deal_id", ids);
-                    i.putExtra("deal_slug",  deal_slug);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                    context.startActivity(i);
-
-                }
-                if(dealsModelArrayList.get(i).getType().contentEquals("category"))
-                {
-
-                    int id = Integer.parseInt(dealsModelArrayList.get(i).getCategory_id());
-                    FragmentTransaction trans =((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-
-                    Fragment fragment = CategoryDealFragment.newInstance();
-
-                    Bundle args=new Bundle();
-                    args.putInt("category_id", id);
-                    args.putString("names",dealsModelArrayList.get(i).getTitle());
-                    trans.replace(R.id.flFragmentPlaceHolder,fragment,"cat_deal1").addToBackStack("cat_deal1");
-                    fragment.setArguments(args);
-
-                    trans.commit();
-
-                }
-
-            }
-        });
 
 
 
