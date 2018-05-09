@@ -138,7 +138,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
     int dateDifference;
     Float difference1;
     ArrayList<String> event_type=new ArrayList<>();
-    int hours=0;
+    int reminder_id;
     PassingModel pm;
     ArrayList<PassingModel>passingArrayList;
 
@@ -204,6 +204,9 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
 
             }
         });
+        Date now = new Date();
+        reminder_id = Integer.parseInt(new SimpleDateFormat("ddHHmmss",  Locale.US).format(now));
+        System.out.println("_______^^^^^^^^^^^^^^reminder_id" +reminder_id);
         String strtext=getArguments().getString("key");
         System.out.println("_______^^^^^^^^^^^^^^strtext" +strtext);
         readFormat = new SimpleDateFormat( "dd/MM/yyyy HH:mm");
@@ -1652,6 +1655,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
                 params.put("reminder_time",passed_time);//mTime
                 params.put("time_zone",time_zone1);
                 params.put("timezone_id",time_zone_id);
+                params.put("unique_id", String.valueOf(reminder_id));
                 System.out.println("datessss1"+params.toString());
                 return params;
             }
