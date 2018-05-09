@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -130,6 +131,7 @@ public class MembershipFragment extends Fragment {
     TextView currentstage_text,nextstage_text,nextstage_color,current_stage_color;
     View customView1;
     LinearLayout linear_convert_button;
+    RelativeLayout r_layout;
     ProgressBar popup_progressbar;
     TextView current_text_txt,current_point_txt,next_text_txt,next_point_txt;
     public MembershipFragment() {
@@ -160,6 +162,7 @@ public class MembershipFragment extends Fragment {
         progress_bar=(ProgressBar)v.findViewById(R.id.progress_bar);
         txt= (TextView) v.findViewById(R.id.toolbar_txt);
         lin_reward= (LinearLayout) v.findViewById(R.id.lin_reward);
+        r_layout=v.findViewById(R.id.r_layout);
         data=new ArrayList<>();
         img_silver= (ImageView) v.findViewById(R.id.img_silver);
         img_gold= (ImageView) v.findViewById(R.id.img_gold);
@@ -774,7 +777,7 @@ pieDataSet.setColors((new int[] { R.color.platinum,  R.color.diamond}), getActiv
             mPopupWindow.setAnimationStyle(R.style.popupAnimation);
 
 
-            mPopupWindow.showAtLocation(FrameLayoutActivity.activity_frame_layout, Gravity.CENTER, 0, 0);
+            mPopupWindow.showAtLocation(r_layout, Gravity.CENTER, 0, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -878,7 +881,7 @@ pieDataSet.setColors((new int[] { R.color.platinum,  R.color.diamond}), getActiv
             mPopupWindow.setAnimationStyle(R.style.popupAnimation);
 
 
-            mPopupWindow.showAtLocation(FrameLayoutActivity.activity_frame_layout, Gravity.CENTER, 0, 0);
+            mPopupWindow.showAtLocation(r_layout, Gravity.CENTER, 0, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -897,7 +900,7 @@ pieDataSet.setColors((new int[] { R.color.platinum,  R.color.diamond}), getActiv
             mPopupWindow.setAnimationStyle(R.style.popupAnimation);
 
 
-            mPopupWindow.showAtLocation(FrameLayoutActivity.activity_frame_layout, Gravity.CENTER, 0, 0);
+            mPopupWindow.showAtLocation(r_layout, Gravity.CENTER, 0, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }

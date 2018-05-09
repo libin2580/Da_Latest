@@ -89,45 +89,25 @@ public class Booking_DetailsActivity extends AppCompatActivity {
 
     ArrayList<ScheduleModel> scheduleModelArrayList;
     ArrayList<String> arrayListtime;
-
     String booking_date="",booking_time="";
     LinearLayout linearLayout_schedule;
-
     ImageView back;
     String checkout_deal_id;
     static String time;
     String title;
-    TextView v1, v3, v, v2;
     TextView txt_title;
-
     private PopupWindow mPopupWindow,  mPopupWindow_cmnt;
-    TextView adult_plus, adult_minus, adult_number, adult_price, adult_age, adult_discnt_price, child_discnt_price;
-    TextView child_plus, child_minus, child_number, child_price, child_age, total_price;
-
     int deal_id;
     Button next,add_to_cart;
     int s = 0;
-    LinearLayout linear_adult, linear_child;
-    int ad_number = 0;
-    int ch_number = 0;
     int people_number = 0;
-    int tkt = 0;
-    int ad_total = 0;
-    int ch_total = 0;
-    int ad_price = 0;
-    int ch_price = 0;
     int adult_discount_tkt_price = 0;
     int child_discount_tkt_price = 0;
-    int total = 0;
-    TextView total_num;
-    int people = 0, tot_num_qty = 0, tot_num_ad_ch = 0;
-    String adult_tkt_price = null, child_tkt_price = null, adult_age_range, child_age_range, deal_type;
+    int people = 0, tot_num_qty = 0;
+    String adult_tkt_price = null, adult_age_range, child_age_range, deal_type;
     String address;
-    ViewPager Tab;
-    String str_time = null;
-    LinearLayout linear_people, linear_peopl_total, layout_other;
     String price, ticket_disnt_price = null;
-    TextView price_people, price_people_discnt, minus_people, number_people, plus_peopl, people_total, scheduled_date, scheduled_time;
+    TextView  scheduled_date, scheduled_time;
 
     public static ArrayList<ScheduleModel> DisableModelArrayList;
     ArrayList<Date> disabledDates_fromstart, disabledDates_fromend, disabledDates_fromjson;
@@ -158,7 +138,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
     String calendar_show,android_id;
     ImageView img_book;
     LinearLayout  linear_info_no_cal,linear_booking_button;
-    String deal_point,available_point,points_nextlevel;
+    String deal_point,available_point,points_nextlevel,comment_option;
     ImageView Home,cart;
     RecyclerView recyclerView;
     ItemModel Im;
@@ -168,6 +148,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
     ProgressBar progress_bar_explore;
     public  static  String somejson="";
     TextView txt_cart_number;
+    LinearLayout linr_cmnt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,9 +159,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         analytics = FirebaseAnalytics.getInstance(this);
         analytics.setCurrentScreen(this,this.getLocalClassName(), null /* class override */);
         delivery_adrs_required = getIntent().getStringExtra("delivery_adrs_required");
-
-        //displayPopup_comment();
-
+        linr_cmnt=findViewById(R.id.linr_cmnt);
         progress_bar_explore=(ProgressBar) findViewById(R.id.progress_bar_explore);
         caldroidFragment = new CaldroidSampleCustomFragment();
         schedule();
@@ -196,7 +175,13 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
         args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, false);
         caldroidFragment.setArguments(args);
-
+        comment_option = getIntent().getStringExtra("comment_option");
+        if(Objects.equals(comment_option, "yes")){
+            linr_cmnt.setVisibility(View.VISIBLE);
+        }
+        else {
+            linr_cmnt.setVisibility(View.GONE);
+        }
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         String   user_id = preferences.getString("user_id", null);
 
@@ -303,36 +288,19 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         linear_booking_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), AdddetailsDelivery.class);
-                i.putExtra("adult_price", ad_price);
-                i.putExtra("child_price", ch_price);
-                i.putExtra("adult_number", ad_number);
-                i.putExtra("child_number", ch_number);
-                i.putExtra("timee", str_time);
-                i.putExtra("booking_date",booking_date);
-                i.putExtra("booking_time", booking_time);
-
-                System.out.println("quantityys" + people_number + tot_num_qty);
-                i.putExtra("currency", currency);
-                i.putExtra("ticket_disnt_price", tkt);
-                i.putExtra("checkout_deal_id", checkout_deal_id);
-                i.putExtra("title", title);
-                i.putExtra("total_number", people);
-                i.putExtra("qty", people_number);
-                i.putExtra("total_price", total);
-                i.putExtra("address", address);
-                i.putExtra("child_discnt_price", child_discount_tkt_price);
-                i.putExtra("adult_discnt_price", adult_discount_tkt_price);
-
-                System.out.println("currency....boo2.....:"+currency);
-                System.out.println("title....boo2.....:"+title);
-
-                System.out.println("book_date.........:"+booking_date);
-                System.out.println("book_time.........:"+booking_time);
-
-                System.out.println("discount" + adult_discount_tkt_price);
-                System.out.println("qtyyyy1................." + people_number);
-                startActivity(i);
+                Intent u=new Intent(Booking_DetailsActivity.this, AdddetailsDelivery.class);
+                u.putExtra("deal_id", checkout_deal_id);
+                u.putExtra("user_id", userid);
+                u.putExtra("device_token", "0");
+                u.putExtra("cust_selected_date", booking_date);
+                u.putExtra("cust_selected_time", booking_time);
+                u.putExtra("adult_number","1");
+                u.putExtra("child_number","0");
+                u.putExtra("quantity","1");
+                u.putExtra("comment", str_comnt);
+                u.putExtra("amount", price);
+                u.putExtra("deal_optionsJSON ", somejson);
+                startActivity(u);
 
             }
         });
@@ -349,32 +317,15 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         item();
         time = getIntent().getStringExtra("time");
         linearLayout_schedule = (LinearLayout) findViewById(R.id.linear_sch);
-        layout_other = (LinearLayout) findViewById(R.id.layout_other);
-        linear_people = (LinearLayout) findViewById(R.id.linear_peopl);
-        linear_peopl_total = (LinearLayout) findViewById(R.id.layout_people_total);
-        price_people = (TextView) findViewById(R.id.price_people);
-        price_people_discnt = (TextView) findViewById(R.id.price_people_discnt);
-        minus_people = (TextView) findViewById(R.id.minusS_people);
-        number_people = (TextView) findViewById(R.id.numberS_people);
-        plus_peopl = (TextView) findViewById(R.id.plusS_people);
-        people_total = (TextView) findViewById(R.id.txt_people_total);
         scheduled_date = (TextView) findViewById(R.id.scheduled_date);
         linear_info_no_cal = (LinearLayout) findViewById(R.id.cal);
         scheduled_time = (TextView) findViewById(R.id.scheduled_time);
-        linear_adult = (LinearLayout) findViewById(R.id.linear_adult);
-        linear_child = (LinearLayout) findViewById(R.id.linear_child);
+
 
         img_book = (ImageView) findViewById(R.id.imageview_book);
         calendar_information = (TextView) findViewById(R.id.calendar_information);
-        linear_adult.setVisibility(View.VISIBLE);
-        adult_plus = (TextView) findViewById(R.id.plus);
-        adult_minus = (TextView) findViewById(R.id.minus);
-        adult_number = (TextView) findViewById(R.id.number);
-        adult_price = (TextView) findViewById(R.id.price);
-        adult_age = (TextView) findViewById(R.id.age);
-        total_num = (TextView) findViewById(R.id.total_num);
-        adult_discnt_price = (TextView) findViewById(R.id.adult_discnt_price);
-        child_discnt_price = (TextView) findViewById(R.id.child_discnt_price);
+
+
         layout_selected_date = (LinearLayout) findViewById(R.id.layout_selected_date);
         layout_selected_time = (LinearLayout) findViewById(R.id.layout_selected_time);
         cart.setOnClickListener(new View.OnClickListener() {
@@ -385,22 +336,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
             }
         });
 
-        child_plus = (TextView) findViewById(R.id.plusS);
-        child_minus = (TextView) findViewById(R.id.minusS);
-        child_number = (TextView) findViewById(R.id.numberS);
-        child_price = (TextView) findViewById(R.id.price1);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        View view1 = getLayoutInflater().inflate(R.layout.tab_custom_view, null);
-        v = (TextView) view1.findViewById(R.id.txt1);
-        v1 = (TextView) view1.findViewById(R.id.txt2);
-
-        View view2 = getLayoutInflater().inflate(R.layout.tab_custom_view, null);
-        v2 = (TextView) view2.findViewById(R.id.txt1);
-        v3 = (TextView) view2.findViewById(R.id.txt2);
-
-        child_age = (TextView) findViewById(R.id.age1);
-        total_price = (TextView) findViewById(R.id.total_price);
 
         linearLayout_schedule = (LinearLayout) findViewById(R.id.linear_sch);
         calendar2 = (LinearLayout) findViewById(R.id.calendar2);
@@ -473,52 +409,8 @@ public class Booking_DetailsActivity extends AppCompatActivity {
             ticket_disnt_price = getIntent().getStringExtra("tickt_discnt_price");
             System.out.println("date out..............tickett...discounted priceeeeeeee"+ticket_disnt_price);
         }
-        if (getIntent().getStringExtra("adult_price") != null) {
-            adult_tkt_price = getIntent().getStringExtra("adult_price");
-
-            if (adult_tkt_price.contentEquals("") || adult_tkt_price.isEmpty() || adult_tkt_price.equals(0)) {
-                System.out.println("adult_priceee1......" + adult_tkt_price);
-
-                v.setText(R.string.adult);
-                System.out.println("adult_priceee2......" + v.getText().toString());
-                v1.setText("0");
-                tabLayout.addTab(tabLayout.newTab().setCustomView(view1));
-                view1.setVisibility(View.INVISIBLE);
-                linear_adult.setVisibility(View.GONE);
-                linear_people.setVisibility(View.GONE);
-
-            } else {
-                System.out.println("adult_priceee2......" + adult_tkt_price);
-                v.setText(R.string.adult);
-                System.out.println("adult_priceee2......" + v.getText().toString());
-                v1.setText("0");
-                tabLayout.addTab(tabLayout.newTab().setCustomView(view1));
-            }
-        }
 
 
-        if (getIntent().getStringExtra("child_price") != null) {
-            child_tkt_price = getIntent().getStringExtra("child_price");
-            System.out.println("child_priceee0......" + child_tkt_price);
-            if (child_tkt_price.contentEquals("") || child_tkt_price.isEmpty() || child_tkt_price.equals(0))
-            {
-                System.out.println("child_priceee1......" + child_tkt_price);
-                v2.setText(R.string.child);
-                v3.setText("0");
-                linear_child.setVisibility(View.GONE);
-                linear_people.setVisibility(View.GONE);
-
-            }
-            else
-            {
-                System.out.println("child_priceee2......" + child_tkt_price);
-                v2.setText(R.string.child);
-                v3.setText("0");
-                tabLayout.addTab(tabLayout.newTab().setCustomView(view2));
-            }
-
-
-        }
 
 
         if (getIntent().getStringExtra("adult_discnt_price") != null)
@@ -566,136 +458,11 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         {
 
         }
-        child_number.setText(String.valueOf(ad_number));
-        adult_number.setText(String.valueOf(ch_number));
-
-        child_age.setText(child_age_range);
-        adult_age.setText(adult_age_range);
         if (checkout_info != null)
         {
 
         }
         System.out.println("pricesssss....." + ad + "ssss....." + adult_tkt_price);
-
-
-        if (adult_tkt_price != null) {
-            if (adult_discount_tkt_price != 0) {
-                System.out.println("pricesssss....." + adult_discount_tkt_price + "ssss....." + adult_tkt_price);
-                adult_discnt_price.setText(currency + " " + adult_discount_tkt_price);
-                System.out.println("pricesssss....." + adult_discount_tkt_price + "ssss....." + adult_tkt_price);
-                final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
-                adult_price.setText(currency + " " + adult_tkt_price, TextView.BufferType.SPANNABLE);
-                Spannable spannable = (Spannable) adult_price.getText();
-                spannable.setSpan(STRIKE_THROUGH_SPAN, 0, adult_price.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
-            } else {
-                try {
-                    adult_discount_tkt_price = Integer.parseInt(adult_tkt_price);
-                } catch (NumberFormatException e) {
-
-                }
-                adult_discnt_price.setText(currency + " " + adult_tkt_price);
-                adult_price.setVisibility(View.INVISIBLE);
-            }
-        }
-
-
-        if (child_tkt_price != null) {
-            if (child_discount_tkt_price != 0) {
-                System.out.println("pricesssss....." + child_discount_tkt_price + "ssss....." + child_tkt_price);
-                child_discnt_price.setText(currency + " " + child_discount_tkt_price);
-                System.out.println("pricesssss....." + adult_discount_tkt_price + "ssss....." + adult_tkt_price);
-                final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
-                child_price.setText(currency + " " + child_tkt_price, TextView.BufferType.SPANNABLE);
-                Spannable spannable = (Spannable) child_price.getText();
-                spannable.setSpan(STRIKE_THROUGH_SPAN, 0, child_price.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
-            } else {
-                try {
-                    child_discount_tkt_price = Integer.parseInt(child_tkt_price);
-                } catch (NumberFormatException e) {
-
-                }
-                child_discnt_price.setText(currency + " " + child_tkt_price);
-                child_price.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        try {
-            if (deal_type.contentEquals("gifts") || deal_type.contentEquals("food_and_beverages")) {
-                tabLayout.setVisibility(View.GONE);
-                linear_people.setVisibility(View.VISIBLE);
-                linear_adult.setVisibility(View.GONE);
-                linear_child.setVisibility(View.GONE);
-                linear_peopl_total.setVisibility(View.GONE);
-                layout_other.setVisibility(View.GONE);
-
-
-                    System.out.println("*************************************************ticket_disnt_price" + ticket_disnt_price);
-                    if (ticket_disnt_price.isEmpty() || ticket_disnt_price.equals(0) || ticket_disnt_price.equals("")) {
-                        price_people_discnt.setText(currency + " " + price);
-                        try
-                        {
-                            tkt = Integer.parseInt(price);
-                        }
-                        catch (NumberFormatException ex)
-                        {
-
-                        }
-                        price_people.setVisibility(View.INVISIBLE);
-
-                    }
-                    else
-                        {
-                        final StrikethroughSpan STRIKE_THROUGH_SPAN1 = new StrikethroughSpan();
-                        price_people.setText(currency + " " + price, TextView.BufferType.SPANNABLE);
-                        Spannable spannable1 = (Spannable) price_people.getText();
-                        spannable1.setSpan(STRIKE_THROUGH_SPAN1, 0, price_people.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        try {
-                            tkt = Integer.parseInt(ticket_disnt_price);
-                        } catch (NumberFormatException ex) { // handle your exception
-
-                        }
-                        price_people_discnt.setText(currency + " " + ticket_disnt_price);
-                    }
-
-            } else {
-                tabLayout.setVisibility(View.VISIBLE);
-                linear_people.setVisibility(View.GONE);
-                linear_adult.setVisibility(View.VISIBLE);
-                linear_child.setVisibility(View.GONE);
-                linear_peopl_total.setVisibility(View.VISIBLE);
-                layout_other.setVisibility(View.VISIBLE);
-
-            }
-        }
-        catch (NullPointerException e)
-        {
-
-        }
-        try
-        {
-            if (child_tkt_price.equals(null) || child_tkt_price.equals("") || child_tkt_price.isEmpty())
-            {
-                ch_price = 0;
-
-            }
-            else
-            {
-                ch_price = Integer.parseInt(child_tkt_price);
-
-            }
-
-        }
-        catch (Exception e)
-        {
-
-        }
-
-
-
 
         /*caldroid>>>>>>>>>>>.........................................*/
 
@@ -748,72 +515,6 @@ public class Booking_DetailsActivity extends AppCompatActivity {
         caldroidFragment.setMinDate(minDate);
         caldroidFragment.setMaxDate(maxDate);
         caldroidFragment.refreshView();
-        v.setTextColor(Color.parseColor("#0A7197"));
-        v2.setTextColor(Color.parseColor("#6C6D6D"));
-        v1.setTextColor(Color.parseColor("#0A7197"));
-        v3.setTextColor(Color.parseColor("#6C6D6D"));
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.black), ContextCompat.getColor(getApplicationContext(), R.color.com_facebook_blue));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                //  viewPager.setCurrentItem(tab.getPosition());
-                int position = tab.getPosition();
-                // linear_child.setVisibility(View.VISIBLE);
-                if (position == 0) {
-                    System.out.println("Oneeeee");
-
-                    if (adult_tkt_price.contentEquals("") || adult_tkt_price.isEmpty() || adult_tkt_price.equals(0)) {
-                        linear_adult.setVisibility(View.GONE);
-                    } else {
-                        linear_adult.setVisibility(View.VISIBLE);
-                        linear_child.setVisibility(View.GONE);
-                        child_discnt_price.setVisibility(View.GONE);
-                        adult_discnt_price.setVisibility(View.VISIBLE);
-                        linear_people.setVisibility(View.GONE);
-
-                        v.setTextColor(Color.parseColor("#0A7197"));
-                        v2.setTextColor(Color.parseColor("#6C6D6D"));
-
-                        v1.setTextColor(Color.parseColor("#0A7197"));
-                        v3.setTextColor(Color.parseColor("#6C6D6D"));
-                    }
-                }
-                if (position == 1) {
-                    System.out.println("Oneeeee.......");
-
-                    if (child_tkt_price.contentEquals("") || child_tkt_price.isEmpty() || child_tkt_price.equals(0)) {
-                        linear_child.setVisibility(View.GONE);
-                    } else {
-                        linear_child.setVisibility(View.VISIBLE);
-                        linear_adult.setVisibility(View.GONE);
-                        child_discnt_price.setVisibility(View.VISIBLE);
-                        adult_discnt_price.setVisibility(View.GONE);
-                        linear_people.setVisibility(View.GONE);
-                        v.setTextColor(Color.parseColor("#6C6D6D"));
-                        v2.setTextColor(Color.parseColor("#0A7197"));
-
-                        v1.setTextColor(Color.parseColor("#6C6D6D"));
-                        v3.setTextColor(Color.parseColor("#0A7197"));
-                    }
-
-
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        //   final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         title = getIntent().getStringExtra("title");
         txt_title.setText(title);
         //  txt_time.setText(time);
@@ -828,280 +529,6 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                 Intent u=new Intent(Booking_DetailsActivity.this, Cart_details.class);
                u.putExtra("address_id","0");
                 startActivity(u);
-
-            }
-        });
-
-        plus_peopl.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View view) {
-                if (people_number >= 0) {
-                    people_number++;
-                    number_people.setText(String.valueOf(people_number));
-                    ad_total = tkt * people_number;
-                    total = ad_total;
-                    people = people_number;
-                    people_total.setText(currency + " " + total);
-                    tot_num_qty = people_number; try {
-                        int total_deal_point = Integer.parseInt(deal_point) * people_number;
-                        txt_book_deal_pts.setText(total_deal_point+" Points");
-                        int s = Integer.parseInt(available_point) + total_deal_point;
-                        txt_book_total_pts.setText("" + s+" Points");
-                        System.out.println("summmmm"+s+"....."+total_deal_point );
-                        if(total_deal_point>=Integer.parseInt(points_nextlevel))
-                        {
-                            txt_points_nextlevel.setText("You have reached the next stage");
-
-                        }
-                        else
-                        {
-                            int total_nextlevel=Integer.parseInt(points_nextlevel)-total_deal_point;
-                            System.out.println("summmmm....."+total_nextlevel );
-                            txt_points_nextlevel.setText(""+total_nextlevel+" Points");
-                        }
-
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
-
-                }
-
-
-            }
-
-
-        });
-
-        minus_people.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
-                if (people_number > 0) {
-                    people_number--;
-                    number_people.setText(String.valueOf(people_number));
-                    ad_total = tkt * people_number;
-                    total = ad_total;
-                    people_total.setText(currency + " " + total);
-                    tot_num_qty = people_number;
-                    people = people_number;
-                    try {
-                        int total_deal_point = Integer.parseInt(deal_point) * people_number;
-                        txt_book_deal_pts.setText(total_deal_point+" Points");
-                        int s = Integer.parseInt(available_point) + total_deal_point;
-                        txt_book_total_pts.setText("" + s+" Points");
-                        System.out.println("summmmm"+s+"....."+total_deal_point );
-                        if(total_deal_point>=Integer.parseInt(points_nextlevel))
-                        {
-                            txt_points_nextlevel.setText("You have reached the next stage");
-
-                        }
-                        else
-                        {
-                            int total_nextlevel=Integer.parseInt(points_nextlevel)-total_deal_point;
-                            System.out.println("summmmm....."+total_nextlevel );
-                            txt_points_nextlevel.setText(""+total_nextlevel+" Points");
-                        }
-
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
-
-
-                }
-
-
-            }
-        });
-
-        adult_plus.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View view) {
-                if (ad_number >= 0) {
-                    ad_number++;
-                    adult_number.setText(String.valueOf(ad_number));
-                    v1.setText(String.valueOf(ad_number));
-                    ad_total = adult_discount_tkt_price * ad_number;
-                    total = ad_total + ch_total;
-                    total_price.setText(currency + " " + total);
-                    people = ad_number + ch_number;
-                    tot_num_ad_ch = ad_number + ch_number;
-                    total_num.setText("" + people);
-
-                    try {
-                        int total_deal_point = Integer.parseInt(deal_point) * people;
-                        txt_book_deal_pts.setText(total_deal_point+" Points");
-
-
-                        int s = Integer.parseInt(available_point) + total_deal_point;
-                        txt_book_total_pts.setText("" + s+" Points");
-                        System.out.println("summmmm"+s+"....."+total_deal_point );
-                        if(total_deal_point>=Integer.parseInt(points_nextlevel))
-                        {
-                            txt_points_nextlevel.setText("You have reached the next stage");
-
-                        }
-                        else
-                        {
-                            int total_nextlevel=Integer.parseInt(points_nextlevel)-total_deal_point;
-                            System.out.println("summmmm....."+total_nextlevel );
-                            txt_points_nextlevel.setText(""+total_nextlevel+" Points");
-                        }
-
-
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
-
-                }
-
-
-
-            }
-
-
-        });
-
-        adult_minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                if (ad_number > 0) {
-                    ad_number--;
-                    adult_number.setText(String.valueOf(ad_number));
-                    v1.setText(String.valueOf(ad_number));
-                    ad_total = adult_discount_tkt_price * ad_number;
-                    total = ad_total + ch_total;
-                    total_price.setText(currency + " " + total);
-                    people = ad_number + ch_number;
-                    tot_num_ad_ch = ad_number + ch_number;
-                    total_num.setText("" + people);
-                    try {
-                        int total_deal_point = Integer.parseInt(deal_point) * people;
-                        txt_book_deal_pts.setText(total_deal_point+" Points");
-
-                        int s = Integer.parseInt(available_point) + total_deal_point;
-                        txt_book_total_pts.setText("" + s+" Points");
-                        System.out.println("summmmm"+s+"....."+total_deal_point );
-                        if(total_deal_point>=Integer.parseInt(points_nextlevel))
-                        {
-                            txt_points_nextlevel.setText("You have reached the next stage");
-
-                        }
-                        else
-                        {
-                            int total_nextlevel=Integer.parseInt(points_nextlevel)-total_deal_point;
-                            System.out.println("summmmm....."+total_nextlevel );
-                            txt_points_nextlevel.setText(""+total_nextlevel+" Points");
-                        }
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
-
-
-                }
-
-
-            }
-        });
-        child_plus.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View view) {
-                if (ch_number >= 0) {
-                    ch_number++;
-                    child_number.setText(String.valueOf(ch_number));
-                    v3.setText(String.valueOf(ch_number));
-                    ch_total = child_discount_tkt_price * ch_number;
-                    total = ad_total + ch_total;
-                    total_price.setText(currency + " " + total);
-                    people = ad_number + ch_number;
-                    tot_num_ad_ch = ad_number + ch_number;
-                    total_num.setText("" + people);
-                    try {
-                        int total_deal_point = Integer.parseInt(deal_point) * people;
-                        txt_book_deal_pts.setText(total_deal_point+" Points");
-                        int s = Integer.parseInt(available_point) + total_deal_point;
-                        txt_book_total_pts.setText("" + s+" Points");
-                        System.out.println("summmmm"+s+"....."+total_deal_point );
-                        if(total_deal_point>=Integer.parseInt(points_nextlevel))
-                        {
-                            txt_points_nextlevel.setText("You have reached the next stage");
-
-                        }
-                        else
-                        {
-                            int total_nextlevel=Integer.parseInt(points_nextlevel)-total_deal_point;
-                            System.out.println("summmmm....."+total_nextlevel );
-                            txt_points_nextlevel.setText(""+total_nextlevel+" Points");
-                        }
-
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
-
-                }
-
-
-            }
-
-
-        });
-
-        child_minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ch_number > 0) {
-                    ch_number--;
-                    child_number.setText(String.valueOf(ch_number));
-                    v3.setText(String.valueOf(ch_number));
-                    ch_total = child_discount_tkt_price * ch_number;
-                    total = ad_total + ch_total;
-                    total_price.setText(currency + " " + total);
-                    people = ad_number + ch_number;
-                    tot_num_ad_ch = ad_number + ch_number;
-                    total_num.setText("" + people);
-                    try {
-                        int total_deal_point = Integer.parseInt(deal_point) * people;
-                        txt_book_deal_pts.setText(total_deal_point+" Points");
-
-                        int s = Integer.parseInt(available_point) + total_deal_point;
-                        txt_book_total_pts.setText("" + s+" Points");
-                        System.out.println("summmmm"+s+"....."+total_deal_point );
-                        if(total_deal_point>=Integer.parseInt(points_nextlevel))
-                        {
-                            txt_points_nextlevel.setText("You have reached the next stage");
-
-                        }
-                        else
-                        {
-                            int total_nextlevel=Integer.parseInt(points_nextlevel)-total_deal_point;
-                            System.out.println("summmmm....."+total_nextlevel );
-                            txt_points_nextlevel.setText(""+total_nextlevel+" Points");
-                        }
-
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
-
-                }
-
 
             }
         });
@@ -1176,40 +603,7 @@ else {
         dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
 
-    } /*else if (people == 0) {
-
-        if (deal_type.contentEquals("gifts") || deal_type.contentEquals("food_and_beverages")) {
-            final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this, SweetAlertDialog.NORMAL_TYPE);
-            dialog.setTitleText("")
-                    .setContentText("Please select the quantity of deal you would like to purchase")
-
-                    .setConfirmText("OK")
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
-            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-
-        } else {
-            final SweetAlertDialog dialog = new SweetAlertDialog(Booking_DetailsActivity.this, SweetAlertDialog.NORMAL_TYPE);
-            dialog.setTitleText("")
-                    .setContentText("Please select adult number or child number")
-                    .setConfirmText("OK")
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
-            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-
-        }
-
-    }*/ else {
+    }  else {
 
         if (userid != null) {
             // displayPopup();
@@ -1556,26 +950,7 @@ else {
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
                                         dialog.dismissWithAnimation();
-                                /*        View v = findViewById(R.id.add_to_cart);
-                                        ObjectAnimator animation = ObjectAnimator.ofFloat(v, "rotationX", 0.0f, 360f);
-                                        animation.setDuration(2000);
-                                        animation.setInterpolator(new AccelerateDecelerateInterpolator());
-                                        animation.start();
-                                        View v1 = findViewById(R.id.next);
-                                        ObjectAnimator animation1 = ObjectAnimator.ofFloat(v1, "rotationX", 0.0f, 360f);
-                                        animation1.setDuration(1000);
-                                        animation1.setInterpolator(new AccelerateDecelerateInterpolator());
-                                        animation1.start();
-                                        final Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
 
-                                            @Override
-                                            public void run() {
-                                                next.setVisibility(View.VISIBLE);
-                                                add_to_cart.setVisibility(View.GONE);
-
-                                            }
-                                        }, 1000);*/
 
                                     }
                                 })
@@ -1620,6 +995,7 @@ else {
                                 JSONObject obj = jsonArray.getJSONObject(j);
                                 String opt_label = obj.getString("opt_label");
                                 String opt_values = obj.getString("opt_values");
+
                                 System.out.println("Upcoming resulttype : " + opt_values);
                                 Im=new ItemModel();
                                 Im.setname(opt_label);
@@ -1646,63 +1022,7 @@ else {
                 }
             });
 
-          /*  Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.dateout.co.php56-27.phx1-2.websitetestlink.com/services/deal-options.php",
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            System.out.println("Upcoming result : " + response);
-                            try {
-                                   Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
 
-                                    JSONObject  jsonObject = new JSONObject(response);
-                                    String status = jsonObject.getString("status");
-                                    if (status.equalsIgnoreCase("true")) {
-                                        String data = jsonObject.getString("data");
-                                        JSONArray jsonArray = new JSONArray(data);
-                                        for (int j = 0; j < jsonArray.length(); j++) {
-                                            JSONObject obj = jsonArray.getJSONObject(j);
-                                            String opt_label = obj.getString("opt_label");
-                                            String opt_values = obj.getString("opt_values");
-                                            System.out.println("Upcoming resulttype : " + opt_values);
-                                            Im=new ItemModel();
-                                            Im.setname(opt_label);
-                                            Im.settype(opt_values);
-                                            item_list.add(Im);
-                                            itemAdapter = new ItemAdapter(item_list, getApplicationContext());
-                                            recyclerView.scheduleLayoutAnimation();
-                                            recyclerView.setAdapter(itemAdapter);
-                                            recyclerView.setHasFixedSize(true);
-
-                                        }
-
-                                    }
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("deal_id", checkout_deal_id);
-                    return params;
-                }
-
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-            int socketTimeout = 30000;
-            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-            stringRequest.setRetryPolicy(policy);
-            requestQueue.add(stringRequest);*/
         }
         else {
             final SweetAlertDialog dialog = new SweetAlertDialog(this,SweetAlertDialog.NORMAL_TYPE);
@@ -2053,21 +1373,5 @@ else {
             e.printStackTrace();
         }
     }
-    public void displayPopup_comment() {
 
-        try {
-            System.out.println("inside display popup");
-            mPopupWindow_cmnt = new PopupWindow(customView_comment, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            if (Build.VERSION.SDK_INT >= 21) {
-                mPopupWindow_cmnt.setElevation(5.0f);
-            }
-            mPopupWindow_cmnt.setFocusable(true);
-            mPopupWindow_cmnt.setAnimationStyle(R.style.popupAnimation);
-
-
-            mPopupWindow_cmnt.showAtLocation(booking_details_new, Gravity.CENTER, 0, 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
