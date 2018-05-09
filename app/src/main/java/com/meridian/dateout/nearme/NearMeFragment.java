@@ -25,7 +25,9 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -81,8 +83,10 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
+import com.meridian.dateout.collections.CategoryDealFragment;
 import com.meridian.dateout.collections.HttpHandler;
 import com.meridian.dateout.explore.PreCachingLayoutManager;
+import com.meridian.dateout.explore.RecyclerItemClickListener;
 import com.meridian.dateout.explore.cart.Cart_details;
 import com.meridian.dateout.explore.category_booking_detailspage.CategoryDealDetail;
 import com.meridian.dateout.login.FrameLayoutActivity;
@@ -198,7 +202,7 @@ public class NearMeFragment extends Fragment implements OnMapReadyCallback,Googl
     ArrayList<String> SpinList;
     ArrayList<Spinner_model> Spin_list = new ArrayList<>();
     RelativeLayout topLayout;
-    int count;
+    String latitude,longitude;
 
     List<Marker> markers;
     int marker_found_flag;
@@ -869,66 +873,13 @@ CollectionsAdapter4 collectionsAdapter4;
             all_background = new ArrayList<>();
             alldeals_categryModelArrayList = new ArrayList<>();
             categoryModelArrayList1 = new ArrayList<>();
-            StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, Constants.URL+"all-deals-categories-banners.php",
+            StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, Constants.URL+"all-deals-categories.php",
                     new com.android.volley.Response.Listener<String>() {
                         @Override
                         public void onResponse(final String response) {
                             //  progress1.setVisibility(View.GONE);
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                if (jsonObject.has("categories")) {
-                                    try {
-                                        JSONArray jsonarray = jsonObject.getJSONArray("categories");
-                                        for (int i = 0; i < jsonarray.length(); i++) {
-                                            CategoryModel categoryModel = new CategoryModel();
-                                            DealsModel dealsModel = new DealsModel();
-
-                                            JSONObject jsonobject = jsonarray.getJSONObject(i);
-                                            if (jsonobject.has("id")) {
-                                                category_id = jsonobject.getString("id");
-                                            }
-                                            if (jsonobject.has("category")) {
-                                                categorys = jsonobject.getString("category");
-                                            }
-                                            if (jsonobject.has("background")) {
-                                                background = jsonobject.getString("background");
-                                            }
-                                            if (jsonobject.has("_18plusOnly")) {
-                                                _18plusOnly = jsonobject.getString("_18plusOnly");
-                                            }
-                                            if (jsonobject.has("icon")) {
-                                                icon = jsonobject.getString("icon");
-                                            }
-                                            dealsModel.setCategory_background(background);
-                                            dealsModel.setTitle(categorys);
-                                            dealsModel.setCategory_name(categorys);
-                                            dealsModel.setCategory_icon(icon);
-                                            dealsModel.setCategory_id(category_id);
-                                            dealsModel.setCategory_type("category");
-                                            dealsModel.setType("category");
-                                            dealsModel.setDelivery("");
-                                            dealsModel.setDescription("");
-                                            dealsModel.setDiscount("");
-                                            dealsModel.setImage(background);
-                                            dealsModel.setTags("");
-                                            dealsModel.setSeller_id("");
-                                            dealsModel.setTiming("");
-                                            dealsModel.setCurrency("");
-                                            dealsModel.setPrice("");
-                                            categoryModel.setBackground(background);
-                                            categoryModel.setCategory(categorys);
-                                            categoryModel.setIcon(icon);
-                                            categoryModel.setId(category_id);
-                                            categoryModel.set_18plusOnly(_18plusOnly);
-                                            categoryModel.setType("category");
-                                            categoryModelArrayList1.add(categoryModel);
-                                            all_background.add(background);
-                                            alldeals_categryModelArrayList.add(dealsModel);
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
                                 if (jsonObject.has("deals")) {
                                     dealsModelArrayList1 = new ArrayList<>();
                                     try {
@@ -973,6 +924,14 @@ CollectionsAdapter4 collectionsAdapter4;
                                             if (jsonobject.has("currency")) {
                                                 currency = jsonobject.getString("currency");
                                             }
+                                            if (jsonobject.has("latitude")) {
+                                                latitude = jsonobject.getString("latitude");
+
+                                            }
+                                            if (jsonobject.has("longitude")) {
+                                                longitude  = jsonobject.getString("longitude");
+
+                                            }
                                             dealsModel.setId(id_deal);
                                             dealsModel.setCategory_id(category);
                                             dealsModel.setTitle(title1);
@@ -982,6 +941,8 @@ CollectionsAdapter4 collectionsAdapter4;
                                             dealsModel.setDiscount(tkt_discounted_price);
                                             dealsModel.setImage(image);
                                             dealsModel.setTags(tags);
+                                            dealsModel.setLatitude(latitude);
+                                            dealsModel.setLongitude(longitude);
                                             dealsModel.setSeller_id(seller_id);
                                             dealsModel.setTiming(timing);
                                             dealsModel.setCurrency(currency);
@@ -1014,6 +975,43 @@ CollectionsAdapter4 collectionsAdapter4;
                             if (alldeals_categryModelArrayList != null) {
                                 collectionsAdapter4 = new CollectionsAdapter4(alldeals_categryModelArrayList, getActivity());
                                 recyclerView_search.setAdapter(collectionsAdapter4);
+                                recyclerView_search.addOnItemTouchListener
+                                        (
+                                                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                                                    @Override
+                                                    public void onItemClick(View view, int pos) {
+
+                                                        if(alldeals_categryModelArrayList.get(pos).getType().contentEquals("deal"))
+                                                        {
+                                                            mMap.clear();
+                                                            dealsModelArrayList.clear();
+                                                            dealsModel.setId(alldeals_categryModelArrayList.get(pos).getId());
+                                                            dealsModel.setCategory_id(alldeals_categryModelArrayList.get(pos).getCategory_id());
+                                                            dealsModel.setTitle(alldeals_categryModelArrayList.get(pos).getTitle());
+                                                            dealsModel.setDelivery(alldeals_categryModelArrayList.get(pos).getDelivery());
+                                                            dealsModel.setDescription(alldeals_categryModelArrayList.get(pos).getDescription());
+                                                            dealsModel.setDiscount(alldeals_categryModelArrayList.get(pos).getDiscount());
+                                                            dealsModel.setImage(alldeals_categryModelArrayList.get(pos).getImage());
+                                                            dealsModel.setTags(alldeals_categryModelArrayList.get(pos).getTags());
+                                                            dealsModel.setLatitude(alldeals_categryModelArrayList.get(pos).getLatitude());
+                                                            dealsModel.setLongitude(alldeals_categryModelArrayList.get(pos).getLongitude());
+                                                            dealsModel.setSeller_id(alldeals_categryModelArrayList.get(pos).getSeller_id());
+                                                            dealsModel.setTiming(alldeals_categryModelArrayList.get(pos).getTiming());
+                                                            dealsModel.setCurrency(alldeals_categryModelArrayList.get(pos).getCurrency());
+                                                            MY_LOCATION = new LatLng(Double.parseDouble(alldeals_categryModelArrayList.get(pos).getLongitude()), Double.parseDouble(alldeals_categryModelArrayList.get(pos).getLongitude()));
+                                                            dealsModelArrayList.add(dealsModel);
+                                                            addMarkers();
+                                                            explore_toolbar_lay.setVisibility(View.VISIBLE);
+                                                            linr_srch.setVisibility(View.GONE);
+                                                            relative.setVisibility(View.VISIBLE);
+                                                            linear.setVisibility(View.GONE);
+
+                                                        }
+
+                                                    }
+                                                })
+                                        );
+
                             }
                         }
                     },
@@ -1273,17 +1271,14 @@ CollectionsAdapter4 collectionsAdapter4;
     private void addMarkers() {
         if (mMap != null) {
             System.out.println("^^^^^^^^^^^^^^^^^^^ insdie addMarkers() ^^^^^^^^^^^^^^^^^");
-            //System.out.println("name : " + name);
-           // System.out.println("status : " + status);
-            //System.out.println("cordinate : " + cordinates.toString());
 
             int height = 100;
             int width = 100;
-            //BitmapDrawable bitmapdraw_home=(BitmapDrawable)getActivity().getResources().getDrawable(R.drawable.gift);
+
             Bitmap b=FrameLayoutActivity.bitmapdraw_home.getBitmap();
             Bitmap home_smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
-            //BitmapDrawable bitmapdraw_me=(BitmapDrawable)getActivity().getResources().getDrawable(R.drawable.meeeee);
+
             Bitmap a=FrameLayoutActivity.bitmapdraw_me.getBitmap();
             Bitmap smallMarker = Bitmap.createScaledBitmap(a, width, height, false);
 
@@ -1308,17 +1303,10 @@ CollectionsAdapter4 collectionsAdapter4;
             for(DealsModel dm:dealsModelArrayList) {
                 try {
                     LatLng cordinate = new LatLng(Double.parseDouble(dm.getLatitude()), Double.parseDouble(dm.getLongitude()));
-                   /* Location.distanceBetween(cordinate.latitude, cordinate.longitude,
-                            circle.getCenter().latitude, circle.getCenter().longitude, distance);*/
-                   // if (distance[0] > circle.getRadius()) {
-                    //Toast.makeText(getBaseContext(), "Outside, distance from center: " + distance[0] + " radius: " + circle.getRadius(), Toast.LENGTH_LONG).show();
-                    //} else {
 
-                        // Toast.makeText(getBaseContext(), "Inside, distance from center: " + distance[0] + " radius: " + circle.getRadius() , Toast.LENGTH_LONG).show();
-                       //count++;
                         System.out.println("[[[[[ dm.getTitle() : "+dm.getTitle());
-                        //System.out.println("[[[[[ count : "+count);
-                    if (hashMapMarker.containsKey(dm.getId()))//deleting marker from map to prevent displaying same marker at two different cordinates
+
+                    if (hashMapMarker.containsKey(dm.getId()))
                     {
                         Marker mkr = hashMapMarker.get(dm.getId());
                         mkr.remove();
@@ -1327,7 +1315,7 @@ CollectionsAdapter4 collectionsAdapter4;
                      //   }
                     Marker deal_location_marker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(home_smallMarker)).position(cordinate)
                             .title(dm.getTitle()));
-                    hashMapMarker.put(dm.getId(), deal_location_marker);//adding marker to hashmap to check on next service call
+                    hashMapMarker.put(dm.getId(), deal_location_marker);
                     markers.add(deal_location_marker);
 
 
