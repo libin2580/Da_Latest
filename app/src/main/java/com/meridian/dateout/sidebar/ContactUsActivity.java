@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +28,6 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
-import com.meridian.dateout.login.TermsOfUse;
 import com.meridian.dateout.model.Contact_us_Model;
 
 import org.json.JSONArray;
@@ -40,7 +36,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -104,24 +99,23 @@ public class ContactUsActivity extends Activity {
         address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
-             //  String uri="https://www.google.co.in/maps/place/Singapore/"+latitude+","+ longitude+"z/data=!4m5!3m4!1s0x31da11238a8b9375:0x887869cf52abf5c4!8m2!3d1.3511931!4d103.8098145";
-                String uri = "https://www.google.co.in/maps/place/Singapore/@1.3891507,103.7776101,13.25z/data=!4m5!3m4!1s0x31da11238a8b9375:0x887869cf52abf5c4!8m2!3d1.3511931!4d103.8098145";
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                startActivity(intent);
+                Uri mapUri = Uri.parse("geo:0,0?q="+latitude+","+longitude+"(Singapore)");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
 
                 try
                 {
-                    startActivity(intent);
+                    startActivity(mapIntent);
                 }
                 catch(ActivityNotFoundException ex)
                 {
                     try
                     {
-                        Intent intents = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-                        intents.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                        startActivity(intents);
+                        Uri mapUri1 = Uri.parse("geo:0,0?q="+latitude+","+longitude+"(Singapore)");
+                        Intent mapIntent1 = new Intent(Intent.ACTION_VIEW, mapUri1);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        startActivity(mapIntent1);
                     }
                     catch(ActivityNotFoundException innerEx)
                     {

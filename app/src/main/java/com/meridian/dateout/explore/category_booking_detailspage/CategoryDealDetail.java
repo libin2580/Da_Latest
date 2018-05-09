@@ -1,5 +1,6 @@
 package com.meridian.dateout.explore.category_booking_detailspage;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -71,6 +72,7 @@ import com.meridian.dateout.login.LoginActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
 import com.meridian.dateout.model.CategoryDealModel;
 import com.meridian.dateout.model.ScheduleModel;
+import com.meridian.dateout.sidebar.ContactUsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -546,18 +548,30 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
         linear_navigate_me.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uri = "https://www.google.co.in/maps/place/Singapore/" + latitude + "," + logitude + ",22.25z/data=!4m5!3m4!1s0x31da11238a8b9375:0x887869cf52abf5c4!8m2!3d1.3511931!4d103.8098145";
-
-                //String strUri = "http://maps.google.com/maps?q=loc:" + latitude + "," + logitude + " (" + "" + ")";
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                startActivity(intent);
-
-               /* System.out.println("google.navigation:q="+latitude+","+longitude);
-                Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                Uri mapUri = Uri.parse("geo:0,0?q="+latitude+","+longitude+"(Singapore)");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);*/
+                startActivity(mapIntent);
+
+                try
+                {
+                    startActivity(mapIntent);
+                }
+                catch(ActivityNotFoundException ex)
+                {
+                    try
+                    {
+                        Uri mapUri1 = Uri.parse("geo:0,0?q="+latitude+","+longitude+"(Singapore)");
+                        Intent mapIntent1 = new Intent(Intent.ACTION_VIEW, mapUri1);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        startActivity(mapIntent1);
+                    }
+                    catch(ActivityNotFoundException innerEx)
+                    {
+                        Toast.makeText(CategoryDealDetail.this, "Please install a maps application", Toast.LENGTH_LONG).show();
+                    }
+                }
+
             }
         });
 
