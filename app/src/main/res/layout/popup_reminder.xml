@@ -12,8 +12,8 @@
         android:layout_height="@dimen/_240sdp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
 
         android:background="@drawable/rounded_rectangle_box"
         android:orientation="vertical">
@@ -141,6 +141,34 @@
             android:layout_weight=".5"
             android:layout_gravity="center|top"
             android:gravity="center|top">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:id="@+id/edit_remind"
+                android:gravity="center"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#4797c4"
+                    android:textSize="@dimen/_13sdp"
+                    android:text="EDIT"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:id="@+id/delt_remind"
+                android:gravity="center"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#4797c4"
+                    android:textSize="@dimen/_13sdp"
+                    android:text="DELETE"/>
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -75,8 +75,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -123,7 +125,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
     RadioButton r1,r2,r3;
     Calendar call;
     ImageView close_point_converter;
-    String time_zone1,time_zone_id;
+    String time_zone1,time_zone_id,event_time;
     ArrayList<Calendar>array;
     boolean in=true;
     int inn;
@@ -146,7 +148,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
     AutoCompleteTextView actv;
     private RadioGroup radioGroup;
     private OnFragmentInteractionListener mListener;
-    //int iteration_flag=0;
+    int ID;
      SweetAlertDialog serverdialog;
     SweetAlertDialog checkBoxdialog;
     Float p,p1;
@@ -208,7 +210,10 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
         reminder_id = Integer.parseInt(new SimpleDateFormat("ddHHmmss",  Locale.US).format(now));
         System.out.println("_______^^^^^^^^^^^^^^reminder_id" +reminder_id);
         String strtext=getArguments().getString("key");
-        System.out.println("_______^^^^^^^^^^^^^^strtext" +strtext);
+        event_time=getArguments().getString("event_time");
+        String event_name=getArguments().getString("event_name");
+        String event_details=getArguments().getString("event_details");
+        System.out.println("_______^^^^^^^^^^^^^^strtext" +event_time);
         readFormat = new SimpleDateFormat( "dd/MM/yyyy HH:mm");
         writeFormat = new SimpleDateFormat( "EEE MMM dd HH:mm:ss aa yyyy");
 
@@ -219,7 +224,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
         rel_time_event =v.findViewById(R.id.time_EVENT);
         rel_date_event =v.findViewById(R.id.date_EVENT);
         mTitleText = (EditText)v. findViewById(R.id.reminder_title);
-//      title_type= (EditText)v. findViewById(R.id.reminder_type);
+
         mDateText_remind = (TextView)v. findViewById(R.id.set_date_REMIND);
         reminder_details=v.findViewById(R.id.reminder_details);
         mDateText_event = (TextView)v. findViewById(R.id.set_date);
@@ -234,17 +239,40 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
         check_five=(CheckBox)v.findViewById(R.id.check_five);
         btn_sub=(LinearLayout)v.findViewById(R.id.linear_sub_button);
         title_type= (AutoCompleteTextView) v.findViewById(R.id.reminder_type);
-        mTitleText.setText("");
-        title_type.setText("");
+        mTitleText.setText(event_details);
+        title_type.setText(event_name);
+        if(Objects.equals(event_time, "event_time")){
+            txt_TimeText_event.setText("Set Time");
+            mTime_event="";
+        }
+        else {
+            mTimeText_event.setText(event_time);
+            txt_TimeText_event.setText(event_time);
+            mTime_event=event_time;
+        }
 
+        str_Title_type=event_name;
+        str_mTitle=event_details;
         passingArrayList=new ArrayList<>();//for passing the different checked dates to service
-
         ReminderDatabase rd = new ReminderDatabase(getActivity());
-        String[] table_evnt_types=rd.getEventTypes();
+        String[] table_evnt_types= (rd.getEventTypes());
+        ArrayList<String>    values = new ArrayList<String>();
+        for (String table_evnt_type : table_evnt_types) {
+            System.out.println("table_evnt_types" + table_evnt_type);
 
-        if(table_evnt_types.length>0) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.new_auto_inflate, R.id.txt_auto_view,table_evnt_types);
+            values.add(table_evnt_type);
+         
+
+        }
+        HashSet<String> hashSet = new HashSet<String>();
+        hashSet.addAll(values);
+        values.clear();
+        values.addAll(hashSet);
+
+        if (values.size() > 0) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.new_auto_inflate, R.id.txt_auto_view, values);
             title_type.setAdapter(adapter);
+
         }
 
         SharedPreferences prefs = getActivity().getSharedPreferences("flag", MODE_PRIVATE);
@@ -284,7 +312,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
             System.out.println("_______^^^^^^^^^^^^^^time_visible" +time);
             mTimeText_event.setVisibility(View.VISIBLE);
             txt_TimeText_event.setVisibility(View.GONE);
-            mTimeText_event.setText(time);
+
         }
         else {
             mTimeText_event.setVisibility(View.GONE);
@@ -1165,8 +1193,16 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
                         //saveReminder();
                         //iteration_flag=0;
                         for(PassingModel pm:passingArrayList){
+                            if(Objects.equals(event_time, "event_time")){
+                                sendtoserver(pm.getPassing_date(),pm.getPassing_time());
+                            }
+                            else {
+                                String reminderid=getArguments().getString("id");
+                                String uniqueid=getArguments().getString("uniqueid");
+                                sendtoserver1(pm.getPassing_date(),pm.getPassing_time(),uniqueid,reminderid);
+                            }
 
-                            sendtoserver(pm.getPassing_date(),pm.getPassing_time());
+
                         }
 
                     }
@@ -1460,7 +1496,7 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
 
             formatted_date = dateFormat1.format(dated1);
             ReminderDatabase rb = new ReminderDatabase(getActivity());
-            int ID = rb.addReminder(new Reminder(str_mTitle, str_Title_type, str_details, mDate_event, mTime_event, passed_rem_date, passed_rem_time, mActive));
+             ID = rb.addReminder(new Reminder(str_mTitle, str_Title_type, str_details, mDate_event, mTime_event, passed_rem_date, passed_rem_time, mActive));
             Calendar call1 = Calendar.getInstance();
 
             call1.setTime(new_date1);
@@ -1655,7 +1691,160 @@ public class ReminderAddFragment_new extends android.support.v4.app.Fragment imp
                 params.put("reminder_time",passed_time);//mTime
                 params.put("time_zone",time_zone1);
                 params.put("timezone_id",time_zone_id);
-                params.put("unique_id", String.valueOf(reminder_id));
+                params.put("unique_id", String.valueOf(ID));
+                System.out.println("datessss1"+params.toString());
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        int socketTimeout = 30000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        req.setRetryPolicy(policy);
+        requestQueue.add(req);
+        // Adding request to request queue
+    }
+    public void sendtoserver1(final String passed_date, final String passed_time,final String reminder_id,final String unique_id)
+    {
+        //iteration_flag++;
+        event_type.add(str_Title_type);
+        stockArr  = new String[event_type.size()];
+        stockArr= event_type.toArray(stockArr);
+        //  spinner.setItems(stockArr);
+        System.out.println("departmentname.stockArr............."+stockArr);
+
+        progress.setVisibility(View.VISIBLE);
+        StringRequest req = new StringRequest(Request.Method.POST, Constants.URL + "update-reminder.php?",
+                new Response.Listener<String>() {
+
+
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("response dataa"+response);
+
+                        JSONObject json;
+
+                        ObjectOutput out = null;
+                        try {
+                            json = new JSONObject(response);
+                            if(json.getString("status").contentEquals("true"))
+                            {
+                                AlarmReceiver mAlarmReceiver=new AlarmReceiver();
+                                mAlarmReceiver.cancelAlarm(getContext(), Integer.parseInt(unique_id));
+                                String message=json.getString("message");
+                                if(message.contentEquals("Reminder updated."))
+                                {
+
+
+                                    serverdialog.setTitleText("Reminder")
+                                            .setContentText(message)
+
+                                            .setConfirmText("OK")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+
+                                                    progress.setVisibility(View.GONE);
+                                                    mTitleText.setText("");
+                                                    title_type.setText("");
+                                                    mTitleText.setHint("Event Title");
+                                                    title_type.setHint("Event Type");
+                                                    SharedPreferences preferences_flag= getActivity().getSharedPreferences("flag", MODE_PRIVATE);
+                                                    preferences_flag.edit().clear().commit();
+                                                    if(check_one.isChecked())
+                                                    {
+                                                        check_one.setChecked(false);
+                                                    }
+                                                    if(check_two.isChecked())
+                                                    {
+                                                        check_two.setChecked(false);
+                                                    }
+                                                    if(check_three.isChecked())
+                                                    {
+                                                        check_three.setChecked(false);
+                                                    }
+                                                    if(check_four.isChecked())
+                                                    {
+                                                        check_four.setChecked(false);
+                                                    }
+                                                    if(check_five.isChecked())
+                                                    {
+                                                        check_five.setChecked(false);
+                                                    }
+                                                    txt_DateText_event.setVisibility(View.VISIBLE);
+                                                    // txt_DateText_remind.setVisibility(View.VISIBLE);
+                                                    txt_TimeText_event.setVisibility(View.VISIBLE);
+                                                    // txt_TimeText_remind.setVisibility(View.VISIBLE);
+                                                    //  mDateText_remind.setVisibility(View.GONE);
+                                                    //  mTimeText_remind.setVisibility(View.GONE);
+                                                    mDateText_event.setVisibility(View.GONE);
+                                                    mTimeText_event.setVisibility(View.GONE);
+                                                    reminder_details.setText("");
+                                                    progress.setVisibility(View.GONE);
+                                                    serverdialog.dismiss();
+                                                    if(getActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
+                                                        getActivity().getSupportFragmentManager().popBackStack();
+                                                    }
+                                                }
+                                            });
+
+
+
+                                    serverdialog.show();
+                                    serverdialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+                                    //}
+
+
+
+                                }else
+                                {
+                                    Toast.makeText(getActivity(),message,
+                                            Toast.LENGTH_SHORT).show();
+
+
+                                }
+                            }
+
+                            //ReminderMainFragment.viewPager.setCurrentItem(0);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+
+                        // Toast.makeText(getApplicationContext(),"hi", Toast.LENGTH_SHORT).show();
+                        Log.d("", response);
+
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("", "Error: " + error.getMessage());
+                Toast.makeText(getActivity().getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                // hide the progress dialog
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id",userid);
+                params.put("reminder_id",reminder_id);
+                params.put("event_name",str_mTitle);
+                params.put("event_type",str_Title_type);
+                params.put("event_details",str_details);
+                params.put("event_date",formatted_date);
+                params.put("event_time",mTime_event);
+                params.put("reminder_date",passed_date );//String.valueOf(formatted_date_remind)
+                params.put("reminder_time",passed_time);//mTime
+                params.put("time_zone",time_zone1);
+                params.put("timezone_id",time_zone_id);
+                params.put("unique_id",unique_id);
                 System.out.println("datessss1"+params.toString());
                 return params;
             }

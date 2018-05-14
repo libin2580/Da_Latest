@@ -5,7 +5,7 @@ package com.meridian.dateout.reminder;
  */
 
 public class PastModel {
-    String id,event_type,event_name,event_date,event_time,event_details,event_month,date;
+    String id,event_type,event_name,event_date,event_time,event_details,event_month,date,unique_id;
 
     public String getEvent_month() {
         return event_month;
@@ -77,5 +77,13 @@ public class PastModel {
 
     public String getdate() {
         return date;
+    }
+
+    public void setunique_id(String unique_id) {
+        this.unique_id = unique_id;
+    }
+
+    public String getunique_id() {
+        return unique_id;
     }
 }
