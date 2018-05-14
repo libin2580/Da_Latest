@@ -23,6 +23,8 @@ import com.github.kittinunf.fuel.core.FuelError;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.address.Adddetails;
+import com.meridian.dateout.explore.category_booking_detailspage.Booking_DetailsActivity;
+import com.meridian.dateout.explore.promo.Promo;
 import com.meridian.dateout.login.FrameLayoutActivity;
 
 import org.json.JSONArray;
@@ -50,14 +52,14 @@ public class Cart_details extends AppCompatActivity {
     private CartHistoryAdapter ohad;
     String userid,android_id;
     public static TextView Total_txt;
-    LinearLayout Checkout,_close,continue_shopping;
+    LinearLayout Checkout,_close,continue_shopping,promo_click;
     List<Pair<String, String>> params;
     public static ProgressBar progress_bar_explore;
     int valuu=0;
     public static int totalprize_for_order=0;
     ImageView Home;
-    EditText promocode;
-    String coupon_code,address_id;
+   public static TextView promocode;
+    String coupon_code,address_id,new_amount;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +71,19 @@ public class Cart_details extends AppCompatActivity {
         analytics = FirebaseAnalytics.getInstance(Cart_details.this);
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
         address_id = getIntent().getStringExtra("address_id");
-
+        new_amount= getIntent().getStringExtra("new_amount");
         promocode=findViewById(R.id.promocode);
+        SharedPreferences preferencesfb = getSharedPreferences("coupon_code", MODE_PRIVATE);
+        coupon_code = preferencesfb.getString("coupon_code", null);
+        System.out.println("coupon_code" + coupon_code);
+
+        if (new_amount!=null){
+            promocode.setText(coupon_code);
+        }else {
+            promocode.setText("");
+
+        }
+        promo_click=findViewById(R.id.promo_click);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_categorydeal);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
@@ -80,14 +93,15 @@ public class Cart_details extends AppCompatActivity {
         _close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
             }
         });
-        coupon_code=promocode.getText().toString();
-        SharedPreferences preferences_coupon_code =getApplicationContext().getSharedPreferences("coupon_code", MODE_PRIVATE);
+        //coupon_code=promocode.getText().toString();
+    /*    SharedPreferences preferences_coupon_code =getApplicationContext().getSharedPreferences("coupon_code", MODE_PRIVATE);
         SharedPreferences.Editor editor1 =preferences_coupon_code.edit();
         editor1.putString("coupon_code",  coupon_code);
-        editor1.apply();
+        editor1.apply();*/
         android_id = Settings.Secure.getString(Cart_details.this.getContentResolver(),Settings.Secure.ANDROID_ID);
         try {
 
@@ -147,6 +161,7 @@ public class Cart_details extends AppCompatActivity {
                 Intent i  =new Intent(Cart_details.this, FrameLayoutActivity.class);
                 i.putExtra("tab_id",0);
                 startActivity(i);
+                finish();
             }
         });
         Checkout.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +170,7 @@ public class Cart_details extends AppCompatActivity {
                 Intent u=new Intent(Cart_details.this, Adddetails.class);
 
                 startActivity(u);
+                finish();
             }
         });
         continue_shopping.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +179,15 @@ public class Cart_details extends AppCompatActivity {
                 Intent i  =new Intent(Cart_details.this, FrameLayoutActivity.class);
                 i.putExtra("tab_id",0);
                 startActivity(i);
+                finish();
+            }
+        });
+        promo_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent u = new Intent(Cart_details.this, Promo.class);
+                startActivity(u);
+                finish();
             }
         });
         view_cart();
@@ -205,7 +230,12 @@ public class Cart_details extends AppCompatActivity {
                                for (int i = 0; i < OrderHistoryArraylist.size(); i++) {
                                    valuu = Integer.parseInt(OrderHistoryArraylist.get(i).getamount());
                                    totalprize_for_order += valuu;
-                                   Total_txt.setText("$" + String.valueOf(totalprize_for_order));
+                                   if(new_amount!=null){
+
+                                       Total_txt.setText("$" + new_amount);
+                                   }else {
+                                       Total_txt.setText("$" + String.valueOf(totalprize_for_order));
+                                   }
 
                                }
                            }

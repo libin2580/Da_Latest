@@ -68,7 +68,7 @@ LinearLayout menu;
     Toolbar toolbar;
     ArrayList<NotificationModel> notificationModelArrayList;
     NotificationAdapter notificationAdapter;
-
+String user_id;
     private OnFragmentInteractionListener mListener;
 
     public NotificationFragment() {
@@ -93,7 +93,7 @@ LinearLayout menu;
         FrameLayoutActivity.img_toolbar_crcname.setText("Notification");
 
     }
-
+    String    not_flag,rew_flag;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,6 +105,8 @@ LinearLayout menu;
         FrameLayoutActivity.to_notification="false";
         System.out.println("FrameLayoutActivity.to_notification (in notifi frag): "+FrameLayoutActivity.to_notification);
         txt= (TextView) view.findViewById(R.id.toolbar_txt);
+       final SharedPreferences preferences = getActivity().getSharedPreferences("NotPref", MODE_PRIVATE);
+       not_flag = preferences.getString("not_flag", null);
 
         menu= (LinearLayout) view. findViewById(R.id.menu);
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);
@@ -116,15 +118,29 @@ LinearLayout menu;
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*SharedPreferences preferencesuser_id = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
+                String   user_id = preferencesuser_id.getString("new_userid", null);*/
                 SharedPreferences preferencesuser_id = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
-                String   user_id = preferencesuser_id.getString("new_userid", null);
+                user_id = preferencesuser_id.getString("user_id", null);
+                System.out.println("<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>> "+user_id);
 
                 if (user_id != null) {
-                    Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
-                    i.putExtra("tab_id",3);
 
-                    startActivity(i);
-                    getActivity().finish();
+if(not_flag!=null) {
+    Intent i = new Intent(getActivity(), FrameLayoutActivity.class);
+    i.putExtra("tab_id", 3);
+
+    startActivity(i);
+    getActivity().finish();
+    preferences.edit().clear().apply();
+
+}else {
+    Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
+    i.putExtra("tab_id",0);
+
+    startActivity(i);
+    getActivity().finish();
+}
                 }
                 else {
                     Intent i=new Intent(getActivity(), FrameLayoutActivity.class);

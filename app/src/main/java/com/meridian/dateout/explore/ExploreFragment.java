@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -23,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -137,7 +139,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         fragment.setArguments(args);
         return fragment;
     }
-
+    CollapsingToolbarLayout CollapsingToolbarLayout1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -161,6 +163,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         progress1 = (ProgressBar) view.findViewById(R.id.progress_bar_explore);
         mySwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         mySwipeRefreshLayout1 = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer1);
+        CollapsingToolbarLayout1= (CollapsingToolbarLayout) view.findViewById(R.id.CollapsingToolbarLayout1);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_vertical);
         recyclerView1 = (RecyclerView) view.findViewById(R.id.recycler_vertical1);
         mySwipeRefreshLayout.setRefreshing(false);
@@ -1937,6 +1940,28 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                         recyclerView.setItemViewCacheSize(20);
                         recyclerView.setDrawingCacheEnabled(true);
                         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                            @Override
+                            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                                int action = e.getAction();
+                                switch (action) {
+                                    case MotionEvent.ACTION_MOVE:
+                                        rv.getParent().requestDisallowInterceptTouchEvent(true);
+                                        break;
+                                }
+                                return false;
+                            }
+
+                            @Override
+                            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                            }
+
+                            @Override
+                            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                            }
+                        });
                         if (categoryModelArrayList != null && dealsModelArrayList != null) {
                             recyclerAdapterCategory = new RecyclerAdapterCategory(categoryModelArrayList, dealsModelArrayList, getActivity());
                             recyclerView.setAdapter(recyclerAdapterCategory);
@@ -1987,6 +2012,9 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 appBarLayout.setActivated(false);
+
+                img_country.setVisibility(View.GONE);
+                CollapsingToolbarLayout1.setBackgroundResource(R.color.white);
                 appBarLayout.setExpanded(true, false);
                 float heightDp = getResources().getDisplayMetrics().heightPixels / 3;
                 CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
@@ -1995,7 +2023,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                 coordinatorLayout.setBackgroundResource(R.color.white);
                 mySwipeRefreshLayout1.setVisibility(View.VISIBLE);
                 mySwipeRefreshLayout.setVisibility(View.GONE);
-                FrameLayoutActivity.tabbar.setVisibility(View.GONE);
+                FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
                 FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
                 FrameLayoutActivity.img_toolbar_crcname.setVisibility(View.GONE);
             }
@@ -2003,6 +2031,11 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
+
+                img_country.setVisibility(View.VISIBLE);
+
+                CollapsingToolbarLayout1.setBackgroundResource(R.color.button_othrcolor);
+
                 coordinatorLayout.setBackgroundResource(R.drawable.login_background);
                 appBarLayout.setExpanded(true, false);
                 mySwipeRefreshLayout1.setVisibility(View.GONE);

@@ -17,7 +17,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_tops"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_height="match_parent"
                 android:background="@drawable/navigationbarbg"
                 android:navigationIcon="@android:color/white"
                 app:contentInsetStart="0dp"
@@ -36,8 +36,8 @@
                         android:layout_height="match_parent">
                         <ImageView
 
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
+                            android:layout_width="@dimen/_17sdp"
+                            android:layout_height="@dimen/_17sdp"
                             android:layout_gravity="center"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
@@ -60,7 +60,7 @@
                             android:text="Promo code"
                             android:textAllCaps="true"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_11sdp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -77,6 +77,45 @@
 
 
             </android.support.v7.widget.Toolbar>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight=".1"
+            android:orientation="vertical"
+android:layout_gravity="center|bottom"
+            android:gravity="bottom|center"
+android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_height="0dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12sdp"
+                android:layout_gravity="bottom|center"
+                android:gravity="left|center|bottom"
+                android:text="Enter Promo code"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight=".15"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/white"
+
+            android:layout_height="0dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:gravity="left|center"
+                android:id="@+id/promocode_nw"
+                android:paddingLeft="@dimen/_10sdp"
+                android:hint="Type promo code here"
+                android:textSize="@dimen/_10sdp"
+                android:background="@android:color/transparent"
+              />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,13 +150,13 @@
 
             android:id="@+id/place_order"
             android:layout_width="match_parent"
-            android:layout_weight=".1"
+            android:layout_weight=".11"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_height="0dp">
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/tabbar"
                 android:visibility="visible"
                 android:gravity="center">
@@ -125,13 +164,13 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:id="@+id/continue_shopping"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_gravity="center"
 
                     android:paddingLeft="@dimen/_12sdp"
-                    android:background="@drawable/shadow_box"
+                    android:background="#FFFFFF"
                     android:layout_marginRight="@dimen/_1sdp">
 
                     <TextView
@@ -150,8 +189,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:id="@+id/checkout"
-                    android:layout_height="fill_parent"
+                    android:id="@+id/apply"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="#4797c4"
                     >

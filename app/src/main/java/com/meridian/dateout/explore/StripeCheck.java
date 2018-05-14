@@ -251,7 +251,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
 
 
                         final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this, SweetAlertDialog.NORMAL_TYPE);
-                        dialog.setTitleText("Alert!")
+                        dialog.setTitleText("")
                                 .setContentText("Enter Valid CVC")
 
                                 .setConfirmText("OK")
@@ -274,7 +274,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
 
 
                         final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this, SweetAlertDialog.NORMAL_TYPE);
-                        dialog.setTitleText("Alert!")
+                        dialog.setTitleText("")
                                 .setContentText("Enter Valid mnth")
 
                                 .setConfirmText("OK")
@@ -297,7 +297,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
 
 
                         final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this, SweetAlertDialog.NORMAL_TYPE);
-                        dialog.setTitleText("Alert!")
+                        dialog.setTitleText("")
                                 .setContentText("Enter Valid year")
 
                                 .setConfirmText("OK")
@@ -319,7 +319,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                     flag_number=0;
 
                         final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this, SweetAlertDialog.NORMAL_TYPE);
-                        dialog.setTitleText("Alert!")
+                        dialog.setTitleText("")
                                 .setContentText("Enter Valid number")
 
                                 .setConfirmText("OK")
@@ -364,7 +364,7 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                                         progressBar.setVisibility(View.GONE);
                                         System.out.println("toast..........error" + error.toString());
                                         final SweetAlertDialog dialog = new SweetAlertDialog(StripeCheck.this,SweetAlertDialog.NORMAL_TYPE);
-                                        dialog.setTitleText("Alert!")
+                                        dialog.setTitleText("")
                                                 .setContentText("Transaction failed Please try again")
 
                                                 .setConfirmText("OK")

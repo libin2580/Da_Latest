@@ -35,6 +35,7 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -205,6 +206,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
     public static FrameLayout flFragmentPlaceHolder;
    boolean swipeEnabled=true;
   public static RelativeLayout rlayout;
+  RelativeLayout dummyView;
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -225,6 +227,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         rlayout=(RelativeLayout) findViewById(R.id.rlayout);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
+
         txt_cart_number=findViewById(R.id.txt_cart_number);
         img_toolbar_crcname = (TextView) findViewById(R.id.toolbar_CRCNAM);
         img_top_faq = (ImageView) findViewById(R.id.img_top_faq);
@@ -251,9 +254,33 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         tabbar = (LinearLayout) findViewById(R.id.tabbar);
         img_explore = (ImageView) findViewById(R.id.img_explore);
         flFragmentPlaceHolder= (FrameLayout) findViewById(R.id.flFragmentPlaceHolder);
-        viewPager=(ViewPager)findViewById(R.id.viewpager);
+        viewPager=(ViewPager) findViewById(R.id.viewpager);
         setupViewPager1(viewPager);
-viewPager.beginFakeDrag();
+        explore_toolbar_lay.setVisibility(View.VISIBLE);
+
+       /* viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (viewPager.getCurrentItem() == 0) {
+                    viewPager.setCurrentItem(-1, false);
+                    return true;
+                }
+                else if (viewPager.getCurrentItem() == 1) {
+                    viewPager.setCurrentItem(0, false);
+                    return true;
+                }
+                else if (viewPager.getCurrentItem() == 2) {
+                    viewPager.setCurrentItem(1, false);
+                    return true;
+                }
+                else if (viewPager.getCurrentItem() == 3) {
+                    viewPager.setCurrentItem(2, false);
+                    return true;
+                }
+                return true;
+            }
+        });*/
+///viewPager.beginFakeDrag();
         personName=getIntent().getStringExtra("name");
         email=getIntent().getStringExtra("email");
         profileid=getIntent().getStringExtra("profileid");
@@ -265,6 +292,7 @@ viewPager.beginFakeDrag();
         close_srch=findViewById(R.id.close_srch);
         edit_srch=findViewById(R.id.edit_srch);
         linr_srch=findViewById(R.id.linr_srch);
+
         LayoutInflater inflater2 = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         customView = inflater2.inflate(R.layout.layout_details_reminder, null);
         popup_close_details=(ImageView)customView.findViewById(R.id.close_point_converter);

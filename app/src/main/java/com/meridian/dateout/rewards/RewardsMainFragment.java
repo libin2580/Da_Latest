@@ -124,7 +124,7 @@ public class RewardsMainFragment extends Fragment {
         }
 
     }
-
+String rew_flag;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -152,6 +152,8 @@ public class RewardsMainFragment extends Fragment {
         close_reward= (ImageView) view.findViewById(R.id.close_reward);
         txt= (TextView) view.findViewById(R.id.toolbar_txt);
         txt.setText("REWARDS");
+      final   SharedPreferences preference = getActivity().getSharedPreferences("RewPref", MODE_PRIVATE);
+        rew_flag = preference.getString("rew_flag", null);
         menu= (LinearLayout) view. findViewById(R.id.menu);
         close_reward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,20 +168,23 @@ public class RewardsMainFragment extends Fragment {
                 SharedPreferences preferencesuser_id = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
                 String   user_id = preferencesuser_id.getString("new_userid", null);
 
-                if (user_id != null) {
-                    Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
-                    i.putExtra("tab_id",3);
+    if (rew_flag != null) {
 
-                    startActivity(i);
-                    getActivity().finish();
-                }
-                else {
-                    Intent i=new Intent(getActivity(), FrameLayoutActivity.class);
-                    i.putExtra("tab_id",0);
 
-                    startActivity(i);
-                    getActivity().finish();
-                }
+        Intent i = new Intent(getActivity(), FrameLayoutActivity.class);
+        i.putExtra("tab_id", 3);
+
+        startActivity(i);
+        getActivity().finish();
+        preference.edit().clear().apply();
+    } else {
+        Intent i = new Intent(getActivity(), FrameLayoutActivity.class);
+        i.putExtra("tab_id", 0);
+
+        startActivity(i);
+        getActivity().finish();
+    }
+
             }
         });
         toolbar = (Toolbar)view.findViewById(R.id.toolbar_tops1);

@@ -111,6 +111,7 @@ android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_12sdp"
+            android:id="@+id/promo_click"
             android:background="@drawable/white"
             >
             <LinearLayout
@@ -146,7 +147,7 @@ android:layout_gravity="center"
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:text=""
@@ -156,7 +157,7 @@ android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:background="@drawable/promo_code_box"/>
 
-                    <Button
+                   <!-- <Button
                         android:id="@+id/coupn_click"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="match_parent"
@@ -164,7 +165,7 @@ android:layout_gravity="center"
                         android:layout_alignParentEnd="true"
 
                         android:background="@android:color/transparent"
-                     />
+                     />-->
 
                 </RelativeLayout>
             </LinearLayout>

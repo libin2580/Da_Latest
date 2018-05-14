@@ -19,6 +19,7 @@
 
         android:navigationIcon="@android:color/white"
         app:theme="@style/ToolbarStyle"
+        app:contentInsetStart="0dp"
 
 
         >
@@ -37,8 +38,8 @@
                 <ImageView
 
 
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center"
 
                     android:layout_alignParentLeft="true"
@@ -56,7 +57,7 @@
                 android:text="PRIVACY POLICY"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_12sdp" />
 
 
         </RelativeLayout>
@@ -83,8 +84,8 @@
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="@dimen/_140sdp"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
                 android:layout_marginTop="42dp"
                 android:background="@drawable/logo_new" />

@@ -23,8 +23,8 @@
             android:gravity="center">
             <ImageView
 
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
                 android:background="@drawable/back_icon_new"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="CHAT WITH US"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_11sdp"
             android:textAllCaps="true"
             android:id="@+id/toolbar_txt"
             android:layout_centerVertical="true"

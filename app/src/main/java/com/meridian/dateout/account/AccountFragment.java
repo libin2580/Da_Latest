@@ -444,16 +444,34 @@ public class AccountFragment extends Fragment {
                 flFragmentPlaceHolder.setVisibility(View.VISIBLE);
                 if(firstName != null && lastName != null && str_emails != null)
                 {
+                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("NotPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+//
+                    editor.putString("not_flag", "1");
+
+                    editor.commit();
                     System.out.println("not.....1.......");
                     replacefragment(NotificationFragment.newInstance(), "not");
                 }
                 else if((str_fullname1 != null && str_email1 != null ))
                 {
+                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("NotPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+//
+                    editor.putString("not_flag", "1");
+
+                    editor.commit();
                     System.out.println("not.....2.......");
                     replacefragment(NotificationFragment.newInstance(), "not");
                 }
                 else if((str_fullname != null && str_email != null))
                 {
+                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("NotPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+//
+                    editor.putString("not_flag", "1");
+
+                    editor.commit();
                     System.out.println("not.....3.......");
                     replacefragment(NotificationFragment.newInstance(), "not");
                 }
@@ -511,10 +529,21 @@ public class AccountFragment extends Fragment {
                 }
                 else if((str_fullname1 != null && str_email1 != null ))
                 {
+                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("RewPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+//
+                    editor.putString("rew_flag", "1");
+
+                    editor.commit();
                     replacefragment(RewardsMainFragment.newInstance(), "rewrdmembership");
                 }
                 else if((str_fullname != null && str_email != null)) {
+                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("RewPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+//
+                    editor.putString("rew_flag", "1");
 
+                    editor.commit();
                     replacefragment(RewardsMainFragment.newInstance(), "rewrdmembership");
                 }
                 else

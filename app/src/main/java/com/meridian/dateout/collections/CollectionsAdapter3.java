@@ -87,7 +87,7 @@ public class CollectionsAdapter3  extends RecyclerView.Adapter<CollectionsAdapte
 
         System.out.println("Dataaaaa" + i + dealsModelArrayList.size());
         viewHolder.txt_titlergt.setText("" + dealsModelArrayList.get(i).getTitle());
-        viewHolder.txt_titlergt.setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(dealsModelArrayList.get(i).getType().contentEquals("deal"))

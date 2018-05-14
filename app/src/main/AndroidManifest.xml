@@ -47,6 +47,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".explore.promo.Promo"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity

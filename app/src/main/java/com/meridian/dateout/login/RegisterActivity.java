@@ -149,15 +149,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 select_pic();
 
-          /*      if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_DENIED) {
-
-                    requestPermissions();
-                }*/
-             /*   if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_DENIED) {
-
-                    requestPermissions();
-                }
-                showFileChooser();*/
 
 
             }
@@ -169,38 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
                 return false;
             }
         });
-        /*final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tops);
-        setSupportActionBar(toolbar);*/
-        /*back = (ImageView) findViewById(R.id.img_crcdtlnam);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //  onBackPressed();
-                Intent in=new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(in);
-            }
-        });*/
-      //  getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        // Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/HelveticaNeueLTStd-Lt.otf");
-//        edtfulnam.setTypeface(tf, Typeface.BOLD);
-//        edtphon.setTypeface(tf, Typeface.BOLD);
-//        edtfulnam.setTypeface(tf, Typeface.BOLD);
-//        edtphon.setTypeface(tf, Typeface.BOLD);
-//        edtoccp.setTypeface(tf, Typeface.BOLD);
-//        edtpass.setTypeface(tf, Typeface.BOLD);
-        //  Typeface ttf = Typeface.createFromAsset(getAssets(),"fonts/HelveticaNeueLTStd-Roman.otf");
-//        AlReg= (TextView) findViewById(R.id.txtsignin);
-//        AlReg.setTypeface(ttf, Typeface.BOLD);
-//        AlReg.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               // reg();
-//                Intent is = new Intent(getApplicationContext(), LoginActivity.class);
-//                startActivity(is);
-//                finish();
-//
-//            }
-//        });
+
         butsignup.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -365,23 +325,6 @@ public class RegisterActivity extends AppCompatActivity {
             dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
 
-          /*  final AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
-            alertDialog.setTitle("Alert");
-            //  alertDialog .setIcon(R.drawable.warning_blue);
-            alertDialog.setMessage("Empty Fields");
-
-            alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    dialog.dismiss();
-
-
-                }
-            });
-            alertDialog.show();
-            Button nbutton = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);*/
-            //  nbutton.setTextColor(getResources().getColor(R.color.Orange));
 
         }
         else if (filenamepath != null)
@@ -398,11 +341,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (edittexterror == false) {
             edtemail.setError(null);
-//            edtpass.setError(null);
 
-            // edtcntct.setError(null);
-            //   edtloc.setError(null);
-            //  edtfulnam.setError(null);
             NetworkCheckingClass networkCheckingClass = new NetworkCheckingClass(getApplicationContext());
             boolean i = networkCheckingClass.ckeckinternet();
             if (i) {
@@ -502,121 +441,12 @@ public class RegisterActivity extends AppCompatActivity {
                                 {
                                     e.printStackTrace();
                                 }
-                                // pd.dismiss();
-
-//
-//                                if (response.contentEquals("\"success\"")) {
-//                                    //  alertDialog.setMessage("You have successfully registered");
-//                                    final SweetAlertDialog dialog = new SweetAlertDialog(RegisterActivity.this,SweetAlertDialog.SUCCESS_TYPE);
-//                                    dialog.setTitleText("Success")
-//                                            .setContentText("You have successfully registered")
-//                                            .setConfirmText("OK")
-//                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                                @Override
-//                                                public void onClick(SweetAlertDialog sDialog) {
-//                                                    if (response.contentEquals("\"success\"")) {
-//
-//                                                        progress.setVisibility(ProgressBar.GONE);
-//                                                        Intent is = new Intent(getApplicationContext(), LoginActivity.class);
-//                                                        startActivity(is);
-//                                                        SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPrefN", MODE_PRIVATE);
-//                                                        SharedPreferences.Editor editor = preferences.edit();
-//                                                        editor.putString("email", email);
-//                                                        editor.putString("phone", null);
-//                                                        editor.putString("name",  username);
-//                                                        editor.putString("username", username);
-//                                                        editor.putString("location",null);
-//
-//                                                        editor.putString("password", pass);
-//
-//
-//
-//
-//
-//                                                        finish();
-//                                                    }
-//                                                    dialog.dismiss();
-//
-//
-//
-//                                                }
-//                                            })
-//                                            .show();
-//                                    dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-//
-//                                }
-//                                else {
-//                                    final SweetAlertDialog dialog = new SweetAlertDialog(RegisterActivity.this,SweetAlertDialog.NORMAL_TYPE);
-//                                    dialog.setTitleText("Already Registerd")
-//                                            //  dialog.setContentText(response)
-//
-//                                            .setConfirmText("OK")
-//                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                                @Override
-//                                                public void onClick(SweetAlertDialog sDialog) {
-//                                                    dialog.dismiss();
-//
-//
-//                                                }
-//                                            })
-//                                            .show();
-//                                    dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
-//                                }
-
-
-                  /*              AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
-                                alertDialog.setTitle("Alert");
-                                if (response.contentEquals("\"success\"")) {
-                                    alertDialog.setMessage("You have successfully registered");
-                                } else {
-                                    alertDialog.setMessage(response);
-                                }
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-
-                                                if (response.contentEquals("\"success\"")) {
-
-                                                    progress.setVisibility(ProgressBar.GONE);
-                                                    Intent is = new Intent(getApplicationContext(), LoginActivity.class);
-                                                    startActivity(is);
-                                                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPrefN", MODE_PRIVATE);
-                                                    SharedPreferences.Editor editor = preferences.edit();
-                                                    editor.putString("email", email);
-                                                    editor.putString("phone", null);
-                                                    editor.putString("name",  username);
-                                                    editor.putString("username", username);
-                                                    editor.putString("location",null);
-
-                                                    editor.putString("password", pass);
-
-                                                    finish();
-                                                }
-                                                dialog.dismiss();
-
-
-                                            }
-                                        });
-                                alertDialog.show();*/
 
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-//                            android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(CourseRegistrationActivity.this).create();
-//                            alertDialog.setTitle("Alert");
-//                            alertDialog.setMessage("Please Login to Register For this Course");
-//                            alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEUTRAL, "OK",
-//                                    new DialogInterface.OnClickListener() {
-//                                        public void onClick(DialogInterface dialog, int which) {
-//                                            dialog.dismiss();
-////                                        but_regcrc1.setBackgroundResource(R.color.butnbakcolr);
-////                                        but_regcrc1.setTextColor(getResources().getColor(R.color.White));
-//
-//                                        }
-//                                    });
-//                            alertDialog.show();
 
                                 Toast.makeText(RegisterActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                             }
@@ -666,20 +496,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-              /*  final AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
-                alertDialog.setTitle("Alert");
-                alertDialog.setMessage("Oops Your Connection Seems Off..");
-
-                alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-
-
-                    }
-                });
-                alertDialog.show();*/
 
             }
 
@@ -690,9 +506,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -713,21 +527,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isValidPassword(String pass) {
         return pass != null && pass.length() >= 6;
     }
-//    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK &&
-//                event.getAction() == KeyEvent.ACTION_UP) {
-//            revalidateEditText();
-//            return false;
-//        }
-//        return super.dispatchKeyEvent(event);
-//    }
-//
-//    public void revalidateEditText(){
-//        // Dismiss your origial error dialog
-//        setError(null);
-//        // figure out which EditText it is, you already have this code
-//        // call your validator like in the Q
-//        validate(editText); // or whatever your equivalent is
+
 
     private void showFileChooser() {
         Intent intent = new Intent();
@@ -784,31 +584,22 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         }
-       /* if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
 
-        }*/
     }
 
     private void uploadVideo() {
         class UploadVideo extends AsyncTask<Void, Void, String> {
 
-          //  ProgressDialog uploading;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-             //   uploading = ProgressDialog.show(RegisterActivity.this, "Registering", "Please wait...", false, false);
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-            //    uploading.dismiss();
 
-                // textViewResponse.setText(Html.fromHtml("<b>Uploaded at <a href='" + s + "'>" + s + "</a></b>"));
-                // textViewResponse.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
             @Override

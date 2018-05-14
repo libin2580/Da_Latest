@@ -1,7 +1,10 @@
 package com.meridian.dateout.explore.cart;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,8 @@ import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.meridian.dateout.R;
 import com.meridian.dateout.explore.category_booking_detailspage.CategoryDealDetail;
+import com.meridian.dateout.login.FrameLayoutActivity;
+import com.meridian.dateout.login.LoginActivity;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -24,8 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import kotlin.Pair;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.explore.cart.Cart_details.progress_bar_explore;
 import static com.meridian.dateout.explore.cart.Cart_details.totalprize_for_order;
@@ -38,6 +45,8 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
     Context context;
     private ArrayList<CartHistoryModel> orderHistoryArraylist;
     List<Pair<String, String>> params;
+    String userid,str_comnt;
+
     public CartHistoryAdapter(Context context, ArrayList<CartHistoryModel> arrList) {
         this.context = context;
         this.orderHistoryArraylist = arrList;
@@ -62,12 +71,32 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
         final int k = Integer.parseInt(orderHistoryArraylist.get(position).getamount());
         holder.delete_cart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 params = new ArrayList<Pair<String, String>>() {{
                     add(new Pair<String, String>("cart_item_id", orderHistoryArraylist.get(position).getcart_item_id()));
 
                 }};
-                delete(position,k);
+
+                final SweetAlertDialog dialog = new SweetAlertDialog(view.getRootView().getContext(),SweetAlertDialog.WARNING_TYPE);
+                dialog.setTitleText("Are you Sure ?")
+                        .setConfirmText("OK")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                dialog.dismissWithAnimation();
+                                delete(position,k,view);
+
+                            }
+                        })
+                        .setCancelText("Cancel")
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismiss();
+                            }
+                        })
+                        .show();
+                dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
 
             }
         });
@@ -83,17 +112,86 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
 
         holder.layout_wish_list.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 params = new ArrayList<Pair<String, String>>() {{
                     add(new Pair<String, String>("cart_item_id", orderHistoryArraylist.get(position).getcart_item_id()));
 
                 }};
-                wish_list(position);
+                SharedPreferences preferences = context.getSharedPreferences("MyPref", MODE_PRIVATE);
+                String   user_id = preferences.getString("user_id", null);
+
+                if (user_id != null) {
+                    userid = user_id;
+                    System.out.println("userid" + userid);
+                }
+                SharedPreferences preferences1 =context.getSharedPreferences("myfbid", MODE_PRIVATE);
+                String  profile_id = preferences1.getString("user_idfb", null);
+                if (profile_id != null) {
+                    userid = profile_id;
+                    System.out.println("userid" + userid);
+                }
+                SharedPreferences preferences2 = context.getSharedPreferences("value_gmail", MODE_PRIVATE);
+                String profileid_gmail = preferences2.getString("user_id", null);
+                if (profileid_gmail != null) {
+                    userid = profileid_gmail;
+                    System.out.println("userid" + userid);
+                }
+
+
+                if(user_id!=null){
+
+                    final SweetAlertDialog dialog = new SweetAlertDialog(view.getRootView().getContext(),SweetAlertDialog.WARNING_TYPE);
+                    dialog.setTitleText("Are you Sure ?")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    dialog.dismissWithAnimation();
+                                    wish_list(position,view);
+
+                                }
+                            })
+                            .setCancelText("Cancel")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                }
+                            })
+                            .show();
+                    dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                }else {
+                    final SweetAlertDialog dialog1 = new SweetAlertDialog(view.getRootView().getContext(), SweetAlertDialog.WARNING_TYPE);
+                    dialog1.setTitleText("Please login!")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    dialog1.dismissWithAnimation();
+                                    Intent i = new Intent(context, LoginActivity.class);
+                                    // i.putExtra("tab_id",0);
+                                    i.setFlags(i.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(i);
+                                    //finish();
+
+                                }
+                            })
+                            .setCancelText("Cancel")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismissWithAnimation();
+
+                                }
+                            })
+                            .show();
+                    dialog1.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                }
             }
         });
 
     }
-    private void delete(final int position,final int k) {
+    private void delete(final int position,final int k,final View view) {
         progress_bar_explore.setVisibility(View.VISIBLE);
         Fuel.post(URL1+"delete-cart-item.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
             @Override
@@ -106,6 +204,25 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
                         removeAt(position);
                         totalprize_for_order-=k;
                         Cart_details.Total_txt.setText("$" + String.valueOf(totalprize_for_order));
+                        if(orderHistoryArraylist.size()==0){
+                            final SweetAlertDialog dialog = new SweetAlertDialog(view.getRootView().getContext(),SweetAlertDialog.WARNING_TYPE);
+                            dialog.setTitleText("Cart is empty!")
+                                    .setConfirmText("OK")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            dialog.dismissWithAnimation();
+                                            Intent i  =new Intent(context, FrameLayoutActivity.class);
+                                            i.putExtra("tab_id",0);
+                                            i.setFlags(i.FLAG_ACTIVITY_NEW_TASK );
+                                            context.startActivity(i);
+                                            //finish();
+
+                                        }
+                                    })
+                                    .show();
+                            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                        }
                     }
 
 
@@ -121,7 +238,7 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
             }
         });
     }
-    private void wish_list(final int position) {
+    private void wish_list(final int position,final View view) {
         progress_bar_explore.setVisibility(View.VISIBLE);
         Fuel.post(URL1+"moveto-wishlist.php",params).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
             @Override
@@ -133,9 +250,39 @@ public class CartHistoryAdapter extends RecyclerView.Adapter<CartHistoryAdapter.
                     String status = jsonObj.getString("status");
                     if(Objects.equals(status, "true")){
                         removeAt(position);
+                        if(orderHistoryArraylist.size()==0){
+                            final SweetAlertDialog dialog = new SweetAlertDialog(view.getRootView().getContext(),SweetAlertDialog.WARNING_TYPE);
+                            dialog.setTitleText("Cart is empty!")
+                                    .setConfirmText("OK")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            dialog.dismissWithAnimation();
+                                            Intent i  =new Intent(context, FrameLayoutActivity.class);
+                                            i.putExtra("tab_id",0);
+                                            i.setFlags(i.FLAG_ACTIVITY_NEW_TASK );
+                                            context.startActivity(i);
+                                            //finish();
+
+                                        }
+                                    })
+                                    .show();
+                            dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+                        }
                     }
                     else {
-                        Toast.makeText(context,s,Toast.LENGTH_LONG).show();
+                        final SweetAlertDialog dialog = new SweetAlertDialog(view.getRootView().getContext(),SweetAlertDialog.WARNING_TYPE);
+                        dialog.setTitleText("Deal already in Wishlist!")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        dialog.dismissWithAnimation();
+
+                                    }
+                                })
+                                .show();
+                        dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
                     }
 
                 } catch (JSONException e) {

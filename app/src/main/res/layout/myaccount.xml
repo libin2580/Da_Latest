@@ -127,7 +127,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_height="0dp">
-<!--<HorizontalScrollView
+<HorizontalScrollView
     android:layout_width="match_parent"
     android:fillViewport="true"
     android:layout_height="match_parent">-->
@@ -136,9 +136,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
-<!--
+
 </HorizontalScrollView>
--->
+
         </LinearLayout>
 
     <LinearLayout
