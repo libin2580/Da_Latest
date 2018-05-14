@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -36,6 +35,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.kittinunf.fuel.Fuel;
+import com.github.kittinunf.fuel.core.FuelError;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.CalendarDayEvent;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -43,7 +44,6 @@ import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
 import com.meridian.dateout.login.FrameLayoutActivity;
 import com.meridian.dateout.login.NetworkCheckingClass;
-import com.meridian.dateout.login.TermsOfUse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,14 +55,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import kotlin.Pair;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
+import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
 
 /**
@@ -97,9 +100,10 @@ public class ReminderMainFragment extends Fragment {
     RecyclerView recycle_upcoming,recycle_past;
     String userid,curent_month;
     String event_date2,event_month2;
-    String id,event_type,event_name,event_date,event_time,event_details;
+    String id,event_type,event_name,event_date,event_time,event_details,unique_id;
     ProgressBar progress;
     TextView view_no_reminder,tvcal;
+    List<Pair<String, String>> params1;
     View custompopup_view;
     PopupWindow reminder_popupwindow;
     LinearLayout inflate_layout,layoutupcoming,layoutpast;
@@ -263,6 +267,7 @@ public class ReminderMainFragment extends Fragment {
                                                                     event_date = obj.getString("event_date");
                                                                     event_time = obj.getString("event_time");
                                                                     event_details = obj.getString("event_details");
+                                                                    unique_id = obj.getString("unique_id");
                                                                     String date = event_date;
                                                                     final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                                                     String dat = formatter.format(date_day);
@@ -306,7 +311,7 @@ public class ReminderMainFragment extends Fragment {
                                                                         upcomingmodel.setEvent_month(event_month2);
                                                                         upcomingmodel.setEvent_time(event_time2);
                                                                         upcomingmodel.setEvent_details(event_details);
-
+                                                                        upcomingmodel.setunique_id(unique_id);
                                                                         array_up.add(upcomingmodel);
                                                                         System.out.println("Upcoming................" + array_up.size());
 
@@ -322,11 +327,14 @@ public class ReminderMainFragment extends Fragment {
                                                                     recycle_upcoming.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                                                                                 @Override
                                                                                 public void onItemClick(View view, int position) {
+                                                                                    id=array_up.get(position).getId();
                                                                                     event_name=array_up.get(position).getEvent_name();
+                                                                                    event_type=array_up.get(position).getEvent_type();
                                                                                     event_date=array_up.get(position).getdate();
                                                                                     event_time=array_up.get(position).getEvent_time();
                                                                                     event_details=array_up.get(position).getEvent_details();
-                                                                                    displaypopup_reminder_popupwindow(event_name,event_date,event_time,event_details);
+                                                                                    unique_id=array_up.get(position).getunique_id();
+                                                                                    displaypopup_reminder_popupwindow(id,event_name,event_type,event_date,event_time,event_details,unique_id);
 
 
                                                                                 }
@@ -345,6 +353,7 @@ public class ReminderMainFragment extends Fragment {
                                                                     event_date = obj.getString("event_date");
                                                                     event_time = obj.getString("event_time");
                                                                     event_details = obj.getString("event_details");
+                                                                    unique_id = obj.getString("unique_id");
                                                                     String date = event_date;
                                                                     final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                                                     String dat = formatter.format(date_day);
@@ -387,7 +396,7 @@ public class ReminderMainFragment extends Fragment {
                                                                         pastModel.setEvent_month(event_month2);
                                                                         pastModel.setEvent_time(event_time2);
                                                                         pastModel.setEvent_details(event_details);
-
+                                                                        pastModel.setunique_id(unique_id);
                                                                         array_up1.add(pastModel);
                                                                         System.out.println("Upcoming................" + array_up1.size());
 
@@ -402,11 +411,14 @@ public class ReminderMainFragment extends Fragment {
                                                                     recycle_past.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                                                                                 @Override
                                                                                 public void onItemClick(View view, int position) {
+                                                                                    id=array_up1.get(position).getId();
                                                                                     event_name=array_up1.get(position).getEvent_name();
+                                                                                    event_type=array_up1.get(position).getEvent_type();
                                                                                     event_date=array_up1.get(position).getdate();
                                                                                     event_time=array_up1.get(position).getEvent_time();
                                                                                     event_details=array_up1.get(position).getEvent_details();
-                                                                                    displaypopup_reminder_popupwindow(event_name,event_date,event_time,event_details);
+                                                                                    unique_id=array_up1.get(position).getunique_id();
+                                                                                    displaypopup_reminder_popupwindow(id,event_name,event_type,event_date,event_time,event_details,unique_id);
 
 
                                                                                 }
@@ -455,7 +467,9 @@ public class ReminderMainFragment extends Fragment {
                                     dialog.dismiss();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("key", formatter.format(date_day));
-
+                                    bundle.putString("event_time","event_time");
+                                    bundle.putString("event_name","");
+                                    bundle.putString("event_details","");
                                     ReminderAddFragment_new fragment = new ReminderAddFragment_new();
                                     fragment.setArguments(bundle);
                                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -581,183 +595,214 @@ public class ReminderMainFragment extends Fragment {
                                         String data = jsonObject.getString("data");
                                         JSONObject Object = new JSONObject(data);
                                         String past_reminders = Object.getString("past_reminders");
-                                        JSONArray json = new JSONArray(past_reminders);
+
                                         String upcoming_reminders = Object.getString("upcoming_reminders");
-                                        JSONArray jsonArray = new JSONArray(upcoming_reminders);
-                                        for (int j = 0; j < jsonArray.length(); j++) {
-                                            JSONObject obj = jsonArray.getJSONObject(j);
-                                            System.out.println("Upcoming result..... : " + obj);
-                                            id = obj.getString("id");
-                                            event_type = obj.getString("event_type");
-                                            event_name = obj.getString("event_name");
-                                            event_date = obj.getString("event_date");
-                                            event_time = obj.getString("event_time");
-                                            event_details = obj.getString("event_details");
-                                            String date = event_date;
-                                            final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-                                            try {
-                                                Date dat = formatter.parse(event_date);
-                                                compactCalendarView.addEvent(new CalendarDayEvent(dat.getTime(), Color.parseColor("#368aba")), true);
-                                            } catch (ParseException e) {
-                                                e.printStackTrace();
-                                            }
-                                            event_date=event_date.substring(0,7);
-                                            if(Objects.equals(curent_month, event_date)){
-
-                                                SimpleDateFormat from_date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                                                SimpleDateFormat to_date = new SimpleDateFormat("dd", Locale.US);
-
-
-                                                try {
-                                                    event_date2 = to_date.format(from_date.parse(date));
-                                                    System.out.println("Upcoming#####................" + event_date2);
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
-                                                }
-
-                                                SimpleDateFormat to_month = new SimpleDateFormat("MMMM", Locale.US);
-                                                try {
-                                                    event_month2 = to_month.format(from_date.parse(date));
-                                                    System.out.println("Upcoming##$$$................" + event_month2);
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
-                                                }
-
-                                                ReminderModel upcomingmodel = new ReminderModel();
-                                                DateFormat input_time = new SimpleDateFormat("HH:mm:ss");
-                                                Date date1 = null;
-                                                try {
-                                                    date1 = input_time.parse(event_time);
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
-                                                }
-
-                                                DateFormat time2 = new SimpleDateFormat("hh:mm a");
-                                                String event_time2 = time2.format(date1);
-                                                upcomingmodel.setId(id);
-                                                upcomingmodel.setEvent_type(event_type);
-                                                upcomingmodel.setEvent_name(event_name);
-                                                upcomingmodel.setEvent_date(event_date2);
-                                                upcomingmodel.setdate(date);
-                                                upcomingmodel.setEvent_month(event_month2);
-                                                upcomingmodel.setEvent_time(event_time2);
-                                                upcomingmodel.setEvent_details(event_details);
-
-                                                array_up.add(upcomingmodel);
-                                                System.out.println("Upcoming................" + array_up.size());
-
-                                            }
-
-
+                                        if(upcoming_reminders.equalsIgnoreCase("[]")){
                                             upcomingAdapter = new UpcomingAdapter(array_up, getActivity());
                                             recycle_upcoming.scheduleLayoutAnimation();
                                             recycle_upcoming.setAdapter(upcomingAdapter);
                                             recycle_upcoming.setHasFixedSize(true);
-                                            System.out.println("1");
+                                        }
+                                        else {
+                                            JSONArray jsonArray = new JSONArray(upcoming_reminders);
+                                            for (int j = 0; j < jsonArray.length(); j++) {
+                                                JSONObject obj = jsonArray.getJSONObject(j);
+                                                System.out.println("Upcoming result..... : " + obj);
+                                                id = obj.getString("id");
+                                                event_type = obj.getString("event_type");
+                                                event_name = obj.getString("event_name");
+                                                event_date = obj.getString("event_date");
+                                                event_time = obj.getString("event_time");
+                                                event_details = obj.getString("event_details");
+                                                unique_id = obj.getString("unique_id");
+                                                String date = event_date;
+                                                final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-                                            recycle_upcoming.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-                                                        @Override
-                                                        public void onItemClick(View view, int position) {
-                                                            event_name=array_up.get(position).getEvent_name();
-                                                            event_date=array_up.get(position).getdate();
-                                                            event_time=array_up.get(position).getEvent_time();
-                                                            event_details=array_up.get(position).getEvent_details();
-                                                            displaypopup_reminder_popupwindow(event_name,event_date,event_time,event_details);
+                                                try {
+                                                    Date dat = formatter.parse(event_date);
+                                                    compactCalendarView.addEvent(new CalendarDayEvent(dat.getTime(), Color.parseColor("#368aba")), true);
+                                                } catch (ParseException e) {
+                                                    e.printStackTrace();
+                                                }
+                                                event_date=event_date.substring(0,7);
+                                                if(Objects.equals(curent_month, event_date)){
+
+                                                    SimpleDateFormat from_date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                                                    SimpleDateFormat to_date = new SimpleDateFormat("dd", Locale.US);
 
 
-                                                        }
-                                                    })
-                                            );
+                                                    try {
+                                                        event_date2 = to_date.format(from_date.parse(date));
+                                                        System.out.println("Upcoming#####................" + event_date2);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                    SimpleDateFormat to_month = new SimpleDateFormat("MMMM", Locale.US);
+                                                    try {
+                                                        event_month2 = to_month.format(from_date.parse(date));
+                                                        System.out.println("Upcoming##$$$................" + event_month2);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                    ReminderModel upcomingmodel = new ReminderModel();
+                                                    DateFormat input_time = new SimpleDateFormat("HH:mm:ss");
+                                                    Date date1 = null;
+                                                    try {
+                                                        date1 = input_time.parse(event_time);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                    DateFormat time2 = new SimpleDateFormat("hh:mm a");
+                                                    String event_time2 = time2.format(date1);
+                                                    upcomingmodel.setId(id);
+                                                    upcomingmodel.setEvent_type(event_type);
+                                                    upcomingmodel.setEvent_name(event_name);
+                                                    upcomingmodel.setEvent_date(event_date2);
+                                                    upcomingmodel.setdate(date);
+                                                    upcomingmodel.setEvent_month(event_month2);
+                                                    upcomingmodel.setEvent_time(event_time2);
+                                                    upcomingmodel.setEvent_details(event_details);
+                                                    upcomingmodel.setunique_id(unique_id);
+
+                                                    array_up.add(upcomingmodel);
+                                                    System.out.println("Upcoming................" + array_up.size());
+
+                                                }
+
+
+                                                upcomingAdapter = new UpcomingAdapter(array_up, getActivity());
+                                                recycle_upcoming.scheduleLayoutAnimation();
+                                                recycle_upcoming.setAdapter(upcomingAdapter);
+                                                recycle_upcoming.setHasFixedSize(true);
+                                                System.out.println("1");
+
+                                                recycle_upcoming.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                                                            @Override
+                                                            public void onItemClick(View view, int position) {
+                                                                id=array_up.get(position).getId();
+                                                                event_name=array_up.get(position).getEvent_name();
+                                                                event_type=array_up.get(position).getEvent_type();
+                                                                event_date=array_up.get(position).getdate();
+                                                                event_time=array_up.get(position).getEvent_time();
+                                                                event_details=array_up.get(position).getEvent_details();
+                                                                unique_id=array_up.get(position).getunique_id();
+                                                                displaypopup_reminder_popupwindow(id,event_name,event_type,event_date,event_time,event_details,unique_id);
+
+
+                                                            }
+                                                        })
+                                                );
+
+                                            }
 
                                         }
-
-                                        for (int j = 0; j < json.length(); j++) {
-
-                                            JSONObject obj = json.getJSONObject(j);
-                                            System.out.println("Upcoming result..... : " + obj);
-                                            id = obj.getString("id");
-                                            event_type = obj.getString("event_type");
-                                            event_name = obj.getString("event_name");
-                                            event_date = obj.getString("event_date");
-                                            event_time = obj.getString("event_time");
-                                            event_details = obj.getString("event_details");
-                                            String date = event_date;
-
-                                            final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                                            try {
-                                                Date dat = formatter.parse(event_date);
-                                                compactCalendarView.addEvent(new CalendarDayEvent(dat.getTime(), Color.parseColor("#C0C0C0")), true);
-                                            } catch (ParseException e) {
-                                                e.printStackTrace();
-                                            }
-                                            event_date=event_date.substring(0,7);
-                                            if(Objects.equals(curent_month, event_date)){
-
-                                                SimpleDateFormat from_date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                                                SimpleDateFormat to_date = new SimpleDateFormat("dd", Locale.US);
-
-
-                                                try {
-                                                    event_date2 = to_date.format(from_date.parse(date));
-                                                    System.out.println("Upcoming#####................" + event_date2);
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
-                                                }
-
-                                                SimpleDateFormat to_month = new SimpleDateFormat("MMMM", Locale.US);
-                                                try {
-                                                    event_month2 = to_month.format(from_date.parse(date));
-                                                    System.out.println("Upcoming##$$$................" + event_month2);
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
-                                                }
-
-                                                PastModel pastModel = new PastModel();
-                                                DateFormat input_time = new SimpleDateFormat("HH:mm:ss");
-                                                Date date1 = null;
-                                                try {
-                                                    date1 = input_time.parse(event_time);
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
-                                                }
-                                                DateFormat time2 = new SimpleDateFormat("hh:mm a");
-                                                String event_time2 = time2.format(date1);
-                                                pastModel.setId(id);
-                                                pastModel.setEvent_type(event_type);
-                                                pastModel.setEvent_name(event_name);
-                                                pastModel.setEvent_date(event_date2);
-                                                pastModel.setdate(date);
-                                                pastModel.setEvent_month(event_month2);
-                                                pastModel.setEvent_time(event_time2);
-                                                pastModel.setEvent_details(event_details);
-
-                                                array_up1.add(pastModel);
-                                                System.out.println("Upcoming................" + array_up1.size());
-
-                                            }
-
+                                        if(past_reminders.equalsIgnoreCase("[]")){
                                             pastAdapter = new PastAdapter(array_up1, getActivity());
                                             System.out.println("1");
                                             recycle_past.scheduleLayoutAnimation();
                                             recycle_past.setAdapter(pastAdapter);
                                             recycle_past.setHasFixedSize(true);
                                             progress.setVisibility(View.GONE);
-                                            recycle_past.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-                                                                @Override
-                                                                public void onItemClick(View view, int position) {
-                                                                    event_name=array_up1.get(position).getEvent_name();
-                                                                    event_date=array_up1.get(position).getdate();
-                                                                    event_time=array_up1.get(position).getEvent_time();
-                                                                    event_details=array_up1.get(position).getEvent_details();
-                                                                    displaypopup_reminder_popupwindow(event_name,event_date,event_time,event_details);
+                                        }
+                                      else {
+                                            JSONArray json = new JSONArray(past_reminders);
+                                            for (int j = 0; j < json.length(); j++) {
+
+                                                JSONObject obj = json.getJSONObject(j);
+                                                System.out.println("Upcoming result..... : " + obj);
+                                                id = obj.getString("id");
+                                                event_type = obj.getString("event_type");
+                                                event_name = obj.getString("event_name");
+                                                event_date = obj.getString("event_date");
+                                                event_time = obj.getString("event_time");
+                                                event_details = obj.getString("event_details");
+                                                unique_id = obj.getString("unique_id");
+                                                String date = event_date;
+
+                                                final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                                try {
+                                                    Date dat = formatter.parse(event_date);
+                                                    compactCalendarView.addEvent(new CalendarDayEvent(dat.getTime(), Color.parseColor("#C0C0C0")), true);
+                                                } catch (ParseException e) {
+                                                    e.printStackTrace();
+                                                }
+                                                event_date=event_date.substring(0,7);
+                                                if(Objects.equals(curent_month, event_date)){
+
+                                                    SimpleDateFormat from_date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                                                    SimpleDateFormat to_date = new SimpleDateFormat("dd", Locale.US);
 
 
-                                                                }
-                                                            })
-                                                    );
+                                                    try {
+                                                        event_date2 = to_date.format(from_date.parse(date));
+                                                        System.out.println("Upcoming#####................" + event_date2);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                    SimpleDateFormat to_month = new SimpleDateFormat("MMMM", Locale.US);
+                                                    try {
+                                                        event_month2 = to_month.format(from_date.parse(date));
+                                                        System.out.println("Upcoming##$$$................" + event_month2);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                    PastModel pastModel = new PastModel();
+                                                    DateFormat input_time = new SimpleDateFormat("HH:mm:ss");
+                                                    Date date1 = null;
+                                                    try {
+                                                        date1 = input_time.parse(event_time);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    DateFormat time2 = new SimpleDateFormat("hh:mm a");
+                                                    String event_time2 = time2.format(date1);
+                                                    pastModel.setId(id);
+                                                    pastModel.setEvent_type(event_type);
+                                                    pastModel.setEvent_name(event_name);
+                                                    pastModel.setEvent_date(event_date2);
+                                                    pastModel.setdate(date);
+                                                    pastModel.setEvent_month(event_month2);
+                                                    pastModel.setEvent_time(event_time2);
+                                                    pastModel.setEvent_details(event_details);
+                                                    pastModel.setunique_id(unique_id);
+
+                                                    array_up1.add(pastModel);
+                                                    System.out.println("Upcoming................" + array_up1.size());
+
+                                                }
+
+                                                pastAdapter = new PastAdapter(array_up1, getActivity());
+                                                System.out.println("1");
+                                                recycle_past.scheduleLayoutAnimation();
+                                                recycle_past.setAdapter(pastAdapter);
+                                                recycle_past.setHasFixedSize(true);
+                                                progress.setVisibility(View.GONE);
+                                                recycle_past.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                                                            @Override
+                                                            public void onItemClick(View view, int position) {
+                                                                id=array_up1.get(position).getId();
+                                                                event_name=array_up1.get(position).getEvent_name();
+                                                                event_type=array_up1.get(position).getEvent_type();
+                                                                event_date=array_up1.get(position).getdate();
+                                                                event_time=array_up1.get(position).getEvent_time();
+                                                                event_details=array_up1.get(position).getEvent_details();
+                                                                unique_id=array_up1.get(position).getunique_id();
+                                                                displaypopup_reminder_popupwindow(id,event_name,event_type,event_date,event_time,event_details,unique_id);
+
+
+                                                            }
+                                                        })
+                                                );
+
+                                            }
 
                                         }
+
 
                                     }
                                     else{
@@ -794,7 +839,7 @@ public class ReminderMainFragment extends Fragment {
 
         }
 
-    private void displaypopup_reminder_popupwindow(String event_name, String event_date, String event_time, String event_details) {
+    private void displaypopup_reminder_popupwindow(final String id, final String event_name,final String eventtype, final String event_date, final String event_time, final String event_details, final String uniqueid) {
         try {
 
             ImageView closebutton = (ImageView) custompopup_view.findViewById(R.id.close_point_converter);
@@ -802,6 +847,8 @@ public class ReminderMainFragment extends Fragment {
             TextView event_dat = (TextView) custompopup_view.findViewById(R.id.txt_date);
             TextView event_tim = (TextView) custompopup_view.findViewById(R.id.txt_time);
             TextView event_detail= (TextView) custompopup_view.findViewById(R.id.event_details);
+            LinearLayout edit_remind= (LinearLayout) custompopup_view.findViewById(R.id.edit_remind);
+            LinearLayout delt_remind= (LinearLayout) custompopup_view.findViewById(R.id.delt_remind);
             event_nam.setText(event_name);
             event_dat.setText(event_date);
             event_tim.setText(event_time);
@@ -812,6 +859,99 @@ public class ReminderMainFragment extends Fragment {
                     reminder_popupwindow.dismiss();
                 }
             });
+
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final  Date d = dateFormat.parse(event_date);
+            edit_remind.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    reminder_popupwindow.dismiss();
+                    final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key",formatter.format(d));
+                    bundle.putString("event_time",event_time);
+                    bundle.putString("event_name",event_name);
+                    bundle.putString("event_details",eventtype);
+                    bundle.putString("id",id);
+                    bundle.putString("uniqueid",uniqueid);
+                    ReminderAddFragment_new fragment = new ReminderAddFragment_new();
+                    fragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
+                    transaction.replace(R.id.flFragmentPlaceHolder, fragment, "reminder").addToBackStack("s");
+                    transaction.commit();
+                }
+            });
+            delt_remind.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    params1 = new ArrayList<Pair<String, String>>() {{
+                        add(new Pair<String, String>("reminder_id",id));
+
+
+                    }};
+                    Fuel.post(URL1+"delete-reminder.php ",params1).responseString(new com.github.kittinunf.fuel.core.Handler<String>() {
+                        @Override
+                        public void success(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, String s) {
+
+                            try {
+                                JSONObject jsonObj = new JSONObject(s);
+                                String status = jsonObj.getString("status");
+                                System.out.println("cart-totals**********" + uniqueid);
+                                if(Objects.equals(status, "true")){
+                                    reminder_popupwindow.dismiss();
+                                    String msg = jsonObj.getString("message");
+                                    final SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.SUCCESS_TYPE);
+                                    dialog.setTitleText(msg)
+                                            .setConfirmText("OK")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    dialog.dismissWithAnimation();
+
+                                                    final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                                    Date dat = null;
+                                                    try {
+                                                        dat = formatter.parse(event_date);
+                                                        compactCalendarView.addEvent(new CalendarDayEvent(dat.getTime(), Color.parseColor("#ffffff")), true);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                    if(!uniqueid.equalsIgnoreCase("")){
+                                                         AlarmReceiver mAlarmReceiver=new AlarmReceiver();
+                                                          mAlarmReceiver.cancelAlarm(getContext(), Integer.parseInt(uniqueid));
+                                                    }
+                                                    allreminder();
+
+                                                }
+                                            })
+                                            .show();
+                                    dialog.findViewById(R.id.confirm_button).setBackgroundColor(Color.parseColor("#368aba"));
+
+
+
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        @Override
+                        public void failure(com.github.kittinunf.fuel.core.Request request, com.github.kittinunf.fuel.core.Response response, FuelError fuelError) {
+
+                        }
+                    });
+
+                }
+            });
+
             reminder_popupwindow = new PopupWindow(custompopup_view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             if (Build.VERSION.SDK_INT >= 21) {
                 reminder_popupwindow.setElevation(5.0f);

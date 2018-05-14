@@ -142,6 +142,9 @@
             android:name=".explore.CheckOutActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".reminder.ReminderEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".explore.category_booking_detailspage.Booking_DetailsActivity"
             android:screenOrientation="portrait" />
         <activity

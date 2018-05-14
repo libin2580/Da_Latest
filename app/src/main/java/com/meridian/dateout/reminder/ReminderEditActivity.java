@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -30,14 +29,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.R;
-import com.meridian.dateout.nearme.NearMeFragment;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -50,12 +47,10 @@ public class ReminderEditActivity extends AppCompatActivity implements
         TimePickerDialog.OnTimeSetListener,
         DatePickerDialog.OnDateSetListener{
 
-    private Toolbar mToolbar;
-    private EditText mTitleText;
-    private TextView mDateText, mTimeText, mRepeatText, mRepeatNoText, mRepeatTypeText;
-    private FloatingActionButton mFAB1;
-    private FloatingActionButton mFAB2;
-    private Switch mRepeatSwitch;
+    EditText mTitleText;
+    TextView mDateText, mTimeText, mRepeatText, mRepeatNoText, mRepeatTypeText;
+    FloatingActionButton mFAB1;
+    FloatingActionButton mFAB2;
     private String mTitle;
     private String mTime;
     private String mDate;
@@ -98,19 +93,14 @@ public class ReminderEditActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
 
-        // Initialize Views
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitleText = (EditText) findViewById(R.id.reminder_title);
         mDateText = (TextView) findViewById(R.id.set_date);
         mTimeText = (TextView) findViewById(R.id.set_time);
         analytics = FirebaseAnalytics.getInstance(ReminderEditActivity.this);
 
         analytics.setCurrentScreen(this, this.getLocalClassName(), null /* class override */);
-        // Setup Toolbar
-        setSupportActionBar(mToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         // Setup Reminder Title EditText
         mTitleText.addTextChangedListener(new TextWatcher() {
