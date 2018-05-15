@@ -54,7 +54,9 @@ android:visibility="gone"
                     <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
-            android:gravity="center"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:id="@+id/linr_silver"
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -69,6 +71,8 @@ android:visibility="gone"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                         android:gravity="center"
+                        android:visibility="gone"
+                        android:id="@+id/linr_gold"
                         android:layout_height="match_parent">
 
                     <ImageView
@@ -81,20 +85,22 @@ android:visibility="gone"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                         android:gravity="center"
+                        android:visibility="gone"
+                        android:id="@+id/linr_platinum"
                         android:layout_height="match_parent">
 
                     <ImageView
-                    android:layout_width="wrap_content"
+                       android:layout_width="wrap_content"
                         android:id="@+id/img_platinum"
-
-                    android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:id="@+id/linr_diamond"
+                        android:visibility="gone"
                         android:gravity="center"
                         android:layout_height="match_parent">
-
                         <ImageView
                             android:layout_width="wrap_content"
                             android:id="@+id/img_diamond"

@@ -863,25 +863,47 @@ public class ReminderMainFragment extends Fragment {
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             final  Date d = dateFormat.parse(event_date);
+
             edit_remind.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     reminder_popupwindow.dismiss();
-                    final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    Bundle bundle = new Bundle();
-                    bundle.putString("key",formatter.format(d));
-                    bundle.putString("event_time",event_time);
-                    bundle.putString("event_name",event_name);
-                    bundle.putString("event_details",eventtype);
-                    bundle.putString("id",id);
-                    bundle.putString("uniqueid",uniqueid);
-                    ReminderAddFragment_new fragment = new ReminderAddFragment_new();
-                    fragment.setArguments(bundle);
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
-                    transaction.replace(R.id.flFragmentPlaceHolder, fragment, "reminder").addToBackStack("s");
-                    transaction.commit();
+                    if (new Date().after(d)) {
+                        final SweetAlertDialog dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.NORMAL_TYPE);
+                        dialog.setTitleText("")
+                                .setContentText("Cannot edit reminder to this date")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        dialog.dismiss();
+
+                                    }
+                                })
+                                .show();
+
+                        dialog.findViewById(R.id.confirm_button).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#368aba")));
+                    }
+                    else {
+
+                        final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        Bundle bundle = new Bundle();
+                        bundle.putString("key",formatter.format(d));
+                        bundle.putString("event_time",event_time);
+                        bundle.putString("event_name",event_name);
+                        bundle.putString("event_details",eventtype);
+                        bundle.putString("id",id);
+                        bundle.putString("uniqueid",uniqueid);
+                        ReminderAddFragment_new fragment = new ReminderAddFragment_new();
+                        fragment.setArguments(bundle);
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
+                        transaction.replace(R.id.flFragmentPlaceHolder, fragment, "reminder").addToBackStack("s");
+                        transaction.commit();
+                    }
+
+
                 }
             });
             delt_remind.setOnClickListener(new View.OnClickListener() {

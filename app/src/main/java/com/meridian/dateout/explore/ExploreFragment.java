@@ -694,6 +694,28 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             recyclerView.setItemViewCacheSize(20);
                             recyclerView.setDrawingCacheEnabled(true);
                             recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                            recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                                @Override
+                                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                                    int action = e.getAction();
+                                    switch (action) {
+                                        case MotionEvent.ACTION_MOVE:
+                                            rv.getParent().requestDisallowInterceptTouchEvent(true);
+                                            break;
+                                    }
+                                    return false;
+                                }
+
+                                @Override
+                                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                                }
+
+                                @Override
+                                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                                }
+                            });
                             if (categoryModelArrayList != null && dealsModelArrayList != null) {
                                 recyclerAdapterCategory_after_filter = new RecyclerAdapterCategory_after_filter(categoryModelArrayList, dealsModelArrayList, getActivity());
                                 recyclerView.setAdapter(recyclerAdapterCategory_after_filter);
@@ -710,6 +732,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                                 recyclerAdapterCategory1 = new RecyclerAdapterCategory1(alldeals_categryModelArrayList, getActivity());
                                 recyclerView1.setAdapter(recyclerAdapterCategory1);
                             }
+
                         }
                     }
                 },
@@ -906,6 +929,28 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             recyclerView.setItemViewCacheSize(20);
                             recyclerView.setDrawingCacheEnabled(true);
                             recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                            recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                                @Override
+                                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                                    int action = e.getAction();
+                                    switch (action) {
+                                        case MotionEvent.ACTION_MOVE:
+                                            rv.getParent().requestDisallowInterceptTouchEvent(true);
+                                            break;
+                                    }
+                                    return false;
+                                }
+
+                                @Override
+                                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                                }
+
+                                @Override
+                                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                                }
+                            });
 
                             if (categoryModelArrayList != null && dealsModelArrayList != null) {
 
@@ -1126,6 +1171,29 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             recyclerView.setItemViewCacheSize(20);
                             recyclerView.setDrawingCacheEnabled(true);
                             recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                            recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                                @Override
+                                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                                    int action = e.getAction();
+                                    switch (action) {
+                                        case MotionEvent.ACTION_MOVE:
+                                            rv.getParent().requestDisallowInterceptTouchEvent(true);
+                                            break;
+                                    }
+                                    return false;
+                                }
+
+                                @Override
+                                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                                }
+
+                                @Override
+                                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                                }
+                            });
+
                             if (categoryModelArrayList != null && dealsModelArrayList != null) {
                                 recyclerAdapterCategory_after_filter = new RecyclerAdapterCategory_after_filter(categoryModelArrayList, dealsModelArrayList, getActivity());
                                 recyclerView.setAdapter(recyclerAdapterCategory_after_filter);
@@ -1338,6 +1406,29 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             recyclerView.setItemViewCacheSize(20);
                             recyclerView.setDrawingCacheEnabled(true);
                             recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                            recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                                @Override
+                                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                                    int action = e.getAction();
+                                    switch (action) {
+                                        case MotionEvent.ACTION_MOVE:
+                                            rv.getParent().requestDisallowInterceptTouchEvent(true);
+                                            break;
+                                    }
+                                    return false;
+                                }
+
+                                @Override
+                                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                                }
+
+                                @Override
+                                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                                }
+                            });
+
                             if (categoryModelArrayList != null && dealsModelArrayList != null) {
                                 recyclerAdapterCategory_after_filter = new RecyclerAdapterCategory_after_filter(categoryModelArrayList, dealsModelArrayList, getActivity());
                                 recyclerView.setAdapter(recyclerAdapterCategory_after_filter);
@@ -1551,6 +1642,29 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             recyclerView.setItemViewCacheSize(20);
                             recyclerView.setDrawingCacheEnabled(true);
                             recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                            recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                                @Override
+                                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                                    int action = e.getAction();
+                                    switch (action) {
+                                        case MotionEvent.ACTION_MOVE:
+                                            rv.getParent().requestDisallowInterceptTouchEvent(true);
+                                            break;
+                                    }
+                                    return false;
+                                }
+
+                                @Override
+                                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                                }
+
+                                @Override
+                                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                                }
+                            });
+
                             if (categoryModelArrayList != null && dealsModelArrayList != null) {
                                 recyclerAdapterCategory_after_filter = new RecyclerAdapterCategory_after_filter(categoryModelArrayList, dealsModelArrayList, getActivity());
                                 recyclerView.setAdapter(recyclerAdapterCategory_after_filter);
@@ -1914,10 +2028,11 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                                     JSONArray jsonarray = jsonObject.getJSONArray("banner");
                                     for (int i = 0; i < jsonarray.length(); i++) {
                                         JSONObject jsonobject = jsonarray.getJSONObject(i);
-                                        String imageid = jsonobject.getString("id");
+                                        String country = jsonobject.getString("country");
                                         String caption = jsonobject.getString("caption");
                                         experience.setText(caption);
                                         image = jsonobject.getString("image");
+
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -1978,6 +2093,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             recyclerAdapterCategory1 = new RecyclerAdapterCategory1(alldeals_categryModelArrayList, getActivity());
                             recyclerView1.setAdapter(recyclerAdapterCategory1);
                         }
+
                     }
                 },
                 new Response.ErrorListener() {

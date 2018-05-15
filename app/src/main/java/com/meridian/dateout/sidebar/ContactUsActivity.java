@@ -50,10 +50,7 @@ public class ContactUsActivity extends Activity {
     Toolbar toolbar;
     LinearLayout lin_mail,lin_phone;
     ImageView cntctt_fb,cntctt_google,insta;
-    double latitude=1.3525;
-    double longitude=103.82226;
-
-
+    double latitude,longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +67,7 @@ public class ContactUsActivity extends Activity {
         cntctt_fb=findViewById(R.id.cntctt_fb);
         cntctt_google=findViewById(R.id.cntctt_google);
         insta= (ImageView) findViewById(R.id.cntctt_insta);
-
+        contact();
         insta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,35 +93,7 @@ public class ContactUsActivity extends Activity {
         phone= (TextView) findViewById(R.id.txt_phone);
         address= (TextView) findViewById(R.id.txt_address);
 
-        address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri mapUri = Uri.parse("geo:0,0?q="+latitude+","+longitude+"(Singapore)");
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
 
-                try
-                {
-                    startActivity(mapIntent);
-                }
-                catch(ActivityNotFoundException ex)
-                {
-                    try
-                    {
-                        Uri mapUri1 = Uri.parse("geo:0,0?q="+latitude+","+longitude+"(Singapore)");
-                        Intent mapIntent1 = new Intent(Intent.ACTION_VIEW, mapUri1);
-                        mapIntent.setPackage("com.google.android.apps.maps");
-                        startActivity(mapIntent1);
-                    }
-                    catch(ActivityNotFoundException innerEx)
-                    {
-                        Toast.makeText(ContactUsActivity.this, "Please install a maps application", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
-        contact();
         cntctt_fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,7 +156,7 @@ public class ContactUsActivity extends Activity {
         if(i==true) {
 
 
-            String Schedule_url = Constants.URL+"contact.php?";
+            String Schedule_url = Constants.URL+"contact.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Schedule_url,
                     new Response.Listener<String>() {
                         @Override
@@ -209,12 +178,14 @@ public class ContactUsActivity extends Activity {
 
 
                                         JSONObject jsonobject = jsonarray.getJSONObject(i);
-                                     id1 = jsonobject.getString("id");
-                                      name = jsonobject.getString("name");
-                                      email1 = jsonobject.getString("email");
-                                         phone2 = jsonobject.getString("phone");
-                                      address1 = jsonobject.getString("address");
-                                     System.out.println("name"+name+"..."+"email"+email1+"..."+"address"+address1);
+                                        id1 = jsonobject.getString("id");
+                                        name = jsonobject.getString("name");
+                                        email1 = jsonobject.getString("email");
+                                        phone2 = jsonobject.getString("phone");
+                                        address1 = jsonobject.getString("address");
+                                        latitude = Double.parseDouble(jsonobject.getString("latitude"));
+                                        longitude = Double.parseDouble(jsonobject.getString("longitude"));
+                                        System.out.println("name"+name+"..."+"email"+email1+"..."+"address"+address1);
                                         contact_model.setId(id1);
                                         contact_model.setName(name);
                                         contact_model.setEmail(email1);
@@ -226,6 +197,35 @@ public class ContactUsActivity extends Activity {
                                         email.setText(email1);
                                         phone.setText(phone2);
                                         address.setText(address1);
+                                        address.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Uri mapUri = Uri.parse("geo:0,0?q="+latitude+","+longitude+"(Singapore)");
+                                                Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
+                                                mapIntent.setPackage("com.google.android.apps.maps");
+                                                startActivity(mapIntent);
+
+                                                try
+                                                {
+                                                    startActivity(mapIntent);
+                                                }
+                                                catch(ActivityNotFoundException ex)
+                                                {
+                                                    try
+                                                    {
+                                                        Uri mapUri1 = Uri.parse("geo:0,0?q="+latitude+","+longitude+"(Singapore)");
+                                                        Intent mapIntent1 = new Intent(Intent.ACTION_VIEW, mapUri1);
+                                                        mapIntent.setPackage("com.google.android.apps.maps");
+                                                        startActivity(mapIntent1);
+                                                    }
+                                                    catch(ActivityNotFoundException innerEx)
+                                                    {
+                                                        Toast.makeText(ContactUsActivity.this, "Please install a maps application", Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                            }
+                                        });
+
                                     }
 
 

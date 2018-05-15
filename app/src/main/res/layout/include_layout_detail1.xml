@@ -88,19 +88,6 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/txt_description2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:scrollbars="vertical"
-            android:text="HIGHLIGHTS"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/_12sdp"
-
-            />
 
         <WebView
             android:layout_width="match_parent"
@@ -110,6 +97,18 @@
             android:textColor="@color/black"
             android:layout_gravity="left"
             android:scrollbars="vertical"
+            />
+        <TextView
+            android:id="@+id/txt_description2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:scrollbars="vertical"
+            android:text="HIGHLIGHTS"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp"
+
             />
 
         <WebView
@@ -193,8 +192,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:padding="@dimen/_5sdp"
-
-
                 android:orientation="horizontal"
 
                 android:layout_alignParentBottom="true"
@@ -393,7 +390,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-
             android:layout_height="wrap_content">
 
             <android.support.design.widget.TabLayout
@@ -438,11 +434,7 @@
                     android:id="@+id/txt_tickt"
                     android:scrollbars="vertical"
                     android:textColor="@android:color/black"
-
                     />
-
-
-
             </FrameLayout>
         </LinearLayout>
 
@@ -456,6 +448,7 @@
             <ImageView
                 android:layout_width="fill_parent"
                 android:id="@+id/img_new"
+                android:visibility="gone"
                 android:layout_height="@dimen/_200sdp" />
         </LinearLayout>
         <TextView
@@ -495,26 +488,6 @@
                 android:id="@+id/need_to_know"
                 />
         </LinearLayout>
-
-        <!--<android.support.v4.view.ViewPager-->
-        <!--android:id="@+id/pager"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_weight="0.04" />-->
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="15sp"-->
-        <!--android:visibility="gone"-->
-        <!--android:id="@+id/txt_inclusion"-->
-        <!--android:textColor="@color/black"-->
-        <!--/>-->
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:visibility="gone"-->
-        <!--android:layout_height="@dimen/_30sdp"-->
-        <!--android:textSize="12sp"-->
-        <!--android:id="@+id/txt_tickt"/>-->
 
 
 

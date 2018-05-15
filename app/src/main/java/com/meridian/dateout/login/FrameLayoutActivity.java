@@ -35,7 +35,6 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -116,7 +115,6 @@ import java.util.List;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import ru.nikartm.support.ImageBadgeView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.meridian.dateout.Constants.analytics;
@@ -258,29 +256,6 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         setupViewPager1(viewPager);
         explore_toolbar_lay.setVisibility(View.VISIBLE);
 
-       /* viewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (viewPager.getCurrentItem() == 0) {
-                    viewPager.setCurrentItem(-1, false);
-                    return true;
-                }
-                else if (viewPager.getCurrentItem() == 1) {
-                    viewPager.setCurrentItem(0, false);
-                    return true;
-                }
-                else if (viewPager.getCurrentItem() == 2) {
-                    viewPager.setCurrentItem(1, false);
-                    return true;
-                }
-                else if (viewPager.getCurrentItem() == 3) {
-                    viewPager.setCurrentItem(2, false);
-                    return true;
-                }
-                return true;
-            }
-        });*/
-///viewPager.beginFakeDrag();
         personName=getIntent().getStringExtra("name");
         email=getIntent().getStringExtra("email");
         profileid=getIntent().getStringExtra("profileid");
@@ -379,7 +354,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
         FrameLayoutActivity.my_location.setVisibility(View.GONE);
         FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
         FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
-        FrameLayoutActivity.img_toolbar_crcname.setText("SINGAPORE");
+        FrameLayoutActivity.img_toolbar_crcname.setText("DATE OUT");
         SharedPreferences preferences_user = getSharedPreferences("MyPref", MODE_PRIVATE);
         String  user_id=preferences_user.getString("user_id",null);
         System.out.println("=================== userid : "+user_id);
@@ -732,7 +707,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                     FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
-                    FrameLayoutActivity.img_toolbar_crcname.setText("SINGAPORE");
+                    FrameLayoutActivity.img_toolbar_crcname.setText("DATE OUT");
                     ObjectAnimator anim = ObjectAnimator.ofFloat(v, "rotation", 0f, 360f);
                     anim.setDuration(500); // Duration in milliseconds
                     anim.setInterpolator(new LinearInterpolator()); // E.g. Linear, Accelerate, Decelerate
@@ -791,7 +766,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                     FrameLayoutActivity.txt_explorenam.setTextColor(getResources().getColor(R.color.black));
                     FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
                     FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
-                    FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.filter.setVisibility(View.GONE);
                     FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
@@ -816,14 +791,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                     img_rewrd_name.setBackgroundResource(R.drawable.reward_blue);
                     txt_rewrdname.setTextColor(getResources().getColor(R.color.black));
                     img_top_faq.setVisibility(View.GONE);
-                  /*  FragmentManager fragmentManager = getSupportFragmentManager();
-                    System.out.println("fragment by id : " + fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder));
-                    String current_fragment = fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().substring(0, fragmentManager.findFragmentById(R.id.flFragmentPlaceHolder).toString().indexOf("{"));
-                    System.out.println("current_fragment : " + current_fragment);
 
-                    if (!current_fragment.trim().equalsIgnoreCase("CollectionsFragment")) {
-
-                    }*/
                 }
                 catch ( Exception e)
                 {
@@ -932,7 +900,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                     FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 
-                    FrameLayoutActivity.img_toolbar_crcname.setText("SINGAPORE");
+                    FrameLayoutActivity.img_toolbar_crcname.setText("DATE OUT");
 
                     img_explore.setBackgroundResource(R.drawable.explore);
                     txt_explorenam.setTextColor(getResources().getColor(R.color.txtcolor_icons));
@@ -1026,7 +994,7 @@ public class FrameLayoutActivity extends AppCompatActivity implements Pasthistor
                     FrameLayoutActivity.txt_explorenam.setTextColor(getResources().getColor(R.color.black));
                     FrameLayoutActivity.img_top_faq.setVisibility(View.GONE);
                     FrameLayoutActivity.tabbar.setVisibility(View.VISIBLE);
-                    FrameLayoutActivity.filter.setVisibility(View.VISIBLE);
+                    FrameLayoutActivity.filter.setVisibility(View.GONE);
                     FrameLayoutActivity.rlayout.setVisibility(View.VISIBLE);
                     FrameLayoutActivity.filter1.setVisibility(View.GONE);
 

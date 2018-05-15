@@ -619,19 +619,8 @@ CollectionsAdapter4 collectionsAdapter4;
         location_spec_progressbar = (ProgressBar) v.findViewById(R.id.location_spec_progressbar);
         View bottomSheet = v.findViewById(R.id.bottom_sheet);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
-        // change the state of the bottom sheet
-        // mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        // mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-// set the peek height
-        //mBottomSheetBehavior.setPeekHeight(80);
-
-// set hideable or not
         mBottomSheetBehavior.setHideable(true);
-
-// set callback for changes
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -1001,6 +990,7 @@ CollectionsAdapter4 collectionsAdapter4;
                                                             MY_LOCATION = new LatLng(Double.parseDouble(alldeals_categryModelArrayList.get(pos).getLongitude()), Double.parseDouble(alldeals_categryModelArrayList.get(pos).getLongitude()));
                                                             dealsModelArrayList.add(dealsModel);
                                                             addMarkers();
+                                                            onMapReady( mMap);
                                                             explore_toolbar_lay.setVisibility(View.VISIBLE);
                                                             linr_srch.setVisibility(View.GONE);
                                                             relative.setVisibility(View.VISIBLE);
@@ -1066,14 +1056,6 @@ CollectionsAdapter4 collectionsAdapter4;
         void onFragmentInteraction(Uri uri);
     }
 
-    public void replacefragment(Fragment fragment, String s) {
-
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // transaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
-        transaction.replace(R.id.flFragmentPlaceHolder, fragment, s).addToBackStack(s);
-        transaction.commit();
-    }
 
     private void showGPSDisabledAlertToUser() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -1211,9 +1193,7 @@ CollectionsAdapter4 collectionsAdapter4;
                         System.out.println("description[k] : " + description[k]);
                         System.out.println("Price : " + currency_array[k] + price_array[k]);
 
-                    /*Glide.with(getActivity())
-                            .load(image_array[k])
-                            .into(deal_imageview);*/
+
 
                         marker_description.setText(description[k]);
                         marker_price.setText("Price : " + currency_array[k] + price_array[k]);
@@ -1222,10 +1202,7 @@ CollectionsAdapter4 collectionsAdapter4;
                         btn_navigate.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                    /*Uri gmmIntentUri = Uri.parse("google.navigation:q="+CLICKED_MARKER.latitude+","+CLICKED_MARKER.longitude);
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                    mapIntent.setPackage("com.google.android.apps.maps");
-                    startActivity(mapIntent);*/
+
 
                                 Intent intnt = new Intent(getActivity(), CategoryDealDetail.class);
                                 intnt.putExtra("deal_id", Integer.parseInt(id_val));

@@ -130,7 +130,7 @@ public class MembershipFragment extends Fragment {
     LinearLayout lin_reward;
     TextView currentstage_text,nextstage_text,nextstage_color,current_stage_color;
     View customView1;
-    LinearLayout linear_convert_button;
+    LinearLayout linear_convert_button,linr_silver,linr_gold,linr_platinum,linr_diamond;
     RelativeLayout r_layout;
     ProgressBar popup_progressbar;
     TextView current_text_txt,current_point_txt,next_text_txt,next_point_txt;
@@ -168,6 +168,10 @@ public class MembershipFragment extends Fragment {
         img_gold= (ImageView) v.findViewById(R.id.img_gold);
         img_diamond= (ImageView) v.findViewById(R.id.img_diamond);
         img_platinum= (ImageView) v.findViewById(R.id.img_platinum);
+        linr_silver= v.findViewById(R.id.linr_silver);
+        linr_gold= v.findViewById(R.id.linr_gold);
+        linr_platinum= v.findViewById(R.id.linr_platinum);
+        linr_diamond= v.findViewById(R.id.linr_diamond);
         LayoutInflater inflater3 = (LayoutInflater)getActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
         customView1 = inflater3.inflate(R.layout.graph, null);
         close_point_converter=(ImageView)customView1.findViewById(R.id.close_point_converter);
@@ -490,22 +494,30 @@ public  void load()
                                             if(title.contentEquals("Silver"))
                                             {
                                                 Picasso.with(getActivity()).load(image).into(img_silver);
+                                                linr_silver.setVisibility(View.VISIBLE);
 
                                             }
-                                            else   if(title.contentEquals("Gold"))
+
+                                            if(title.contentEquals("Gold"))
                                             {
                                                 Picasso.with(getActivity()).load(image).into(img_gold);
+                                                linr_gold.setVisibility(View.VISIBLE);
                                             }
-                                            else   if(title.contentEquals("Platinum"))
+
+                                           if(title.contentEquals("Platinum"))
                                             {
                                                 Picasso.with(getActivity()).load(image).into(img_platinum);
+                                                linr_platinum.setVisibility(View.VISIBLE);
 
                                             }
-                                            else   if(title.contentEquals("Diamond"))
+
+                                              if(title.contentEquals("Diamond"))
                                             {
                                                 Picasso.with(getActivity()).load(image).into(img_diamond);
+                                                linr_diamond.setVisibility(View.VISIBLE);
 
                                             }
+
 
 
                                             mm.setTitle(title);

@@ -327,14 +327,14 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
 
                 int position = tab.getPosition();
 
-                if (tab.getText().equals("MY TICKETS")) {
+                if (tab.getText().equals("INFO")) {
 
                     pager_text.setVisibility(View.VISIBLE);
                     txt_inclusion.setVisibility(View.GONE);
                     txt_exclusion.setVisibility(View.GONE);
 
 
-                } else if (tab.getText().equals("INCLUSION")) {
+                } else if (tab.getText().equals("INCLUDED")) {
                     pager_text.setVisibility(View.GONE);
                     txt_inclusion.setVisibility(View.VISIBLE);
                     txt_exclusion.setVisibility(View.GONE);
@@ -1162,6 +1162,12 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                             logitude = jsonobject.getString("logitude");
                                         }
                                         schedule_status = jsonobject.getString("schedule_status");
+                                        if(schedule_status=="yes"){
+                                            schedule_click.setVisibility(View.VISIBLE);
+                                        }
+                                        else {
+                                            schedule_click.setVisibility(View.GONE);
+                                        }
                                         calendar_instruction = jsonobject.getString("calendar_instruction");
                                         if (jsonobject.has("need_toknow"))
                                         {
@@ -1209,7 +1215,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                             System.out.println("notee..on.tickets........................."+ noteon_tickets);
                                             if (noteon_tickets != null && !noteon_tickets.isEmpty() && !noteon_tickets.equals("null"))
                                             {
-                                                tabLayout.addTab(tabLayout.newTab().setText("MY TICKETS"));
+                                                tabLayout.addTab(tabLayout.newTab().setText("INFO"));
                                                 pager_text.setVisibility(View.VISIBLE);
                                             }
                                             else
@@ -1222,7 +1228,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                         if (jsonobject.has("inclusion"))
                                         {
                                             inclusion = jsonobject.getString("inclusion");
-                                            tabLayout.addTab(tabLayout.newTab().setText("INCLUSION"));
+                                            tabLayout.addTab(tabLayout.newTab().setText("INCLUDED"));
                                         }
 
                                         if (jsonobject.has("exclusion"))
@@ -1709,7 +1715,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                             System.out.println("notee..on.tickets........................."+ noteon_tickets);
                                             if (noteon_tickets != null && !noteon_tickets.isEmpty() && !noteon_tickets.equals("null"))
                                             {
-                                                tabLayout.addTab(tabLayout.newTab().setText("MY TICKETS"));
+                                                tabLayout.addTab(tabLayout.newTab().setText("INFO"));
                                                 pager_text.setVisibility(View.VISIBLE);
                                             }
                                             else
@@ -1722,7 +1728,7 @@ public class CategoryDealDetail extends AppCompatActivity implements OnMapReadyC
                                         if (jsonobject.has("inclusion"))
                                         {
                                             inclusion = jsonobject.getString("inclusion");
-                                            tabLayout.addTab(tabLayout.newTab().setText("INCLUSION"));
+                                            tabLayout.addTab(tabLayout.newTab().setText("INCLUDED"));
                                         }
 
                                         if (jsonobject.has("exclusion"))

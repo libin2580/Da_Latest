@@ -7,7 +7,7 @@
         android:layout_height="@dimen/_40sdp"
         android:orientation="horizontal"
         android:background="@drawable/border_reward"
-android:id="@+id/toplayout"
+        android:id="@+id/toplayout"
         android:visibility="gone"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/_10sdp"
