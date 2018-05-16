@@ -317,6 +317,7 @@ public class Booking_DetailsActivity extends AppCompatActivity {
                 u.putExtra("deal_optionsJSON ", somejson);
                 startActivity(u);
 
+
             }
         });
 

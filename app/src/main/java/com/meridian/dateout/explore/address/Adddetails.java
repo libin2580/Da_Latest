@@ -395,6 +395,7 @@ public class Adddetails extends AppCompatActivity {
                         else {
                             Intent u = new Intent(Adddetails.this, StripeCheck.class);
                             startActivity(u);
+                            finish();
                         }
 
                     } else {

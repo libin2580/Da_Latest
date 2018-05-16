@@ -25,9 +25,6 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -83,7 +80,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.meridian.dateout.Constants;
 import com.meridian.dateout.R;
-import com.meridian.dateout.collections.CategoryDealFragment;
 import com.meridian.dateout.collections.HttpHandler;
 import com.meridian.dateout.explore.PreCachingLayoutManager;
 import com.meridian.dateout.explore.RecyclerItemClickListener;
@@ -873,6 +869,7 @@ CollectionsAdapter4 collectionsAdapter4;
                                     dealsModelArrayList1 = new ArrayList<>();
                                     try {
                                         JSONArray jsonarray = jsonObject.getJSONArray("deals");
+
                                         for (int i = 0; i < jsonarray.length(); i++) {
                                             DealsModel dealsModel = new DealsModel();
 
@@ -991,11 +988,27 @@ CollectionsAdapter4 collectionsAdapter4;
                                                             dealsModelArrayList.add(dealsModel);
                                                             addMarkers();
                                                             onMapReady( mMap);
+
                                                             explore_toolbar_lay.setVisibility(View.VISIBLE);
                                                             linr_srch.setVisibility(View.GONE);
                                                             relative.setVisibility(View.VISIBLE);
                                                             linear.setVisibility(View.GONE);
+                                                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                                            marker_description.setText(alldeals_categryModelArrayList.get(pos).getDescription());
+                                                            marker_price.setText("Price : " + alldeals_categryModelArrayList.get(pos).getCurrency() +alldeals_categryModelArrayList.get(pos).getPrice());
+                                                            marker_name.setText(alldeals_categryModelArrayList.get(pos).getTitle());
+                                                            final String id_val =alldeals_categryModelArrayList.get(pos).getId();
+                                                            btn_navigate.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View view) {
 
+
+                                                                    Intent intnt = new Intent(getActivity(), CategoryDealDetail.class);
+                                                                    intnt.putExtra("deal_id", Integer.parseInt(id_val));
+                                                                    startActivity(intnt);
+
+                                                                }
+                                                            });
                                                         }
 
                                                     }

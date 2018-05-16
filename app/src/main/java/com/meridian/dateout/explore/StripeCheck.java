@@ -57,7 +57,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static com.meridian.dateout.Constants.URL1;
 import static com.meridian.dateout.Constants.analytics;
 import static com.meridian.dateout.explore.address.Adddetails.address_id1;
-import static com.meridian.dateout.explore.deliveryaddress.AdddetailsDelivery.address_id;
 
 public class StripeCheck extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     public static final String PUBLISHABLE_KEY = "pk_test_loGbDLQBWWNK6OZyes300duF";
@@ -524,8 +523,9 @@ public class StripeCheck extends FragmentActivity implements GoogleApiClient.Con
                                         mPopupWindow.dismiss();
                                         progressBar.setVisibility(ProgressBar.GONE);
                                         Intent is = new Intent(getApplicationContext(),FrameLayoutActivity.class);
+                                        is.putExtra("tab_id",0);
                                         startActivity(is);
-                                        finish();
+                                        finishAffinity();
 
                                     }
                                 });

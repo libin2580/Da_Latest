@@ -1,6 +1,28 @@
 {
     "logs": [
         {
+            "outputFile": "E:\\Aandroid Studio\\DateOut_Latest\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-port\\values-port.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Binu Lal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-21.0.0.aar\\222f42e201294cab4aac487f64b5a504\\res\\values-port\\values.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "56",
+                        "endColumns": "55",
+                        "endOffsets": "107"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "F:\\Backup\\DateOut\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-port\\values-port.xml",
             "map": [
                 {
